@@ -72,7 +72,7 @@ class AIModelRouter {
     this.db = db;
   }
 
-  selectRoute(config, modelClass = 'reasoning') {
+  selectRoute(config, modelClass = 'reasoning', preferredProvider = '') {
     const hasPrimary = Boolean(config?.provider && config.provider !== 'builtin' && (config.apiKey || config.provider === 'ollama'));
     const hasBackup = Boolean(
       config?.backupProvider &&
@@ -81,17 +81,40 @@ class AIModelRouter {
         (config.backupApiKey || config.backupProvider === 'ollama')
     );
 
-    const preferCreativeBackup = (modelClass === 'creative' || modelClass === 'research') && hasBackup;
+    const geminiKey =
+      config?.geminiApiKey ||
+      (config?.backupProvider === 'gemini' ? config?.backupApiKey : '') ||
+      (config?.provider === 'gemini' ? config?.apiKey : '') ||
+      '';
 
+    // Assistant Supervisor ("العصفورة") & fast news replies use Gemini specifically
+    if ((preferredProvider === 'gemini' || modelClass === 'fast_news') && geminiKey) {
+      return {
+        hasPrimary: true,
+        hasBackup: hasPrimary || hasBackup,
+        preferBackup: false,
+        activeConfig: {
+          provider: 'gemini',
+          apiKey: geminiKey,
+          model: config?.geminiModel || 'gemini-flash-lite-latest',
+          baseUrl: config?.baseUrl,
+          backupProvider: hasPrimary ? config.provider : config.backupProvider,
+          backupApiKey: hasPrimary ? config.apiKey : config.backupApiKey,
+          backupModel: hasPrimary ? config.model : config.backupModel,
+        },
+      };
+    }
+
+    // All productive departments & CEO use the configured primary provider (Arena)
     let selectedModel = config?.model || '';
-    if (modelClass === 'fast' && config?.provider === 'groq' && !preferCreativeBackup) {
+    if (modelClass === 'fast' && config?.provider === 'groq') {
       selectedModel = 'qwen/qwen3.8-27b';
     }
 
     return {
       hasPrimary,
       hasBackup,
-      preferBackup: preferCreativeBackup,
+      preferBackup: false,
       activeConfig: {
         ...config,
         model: selectedModel,
@@ -124,7 +147,7 @@ class AIModelRouter {
     }
   }
 
-  async complete({ config, systemPrompt, userPrompt, modelClass = 'reasoning', taskId = '', agentId = '', roleType = '', fallbackFn }) {
+  async complete({ config, systemPrompt, userPrompt, modelClass = 'reasoning', preferredProvider = '', taskId = '', agentId = '', roleType = '', fallbackFn }) {
     if (!config || config.provider === 'builtin') {
       const fb = fallbackFn ? fallbackFn() : null;
       this.logUsage({
@@ -140,7 +163,7 @@ class AIModelRouter {
       return { text: null, usedProvider: 'builtin:deterministic-v2', fallback: fb, tokensEst: 0 };
     }
 
-    const route = this.selectRoute(config, modelClass);
+    const route = this.selectRoute(config, modelClass, preferredProvider);
     const t0 = Date.now();
     try {
       const res = await callExternalLLM(route.activeConfig, systemPrompt, userPrompt, {
@@ -214,6 +237,13 @@ class AIModelRouter {
         provider: config?.backupProvider || 'none',
         model: config?.backupModel || (config?.backupProvider === 'gemini' ? 'gemini-flash-lite-latest' : 'auto'),
         connected: Boolean(config?.backupProvider && config.backupProvider !== 'none' && config?.backupApiKey),
+      },
+      fastNewsAssistant: {
+        agentId: 'alasfora',
+        name: 'العصفورة (المشرف المساعد)',
+        provider: config?.geminiApiKey ? 'gemini' : config?.provider || 'builtin',
+        model: config?.geminiModel || 'gemini-flash-lite-latest',
+        connected: Boolean(config?.geminiApiKey || config?.backupProvider === 'gemini'),
       },
       catalog: PROVIDER_CATALOG,
       usageByModel: usageRows,

@@ -159,7 +159,8 @@
         </h3>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
           <select id="chatAgentSelect" style="min-width:220px;"></select>
-          <input id="chatMsgInput" style="flex:1;min-width:210px;" placeholder="تكلّم مع أ. طارق أو أي موظف (مثال: نفذ مشروع درس متكامل عن الطاقة الشمسية)..." />
+          <input id="chatMsgInput" style="flex:1;min-width:210px;" placeholder="تكلّم مع أ. طارق أو العصفورة 🐦 أو أي موظف (مثال: نفذ مشروع درس متكامل عن الطاقة الشمسية)..." />
+          <button id="askAlasforaBtn" class="secondary" style="border-color:var(--accent);color:var(--accent);">🐦 أخبار الشركة (العصفورة)</button>
           <button id="micBtn" class="warn">🎤 تحدّث</button>
           <button id="chatSendBtn" class="success">إرسال ↵</button>
         </div>
@@ -345,6 +346,7 @@
               <option value="openrouter">OpenRouter</option>
             </select>
             <input id="cfgBackupApiKey" type="password" placeholder="مفتاح المزود الاحتياطي (اختياري)" />
+            <input id="cfgGeminiApiKey" type="password" placeholder="مفتاح Gemini السريع لـ العصفورة 🐦 (اختياري — محفوظ بالخادم)" />
             <input id="cfgHfApiKey" type="password" placeholder="مفتاح Hugging Face لتوليد الصور AI (hf_... مجاني اختياري)" />
             <div style="display:flex;gap:8px;">
               <label style="font-size:0.8rem;">الفاصل (ثوانٍ): <input id="cfgInterval" type="number" min="2" max="300" value="4" style="width:70px;" /></label>
@@ -493,16 +495,20 @@
 
       // 2D fallback grid
       document.getElementById('office2DWrap').innerHTML = (state.agents || [])
-        .map((a) => `
+        .map((a) => {
+          const modelBadge = a.id === 'alasfora' ? '🐦 Gemini سريع' : `⚡ ${esc(state.llmConfig?.provider || 'arena')}`;
+          return `
           <div class="desk-card ${a.status !== 'idle' ? 'working' : ''}">
-            <div style="display:flex;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;gap:4px;align-items:center;">
               <strong>${a.avatar} ${esc(a.shortName)}</strong>
               <span class="badge ${a.status === 'idle' ? 'badge-idle' : 'badge-working'}">${esc(a.status)}</span>
             </div>
-            <div style="font-size:0.74rem;color:var(--muted);margin:4px 0;">${esc(a.room)}</div>
-            <div style="font-size:0.76rem;margin-bottom:6px;">${esc(a.currentTask)}</div>
+            <div style="font-size:0.72rem;color:var(--accent);margin-top:3px;">${modelBadge} • ${esc(a.room)}</div>
+            <div style="font-size:0.74rem;color:var(--muted);margin:4px 0;">${esc((a.jobDescription || '').slice(0, 85))}${(a.jobDescription || '').length > 85 ? '…' : ''}</div>
+            <div style="font-size:0.75rem;margin-bottom:6px;">📌 ${esc(a.currentTask)}</div>
             <button class="secondary" style="font-size:0.72rem;padding:4px 8px;" onclick="window.openAgentProfile('${esc(a.id)}')">📄 الملف والمخاطبة</button>
-          </div>`)
+          </div>`;
+        })
         .join('');
 
       // Chat select preserve selection
@@ -718,6 +724,10 @@
       }
     }
     document.getElementById('chatSendBtn').onclick = () => sendChat();
+    document.getElementById('askAlasforaBtn').onclick = () => {
+      document.getElementById('chatAgentSelect').value = 'alasfora';
+      sendChat('يا عصفورة، هات لي آخر أخبار الشركة وحالة كل الأقسام دلوقتي بسرعة');
+    };
     document.getElementById('chatMsgInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(); });
 
     // Mic Input
@@ -874,6 +884,7 @@
           model: document.getElementById('cfgModel').value,
           backupProvider: document.getElementById('cfgBackupProvider').value,
           backupApiKey: document.getElementById('cfgBackupApiKey').value,
+          geminiApiKey: document.getElementById('cfgGeminiApiKey').value,
           hfApiKey: document.getElementById('cfgHfApiKey').value,
         },
       });
@@ -881,6 +892,7 @@
       else {
         document.getElementById('cfgApiKey').value = '';
         document.getElementById('cfgBackupApiKey').value = '';
+        document.getElementById('cfgGeminiApiKey').value = '';
         document.getElementById('cfgHfApiKey').value = '';
         alert('✅ تم الحفظ بأمان');
       }

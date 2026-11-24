@@ -27,6 +27,7 @@ const INITIAL_AGENTS = [
     avatar: '👔',
     color: '#6366f1',
     desk: { x: 10, y: 12 },
+    preferredProvider: 'arena',
     preferredModelClass: 'reasoning',
     permissions: ['orchestrate', 'assign_tasks', 'approve_internal', 'convene_meeting', 'read_reports', 'propose_upgrade'],
     guardrails: 'لا ينفذ تغييرات مدفوعة أو حذفاً نهائياً أو نشراً خارجياً قبل موافقة المالك.',
@@ -37,6 +38,30 @@ const INITIAL_AGENTS = [
     qualityScore: 99,
     systemPrompt:
       'أنت الأستاذ طارق، المدير التنفيذي لشركة ذكاء اصطناعي متكاملة تعمل 24/7. لديك ذاكرة تشغيلية للمشاريع السابقة، وتقسم أي طلب أو درس إلى مهام واضحة ومتوازية عبر الأقسام، وتتابع الاختبار والجودة، وترفع النتائج والتوصيات للمالك بوضوح واحترافية.',
+  },
+  {
+    id: 'alasfora',
+    name: 'أ. العصفورة — المشرف المساعد وأخبار الشركة',
+    shortName: 'العصفورة (المشرف المساعد)',
+    role: 'ASSISTANT_SUPERVISOR',
+    department: 'executive',
+    departmentLabel: 'الإدارة التنفيذية',
+    room: 'مكتب الإدارة التنفيذية',
+    roomId: 'executive',
+    avatar: '🐦',
+    color: '#38bdf8',
+    desk: { x: 18, y: 12 },
+    preferredProvider: 'gemini',
+    preferredModelClass: 'fast_news',
+    permissions: ['read_reports', 'broadcast_news', 'assist_ceo'],
+    guardrails: 'ينقل الحقائق والأرقام الفعلية فقط من قاعدة البيانات دون أي مبالغة أو وعود زمنية وهمية.',
+    jobDescription: 'مشرف مساعد للأستاذ طارق يعمل على Gemini للردود السريعة ونقل أخبار الشركة الحية (المشاريع، المهام، المخرجات، وحالة كل قسم) للمالك لحظة بلحظة.',
+    status: 'idle',
+    currentTask: 'رصد أخبار الشركة الحية والرد الفوري',
+    tasksCompleted: 0,
+    qualityScore: 99,
+    systemPrompt:
+      'أنت الأستاذ العصفورة 🐦، المشرف المساعد السريع للأستاذ طارق في شركة الذكاء الاصطناعي. تعمل على محرك Gemini السريع لنقل أخبار الشركة الحقيقية فوراً للمالك (حالة المشاريع، المهام الجارية والمكتملة، المخرجات الجديدة، وأداء الأقسام) بأسلوب مصري ذكي ومختصر ومبني 100% على البيانات الحقيقية.',
   },
   // 2. الموارد البشرية
   {
