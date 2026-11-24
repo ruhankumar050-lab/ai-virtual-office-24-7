@@ -20,6 +20,7 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(chosenModel)}:generateContent?key=${encodeURIComponent(apiKey)}`;
     const res = await fetch(url, {
       method: 'POST',
+      signal: AbortSignal.timeout(options.timeoutMs || 14000),
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: systemPrompt }] },
@@ -45,6 +46,7 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
     const chosenModel = model || 'openai/gpt-oss-120b';
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
+      signal: AbortSignal.timeout(options.timeoutMs || 22000),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
@@ -74,6 +76,7 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
     const chosenModel = model || 'meta-llama/llama-3.3-70b-instruct:free';
     const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
+      signal: AbortSignal.timeout(options.timeoutMs || 22000),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
@@ -106,6 +109,7 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
     const endpoint = (baseUrl && baseUrl.includes('arena.ai') ? baseUrl : 'https://api.arena.ai/v1').replace(/\/$/, '');
     const res = await fetch(`${endpoint}/chat/completions`, {
       method: 'POST',
+      signal: AbortSignal.timeout(options.timeoutMs || 28000),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
@@ -136,6 +140,7 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
     const chosenModel = model || 'qwen2.5-coder:7b';
     const res = await fetch(`${endpoint}/api/chat`, {
       method: 'POST',
+      signal: AbortSignal.timeout(options.timeoutMs || 25000),
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: chosenModel,
