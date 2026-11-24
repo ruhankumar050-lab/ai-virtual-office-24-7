@@ -109,11 +109,12 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
+        'User-Agent': 'AI-Virtual-Office/2.0',
       },
       body: JSON.stringify({
         model: chosenModel,
         temperature,
-        max_tokens: maxTokens,
+        max_tokens: Math.max(1600, maxTokens),
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },

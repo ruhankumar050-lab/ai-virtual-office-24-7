@@ -1256,7 +1256,7 @@ class VirtualOfficeOrchestrator {
       const contextSummary = `حالة الشركة: مشاريع=${dbOverview.projects.length}، تطبيقات=${this.state.stats.totalAppsBuilt}، فيديوهات=${this.state.stats.totalVideosProduced}، ألعاب=${this.state.stats.totalGamesBuilt}، ملازم=${this.state.stats.totalBookletsBuilt}.`;
       const strictRules = `قواعد صارمة جداً يجب الالتزام بها في ردك:
 1. ممنوع منعاً باتاً إعطاء أي مواعيد أو وعود زمنية وهمية مثل "خلال ساعتين" أو "خلال 3 أيام" أو "أسبوعين" أو "هرسله لك لاحقاً".
-2. إذا سأل المالك عن ربط Arena.ai، وضح بصدق أن المكتب يدعم الآن بوابة Arena API الرسمية (https://api.arena.ai/v1) ضمن قائمة المزودات، ولكن لا يوجد مفتاح عام مجاني مشترك — يحتاج المالك فقط إلى إنشاء مفتاحه الشخصي من https://platform.arena.ai/dashboard/keys ولصقه في تبويب الإعدادات.
+2. إذا سأل المالك عن Arena.ai، وضح أن المكتب مربوط الآن رسمياً ببوابة Arena API (https://api.arena.ai/v1) وأنك تستخدم المزود النشط المهيأ حالياً في النظام (${this.state.llmConfig?.provider || 'builtin'}).
 3. ما تستطيع تنفيذه فوراً هنا خلال ثوانٍ هو: عروض PowerPoint (.pptx)، ملازم PDF و Word (.docx)، فيديوهات MP4، تطبيقات ويب HTML، وألعاب تعليمية؛ أما الصور الفوتوغرافية بالذكاء الاصطناعي فتتطلب إضافة مفتاح HuggingFace مجاني (HF_API_KEY) في الإعدادات.
 4. أجب باللهجة المصرية الاحترافية المباشرة في 3 أسطر كحد أقصى.`;
 

@@ -106,6 +106,8 @@ function redactSecrets(text) {
     .replace(/AIza[A-Za-z0-9_-]{10,}/g, 'AIza***REDACTED***')
     .replace(/AQ\.[A-Za-z0-9_.-]{10,}/g, 'AQ.***REDACTED***')
     .replace(/sk-or-[A-Za-z0-9_-]{10,}/g, 'sk-or-***REDACTED***')
+    .replace(/sk-arena-[A-Za-z0-9_-]{10,}/g, 'sk-arena-***REDACTED***')
+    .replace(/hf_[A-Za-z0-9]{10,}/g, 'hf_***REDACTED***')
     .replace(/ghp_[A-Za-z0-9]{10,}/g, 'ghp_***REDACTED***')
     .replace(/rnd_[A-Za-z0-9]{10,}/g, 'rnd_***REDACTED***');
 }
