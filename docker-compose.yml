@@ -1,0 +1,16 @@
+services:
+  virtual-office:
+    build: .
+    container_name: ai-virtual-office-24-7
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - AI_PROVIDER=builtin
+      # أمثلة لمزود مجاني 100%:
+      # - AI_PROVIDER=gemini
+      # - AI_API_KEY=YOUR_FREE_GEMINI_KEY
+    volumes:
+      - ./data:/app/data
+      - ./deliverables:/app/deliverables

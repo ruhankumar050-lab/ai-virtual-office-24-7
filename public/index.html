@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المكتب الافتراضي الذكي 24/7 — AI Virtual Office</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --panel: #0f172a;
+      --panel-2: #162036;
+      --border: #24324d;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --indigo: #6366f1;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --pink: #ec4899;
+      --purple: #8b5cf6;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
+      background: radial-gradient(circle at top right, #111c38 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(7, 11, 20, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--indigo), var(--accent));
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      box-shadow: 0 0 24px rgba(56, 189, 248, 0.28);
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+    .brand small {
+      color: var(--muted);
+      display: block;
+      font-size: 0.78rem;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+      animation: pulse 1.6s infinite;
+    }
+    .dot.paused {
+      background: var(--amber);
+      box-shadow: none;
+      animation: none;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.25); }
+    }
+    button, .btn {
+      font-family: inherit;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #fff;
+      background: var(--indigo);
+      transition: transform 0.14s ease, opacity 0.14s ease;
+    }
+    button:hover { transform: translateY(-1px); opacity: 0.94; }
+    button.secondary { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); }
+    button.success { background: var(--emerald); color: #052e16; }
+    button.warn { background: var(--amber); color: #1f1300; }
+
+    .container {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 18px 20px 40px;
+    }
+
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .stat-card small { color: var(--muted); display: block; font-size: 0.78rem; margin-bottom: 4px; }
+    .stat-card strong { font-size: 1.45rem; }
+    .stat-icon { font-size: 1.6rem; opacity: 0.9; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      padding: 9px 15px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    .tab-btn.active {
+      background: var(--panel-2);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Live Office Grid */
+    .office-layout {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 1050px) {
+      .office-layout { grid-template-columns: 1fr; }
+    }
+
+    .floorplan {
+      background:
+        linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        var(--panel);
+      background-size: 28px 28px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      position: relative;
+    }
+    .floor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 12px;
+    }
+    .desk-card {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      position: relative;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .desk-card.working {
+      border-color: var(--accent);
+      box-shadow: 0 0 22px rgba(56, 189, 248, 0.22);
+      transform: translateY(-2px);
+    }
+    .desk-room {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .status-badge {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: rgba(148, 163, 184, 0.14);
+      color: var(--muted);
+    }
+    .status-badge.active {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+    }
+    .agent-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .avatar-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .desk-card.working .avatar-box::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 16px;
+      border: 2px solid var(--accent);
+      animation: pulse 1.2s infinite;
+    }
+    .agent-name { font-weight: 800; font-size: 0.9rem; }
+    .agent-role { font-size: 0.74rem; color: var(--muted); }
+    .speech-bubble {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #cbd5e1;
+      min-height: 44px;
+    }
+    .desk-footer {
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* Side feeds */
+    .side-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .panel-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .panel-box h3 {
+      margin: 0 0 10px;
+      font-size: 0.96rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .feed-list {
+      max-height: 270px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .feed-item {
+      background: var(--panel-2);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      border-right: 3px solid var(--indigo);
+    }
+    .feed-item.warn { border-right-color: var(--amber); }
+    .feed-item.error { border-right-color: var(--danger); }
+    .feed-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    /* Kanban */
+    .directive-bar {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    input, select, textarea {
+      font-family: inherit;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.88rem;
+    }
+    .directive-bar input { flex: 1; min-width: 220px; }
+    .kanban-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 980px) {
+      .kanban-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .kanban-grid { grid-template-columns: 1fr; }
+    }
+    .kanban-col {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 260px;
+    }
+    .kanban-col h4 {
+      margin: 0 0 10px;
+      font-size: 0.88rem;
+      color: var(--accent);
+      display: flex;
+      justify-content: space-between;
+    }
+    .task-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+    }
+    .task-card strong { display: block; margin-bottom: 4px; }
+    .task-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      margin-bottom: 6px;
+    }
+    .task-tag.video { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+
+    /* Deliverables */
+    .deliverables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 14px;
+    }
+    .deliv-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .deliv-card h4 { margin: 0; font-size: 0.98rem; }
+    .deliv-notes {
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: var(--panel-2);
+      padding: 10px;
+      border-radius: 10px;
+      line-height: 1.5;
+    }
+    .deliv-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    /* Settings & HR */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label { font-size: 0.82rem; color: var(--muted); font-weight: 700; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.82);
+      backdrop-filter: blur(6px);
+      display: none;
+      place-items: center;
+      z-index: 100;
+      padding: 18px;
+    }
+    .modal-backdrop.open { display: grid; }
+    .modal {
+      width: min(980px, 96vw);
+      max-height: 92vh;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-head {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-body {
+      padding: 14px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    iframe.app-preview {
+      width: 100%;
+      height: 68vh;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+    }
+    canvas.video-canvas {
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto 12px;
+      border: 1px solid var(--border);
+    }
+    .guide-list li { margin-bottom: 8px; line-height: 1.6; font-size: 0.86rem; color: #cbd5e1; }
+    code { background: var(--panel-2); padding: 2px 6px; border-radius: 6px; color: var(--accent); direction: ltr; display: inline-block; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-logo">🏢</div>
+      <div>
+        <h1 id="officeTitle">المكتب الافتراضي الذكي 24/7</h1>
+        <small>مدير تنفيذي • HR • مطور تطبيقات • مراجع ومعدل ذاتي • صناعة ومونتاج فيديو</small>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="pill">
+        <span class="dot" id="statusDot"></span>
+        <span id="autopilotLabel">يعمل تلقائياً 24/7</span>
+      </span>
+      <span class="pill">🧠 المزود: <strong id="providerBadge">builtin</strong></span>
+      <span class="pill">🔄 الدورة: <strong id="cycleBadge">0</strong></span>
+      <button id="stepBtn" class="secondary">⚡ تنفيذ خطوة الآن</button>
+      <button id="toggleAutoBtn" class="warn">⏸️ إيقاف مؤقت</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="stats-bar">
+      <div class="stat-card"><div><small>التطبيقات المنجزة</small><strong id="statApps">0</strong></div><div class="stat-icon">📱</div></div>
+      <div class="stat-card"><div><small>تعديلات QA الذاتية</small><strong id="statFixes">0</strong></div><div class="stat-icon">🛠️</div></div>
+      <div class="stat-card"><div><small>الفيديوهات والمونتاج</small><strong id="statVideos">0</strong></div><div class="stat-icon">🎬</div></div>
+      <div class="stat-card"><div><small>عدد الموظفين النشطين</small><strong id="statAgents">6</strong></div><div class="stat-icon">👥</div></div>
+      <div class="stat-card"><div><small>تعيينات HR التلقائية</small><strong id="statHires">0</strong></div><div class="stat-icon">🧑‍💼</div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="office">🏢 المكتب المباشر</button>
+      <button class="tab-btn" data-tab="pipeline">📋 خط الإنتاج والمهام</button>
+      <button class="tab-btn" data-tab="deliverables">🎁 المخرجات (التطبيقات والفيديوهات)</button>
+      <button class="tab-btn" data-tab="hr">👥 الموارد البشرية (HR)</button>
+      <button class="tab-btn" data-tab="settings">⚙️ التشغيل المجاني 24/7</button>
+    </div>
+
+    <!-- TAB 1: LIVE OFFICE -->
+    <section id="tab-office" class="tab-panel active">
+      <div class="office-layout">
+        <div class="floorplan">
+          <div class="floor-header">
+            <div>
+              <strong>🗺️ خريطة المكتب التفاعلية</strong>
+              <span style="font-size:0.8rem;color:var(--muted);margin-right:8px;">كل موظف ينفذ مهمته ويسلمها للقسم التالي تلقائياً</span>
+            </div>
+          </div>
+          <div class="rooms-grid" id="desksGrid"></div>
+        </div>
+
+        <div class="side-col">
+          <div class="panel-box">
+            <h3>📡 سجل العمليات المباشر <span style="font-size:0.75rem;color:var(--muted)">تحديث لحظي</span></h3>
+            <div class="feed-list" id="logsFeed"></div>
+          </div>
+          <div class="panel-box">
+            <h3>💬 قاعة الاجتماعات والتنسيق <span style="font-size:0.75rem;color:var(--muted)">بدون تدخلك</span></h3>
+            <div class="feed-list" id="meetingsFeed"></div>
+          </div>
+          <div class="panel-box">
+            <h3>🗣️ تحدّث مع أي موظف مباشرة</h3>
+            <div style="display:flex;gap:6px;flex-direction:column;">
+              <select id="chatAgentSelect"></select>
+              <div style="display:flex;gap:6px;">
+                <input id="chatMsgInput" style="flex:1;" placeholder="اكتب توجيهاً أو سؤالاً (مثال: اعمل تطبيق حاسبة أو فيديو جديد)..." />
+                <button id="chatSendBtn" class="success">إرسال</button>
+              </div>
+              <div id="chatReplyBox" style="display:none;background:var(--panel-2);border:1px solid var(--accent);border-radius:10px;padding:9px;font-size:0.82rem;line-height:1.5;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: KANBAN -->
+    <section id="tab-panel-pipeline" class="tab-panel" data-panel="pipeline">
+      <div class="directive-bar">
+        <select id="dirType">
+          <option value="app">📱 مشروع تطبيق ويب</option>
+          <option value="video">🎬 مشروع فيديو + مونتاج</option>
+        </select>
+        <input id="dirTitle" placeholder="اختياري: أضف فكرة مشروع مخصص (وإلا سيبتكر المدير التنفيذي المشاريع تلقائياً)..." />
+        <button id="addDirectiveBtn" class="success">➕ إرسال للمدير التنفيذي</button>
+      </div>
+      <div class="kanban-grid" id="kanbanGrid"></div>
+    </section>
+
+    <!-- TAB 3: DELIVERABLES -->
+    <section id="tab-deliverables" class="tab-panel">
+      <div class="deliverables-grid" id="deliverablesGrid"></div>
+    </section>
+
+    <!-- TAB 4: HR -->
+    <section id="tab-hr" class="tab-panel">
+      <div class="settings-grid">
+        <div class="panel-box">
+          <h3>🧑‍💼 تعيين موظف ذكاء اصطناعي جديد (أو اترك الـ HR توظف تلقائياً)</h3>
+          <div class="form-group">
+            <label>اسم الموظف واللقب</label>
+            <input id="hireName" placeholder="مثال: م. خالد — مطور ألعاب ويب" />
+          </div>
+          <div class="form-group">
+            <label>المسمى الوظيفي / التخصص</label>
+            <input id="hireRole" placeholder="GAME_DEV" />
+          </div>
+          <div class="form-group">
+            <label>القسم / الغرفة</label>
+            <input id="hireRoom" placeholder="استوديو الألعاب التفاعلية" />
+          </div>
+          <div class="form-group">
+            <label>تعليمات الموظف (System Prompt)</label>
+            <textarea id="hirePrompt" rows="3" placeholder="اشرح دور الموظف الجديد..."></textarea>
+          </div>
+          <button id="hireBtn" class="success">✨ توظيف الآن</button>
+        </div>
+        <div class="panel-box">
+          <h3>📊 بطاقات أداء الموظفين</h3>
+          <div id="hrRoster" style="display:flex;flex-direction:column;gap:8px;max-height:380px;overflow-y:auto;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: SETTINGS & 24/7 -->
+    <section id="tab-settings" class="tab-panel">
+      <div class="settings-grid">
+        <div class="panel-box">
+          <h3>🔌 ربط مزود الذكاء الاصطناعي المجاني</h3>
+          <div class="form-group">
+            <label>المزود (100% مجاني)</label>
+            <select id="cfgProvider">
+              <option value="builtin">المحرك الذكي المدمج (مجاني بدون API Key — يعمل فوراً)</option>
+              <option value="gemini">Google Gemini Free Tier (مفتاح مجاني من AI Studio)</option>
+              <option value="groq">Groq Free Tier (سريع جداً ومجاني - Llama 3.3 70B)</option>
+              <option value="openrouter">OpenRouter Free Models (:free)</option>
+              <option value="ollama">Ollama محلي على جهازك (مجاني 100% بلا حدود)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>مفتاح API المجاني (اتركه فارغاً للمحرك المدمج أو Ollama)</label>
+            <input id="cfgApiKey" type="password" placeholder="AIza... أو gsk_... أو sk-or-..." />
+          </div>
+          <div class="form-group">
+            <label>اسم الموديل (اختياري — يستخدم الافتراضي المجاني)</label>
+            <input id="cfgModel" placeholder="مثال: gemini-2.5-flash أو llama-3.3-70b-versatile" />
+          </div>
+          <div class="form-group">
+            <label>رابط Ollama (إذا اخترت Ollama)</label>
+            <input id="cfgBaseUrl" placeholder="http://127.0.0.1:11434" />
+          </div>
+          <div class="form-group">
+            <label>الفاصل الزمني بين كل خطوة عمل (بالثواني)</label>
+            <input id="cfgInterval" type="number" min="2" max="300" value="4" />
+          </div>
+          <hr style="border:none;border-top:1px solid var(--border);margin:14px 0;">
+          <div class="form-group">
+            <label>مزود احتياطي تلقائي عند امتلاء الحد المجاني (Backup LLM)</label>
+            <select id="cfgBackupProvider">
+              <option value="none">بدون (يتحول تلقائياً للمحرك المدمج)</option>
+              <option value="gemini">Google Gemini Free Tier</option>
+              <option value="groq">Groq Free Tier</option>
+              <option value="openrouter">OpenRouter Free Models</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>مفتاح API الاحتياطي (اختياري)</label>
+            <input id="cfgBackupApiKey" type="password" placeholder="مفتاح المزود الاحتياطي..." />
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button id="saveCfgBtn" class="success">💾 حفظ الإعدادات وتطبيقها فوراً</button>
+            <a href="/api/backup" class="btn secondary" style="text-decoration:none;">⬇️ تصدير نسخة احتياطية</a>
+            <label class="btn secondary" style="cursor:pointer;">
+              ♻️ استرجاع نسخة
+              <input id="restoreFileInput" type="file" accept=".json" style="display:none;" />
+            </label>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <h3>☁️ أفضل السيرفرات المجانية لربط المكتب 24/7</h3>
+          <ul class="guide-list">
+            <li><strong>1) Koyeb (Free Nano Service):</strong> يعطيك حاوية مجانية دائمة (512MB RAM)، يدعم Docker وNode.js بدون إطفاء مع مسار <code>/health</code>.</li>
+            <li><strong>2) Render (Free Web Service):</strong> أسهل ربط مباشر مع GitHub مجاناً (بدون بطاقة بنكية، 750 ساعة/شهر)، ومع ملف <code>.github/workflows/keep-alive.yml</code> المرفق يظل مستيقظاً 24 ساعة.</li>
+            <li><strong>3) Oracle Cloud Always Free:</strong> أقوى سيرفر VPS مجاني للأبد (حتى 24GB RAM ARM أو جهازي AMD micro)، تشغّل عليه <code>docker compose up -d</code> فيعمل 24/7 للأبد.</li>
+            <li><strong>4) Northflank (Free Tier):</strong> يدعم تشغيل خدمة Node.js/Docker دائمة بدون نوم على الباقة المجانية.</li>
+            <li><strong>5) Hugging Face Spaces (Docker):</strong> مجاني بالكامل (2 vCPU) لرفع مجلد المشروع عبر Docker.</li>
+            <li><strong>6) Google Cloud e2-micro / جهازك الشخصي:</strong> مجاني عبر Docker أو PM2.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- MODAL FOR APP PREVIEW OR VIDEO PLAYER -->
+  <div class="modal-backdrop" id="previewModal">
+    <div class="modal">
+      <div class="modal-head">
+        <strong id="modalTitle">معاينة المخرج</strong>
+        <button id="closeModalBtn" class="secondary">✖️ إغلاق</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentState = null;
+    let activeTab = 'office';
+    let videoAnimFrame = null;
+
+    // Tabs switching
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        activeTab = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b === btn));
+        document.querySelectorAll('.tab-panel').forEach((p) => {
+          const match = p.id === 'tab-' + activeTab || p.dataset.panel === activeTab;
+          p.classList.toggle('active', match);
+        });
+      });
+    });
+
+    function esc(str) {
+      return String(str ?? '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    function fmtTime(iso) {
+      try {
+        return new Date(iso).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      } catch { return ''; }
+    }
+
+    function renderAll(state) {
+      currentState = state;
+      document.getElementById('officeTitle').textContent = state.officeName || 'المكتب الافتراضي الذكي 24/7';
+      document.getElementById('cycleBadge').textContent = state.cycleCount || 0;
+      document.getElementById('providerBadge').textContent = state.llmConfig?.provider || 'builtin';
+
+      const dot = document.getElementById('statusDot');
+      const autoLabel = document.getElementById('autopilotLabel');
+      const toggleBtn = document.getElementById('toggleAutoBtn');
+      if (state.autopilotEnabled) {
+        dot.classList.remove('paused');
+        autoLabel.textContent = 'يعمل تلقائياً 24/7';
+        toggleBtn.textContent = '⏸️ إيقاف مؤقت';
+        toggleBtn.className = 'warn';
+      } else {
+        dot.classList.add('paused');
+        autoLabel.textContent = 'متوقف مؤقتاً';
+        toggleBtn.textContent = '▶️ تشغيل تلقائي';
+        toggleBtn.className = 'success';
+      }
+
+      document.getElementById('statApps').textContent = state.stats?.totalAppsBuilt || 0;
+      document.getElementById('statFixes').textContent = state.stats?.totalAutoFixes || 0;
+      document.getElementById('statVideos').textContent = state.stats?.totalVideosProduced || 0;
+      document.getElementById('statAgents').textContent = (state.agents || []).length;
+      document.getElementById('statHires').textContent = state.stats?.totalHires || 0;
+
+      renderDesks(state.agents || []);
+      renderLogs(state.logs || []);
+      renderMeetings(state.meetings || []);
+      renderKanban(state.tasks || []);
+      renderDeliverables(state.deliverables || []);
+      renderHR(state.agents || []);
+      syncSettingsForm(state);
+    }
+
+    function renderDesks(agents) {
+      const grid = document.getElementById('desksGrid');
+      const statusText = {
+        idle: 'جاهز',
+        thinking: 'يخطط 💡',
+        coding: 'يبرمج 💻',
+        reviewing: 'يراجع ويعدّل 🔍',
+        creating: 'ينتج فيديو 🎬',
+        editing: 'مونتاج ✂️',
+        working: 'يعمل 📊',
+      };
+      grid.innerHTML = agents.map((a) => {
+        const isWorking = a.status !== 'idle';
+        return `
+          <div class="desk-card ${isWorking ? 'working' : ''}">
+            <div class="desk-room">
+              <span>📍 ${esc(a.room)}</span>
+              <span class="status-badge ${isWorking ? 'active' : ''}">${statusText[a.status] || a.status}</span>
+            </div>
+            <div class="agent-row">
+              <div class="avatar-box" style="background:${esc(a.color)}22;border:1px solid ${esc(a.color)}66;">${esc(a.avatar)}</div>
+              <div>
+                <div class="agent-name">${esc(a.name)}</div>
+                <div class="agent-role">${esc(a.role)}</div>
+              </div>
+            </div>
+            <div class="speech-bubble">${esc(a.bubble || a.currentTask)}</div>
+            <div class="desk-footer">
+              <span>✅ المنجز: ${a.tasksCompleted || 0}</span>
+              <button class="secondary" style="padding:3px 8px;font-size:0.72rem;" onclick="focusAgentChat('${esc(a.id)}')">💬 خاطبه</button>
+              <span>⭐ الجودة: ${a.qualityScore || 95}%</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const sel = document.getElementById('chatAgentSelect');
+      if (sel) {
+        const prev = sel.value;
+        sel.innerHTML = agents.map((a) => `<option value="${esc(a.id)}">${esc(a.avatar)} ${esc(a.name)}</option>`).join('');
+        if (prev && agents.some((a) => a.id === prev)) sel.value = prev;
+      }
+    }
+
+    function renderLogs(logs) {
+      const el = document.getElementById('logsFeed');
+      el.innerHTML = logs.slice(0, 35).map((l) => `
+        <div class="feed-item ${esc(l.level || 'info')}">
+          <div class="feed-meta"><strong>${esc(l.actorName)}</strong><span>${fmtTime(l.timestamp)}</span></div>
+          <div>${esc(l.message)}</div>
+        </div>
+      `).join('') || '<div style="color:var(--muted);font-size:0.85rem;">بانتظار أول دورة عمل...</div>';
+    }
+
+    function renderMeetings(meetings) {
+      const el = document.getElementById('meetingsFeed');
+      el.innerHTML = meetings.slice(0, 20).map((m) => `
+        <div class="feed-item" style="border-right-color: var(--pink);">
+          <div class="feed-meta"><strong>${esc(m.speaker)} (${esc(m.role)})</strong><span>${fmtTime(m.timestamp)}</span></div>
+          <div>${esc(m.text)}</div>
+        </div>
+      `).join('') || '<div style="color:var(--muted);font-size:0.85rem;">ستظهر نقاشات الفريق التلقائية هنا...</div>';
+    }
+
+    function renderKanban(tasks) {
+      const cols = [
+        { key: 'build', title: '⚙️ قيد التنفيذ', match: (t) => t.status === 'developing' || t.status === 'filming' },
+        { key: 'qa', title: '🔍 المراجعة / المونتاج', match: (t) => t.status === 'qa_review' || t.status === 'montage' },
+        { key: 'ceo', title: '👔 اعتماد المدير', match: (t) => t.status === 'ceo_approval' },
+        { key: 'done', title: '✅ مكتمل ومنشور', match: (t) => t.status === 'completed' },
+      ];
+      const grid = document.getElementById('kanbanGrid');
+      grid.innerHTML = cols.map((c) => {
+        const list = tasks.filter(c.match);
+        return `
+          <div class="kanban-col">
+            <h4><span>${c.title}</span><span>${list.length}</span></h4>
+            ${list.map((t) => `
+              <div class="task-card">
+                <span class="task-tag ${t.type === 'video' ? 'video' : ''}">${t.type === 'video' ? '🎬 فيديو ومونتاج' : '📱 تطبيق'} • v${t.version || 0}</span>
+                <strong>${esc(t.title)}</strong>
+                <div style="color:var(--muted);font-size:0.75rem;">${esc(t.stageLabel || '')}</div>
+              </div>
+            `).join('') || '<div style="color:var(--muted);font-size:0.78rem;">لا توجد مهام حالياً</div>'}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderDeliverables(items) {
+      const grid = document.getElementById('deliverablesGrid');
+      if (!items.length) {
+        grid.innerHTML = '<div class="panel-box" style="grid-column:1/-1;text-align:center;padding:30px;">⏳ يعمل الفريق الآن على أول مخرج... اضغط "تنفيذ خطوة الآن" لتسريع العرض أو انتظر ثوانٍ قليلة.</div>';
+        return;
+      }
+      grid.innerHTML = items.map((d) => `
+        <div class="deliv-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="task-tag ${d.type === 'video' ? 'video' : ''}">${d.type === 'video' ? '🎬 فيديو بعد المونتاج' : '📱 تطبيق تم اختباره وتعديله'}</span>
+            <span style="font-size:0.75rem;color:var(--emerald);">v${d.version || 2} معتمد</span>
+          </div>
+          <h4>${esc(d.title)}</h4>
+          <div class="deliv-notes">${esc(d.notes)}</div>
+          ${(d.qaNotes && d.qaNotes.length) ? `<div style="font-size:0.76rem;color:#93c5fd;">🛠️ التحسينات المطبقة تلقائياً: ${esc(d.qaNotes.join(' • '))}</div>` : ''}
+          <div class="deliv-actions">
+            ${d.type === 'app'
+              ? `<button class="success" onclick="openAppPreview('${esc(d.url)}', '${esc(d.title)}')">🚀 معاينة حية</button>
+                 <button class="secondary" onclick="openAppSource('${esc(d.id)}', '${esc(d.title)}')">📝 الكود وتعديلات QA</button>
+                 <a class="btn secondary" style="text-decoration:none;" href="${esc(d.url)}" download="${esc(d.id)}.html">⬇️ تحميل HTML</a>`
+              : `<button class="warn" onclick="openVideoPlayer('${esc(d.url)}', '${esc(d.title)}')">▶️ تشغيل الفيديو</button>
+                 <a class="btn secondary" style="text-decoration:none;" href="${esc(d.url)}" download="${esc(d.id)}-storyboard.json">⬇️ السيناريو JSON</a>`
+            }
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderHR(agents) {
+      const el = document.getElementById('hrRoster');
+      el.innerHTML = agents.map((a) => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--panel-2);border-radius:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:1.4rem;">${esc(a.avatar)}</span>
+            <div>
+              <strong style="font-size:0.88rem;">${esc(a.name)}</strong>
+              <div style="font-size:0.74rem;color:var(--muted);">${esc(a.room)} • ${esc(a.role)}</div>
+            </div>
+          </div>
+          <div style="text-align:left;font-size:0.78rem;">
+            <div>منجز: <strong>${a.tasksCompleted || 0}</strong></div>
+            <div style="color:var(--emerald);">جودة: ${a.qualityScore || 95}%</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    let settingsInitialized = false;
+    function syncSettingsForm(state) {
+      if (settingsInitialized) return;
+      settingsInitialized = true;
+      document.getElementById('cfgProvider').value = state.llmConfig?.provider || 'builtin';
+      document.getElementById('cfgModel').value = state.llmConfig?.model || '';
+      document.getElementById('cfgBaseUrl').value = state.llmConfig?.baseUrl || 'http://127.0.0.1:11434';
+      document.getElementById('cfgInterval').value = Math.round((state.tickIntervalMs || 4000) / 1000);
+      document.getElementById('cfgBackupProvider').value = state.llmConfig?.backupProvider || 'none';
+    }
+
+    // Modal controls
+    const modal = document.getElementById('previewModal');
+    function closeModal() {
+      modal.classList.remove('open');
+      if (videoAnimFrame) {
+        cancelAnimationFrame(videoAnimFrame);
+        videoAnimFrame = null;
+      }
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      document.getElementById('modalBody').innerHTML = '';
+    }
+    document.getElementById('closeModalBtn').onclick = closeModal;
+
+    window.openAppPreview = function (url, title) {
+      document.getElementById('modalTitle').textContent = '📱 معاينة حية: ' + title;
+      document.getElementById('modalBody').innerHTML = `<iframe class="app-preview" src="${esc(url)}"></iframe>`;
+      modal.classList.add('open');
+    };
+
+    window.openAppSource = async function (id, title) {
+      document.getElementById('modalTitle').textContent = '📝 الكود المصدري المعدّل تلقائياً: ' + title;
+      const body = document.getElementById('modalBody');
+      body.innerHTML = '<div style="padding:20px;text-align:center;">جاري تحميل الكود...</div>';
+      modal.classList.add('open');
+      const res = await fetch('/api/deliverables/app/' + encodeURIComponent(id) + '/source');
+      const data = await res.json();
+      body.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <span style="color:var(--emerald);font-size:0.85rem;">✅ هذا الكود تم تعديله وفحصه بواسطة قسم الجودة (QA & Auto-Fix)</span>
+          <button class="secondary" onclick="navigator.clipboard.writeText(document.getElementById('srcPre').textContent);alert('تم نسخ الكود!')">📋 نسخ الكود</button>
+        </div>
+        <pre id="srcPre" style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;overflow:auto;max-height:62vh;direction:ltr;text-align:left;font-size:0.78rem;line-height:1.5;color:#cbd5e1;"></pre>
+      `;
+      document.getElementById('srcPre').textContent = data.html || '';
+    };
+
+    window.openVideoPlayer = async function (jsonUrl, title) {
+      document.getElementById('modalTitle').textContent = '🎬 مشغل الفيديو والمونتاج: ' + title;
+      const body = document.getElementById('modalBody');
+      body.innerHTML = '<div style="padding:20px;text-align:center;">جاري تحميل الفيديو...</div>';
+      modal.classList.add('open');
+
+      const res = await fetch(jsonUrl);
+      const video = await res.json();
+      const scenes = video.scenes || [];
+      const totalSec = scenes.reduce((a, s) => a + (s.durationSec || 4), 0);
+
+      body.innerHTML = `
+        <canvas id="videoCanvas" class="video-canvas" width="960" height="540"></canvas>
+        <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+          <button id="playVidBtn" class="success">▶️ تشغيل مع التعليق الصوتي</button>
+          <button id="exportVidBtn" class="warn">⬇️ تصدير وحفظ فيديو (.webm)</button>
+        </div>
+        <div style="background:var(--panel-2);padding:12px;border-radius:10px;font-size:0.82rem;line-height:1.6;">
+          <strong>✂️ ملاحظات المونتاج:</strong> ${esc(video.editorNotes || 'نسخة أولية')}
+          <br><strong>🎵 الموسيقى المقترحة:</strong> ${esc(video.musicMood || 'Upbeat')} • <strong>المدة:</strong> ${totalSec} ثانية
+        </div>
+      `;
+
+      const canvas = document.getElementById('videoCanvas');
+      const ctx = canvas.getContext('2d');
+      let startTime = performance.now();
+      let lastSpokenIdx = -1;
+      let speakEnabled = false;
+
+      function getSceneAt(elapsedSec) {
+        let acc = 0;
+        for (let i = 0; i < scenes.length; i++) {
+          const dur = scenes[i].durationSec || 4;
+          if (elapsedSec < acc + dur) {
+            return { idx: i, scene: scenes[i], localT: (elapsedSec - acc) / dur };
+          }
+          acc += dur;
+        }
+        return { idx: 0, scene: scenes[0], localT: 0, ended: true };
+      }
+
+      function drawFrame(now) {
+        const elapsed = ((now - startTime) / 1000) % totalSec;
+        const { idx, scene, localT } = getSceneAt(elapsed);
+
+        if (speakEnabled && idx !== lastSpokenIdx) {
+          lastSpokenIdx = idx;
+          if (window.speechSynthesis && scene.voiceover) {
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(scene.voiceover);
+            utter.lang = 'ar-SA';
+            window.speechSynthesis.speak(utter);
+          }
+        }
+
+        // Background gradient
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        grad.addColorStop(0, scene.bgStart || '#0f172a');
+        grad.addColorStop(1, scene.bgEnd || '#312e81');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Transition animation
+        ctx.save();
+        const enter = Math.min(1, localT * 3.5);
+        if (scene.transition === 'zoom-in') {
+          const scale = 0.92 + enter * 0.08;
+          ctx.translate(canvas.width / 2, canvas.height / 2);
+          ctx.scale(scale, scale);
+          ctx.translate(-canvas.width / 2, -canvas.height / 2);
+        } else if (scene.transition === 'slide-left') {
+          ctx.translate((1 - enter) * 80, 0);
+        }
+        ctx.globalAlpha = enter;
+
+        // Decorative glow
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, 180, 120, 0, Math.PI * 2);
+        ctx.fillStyle = (scene.accent || '#38bdf8') + '22';
+        ctx.fill();
+
+        // Icon
+        ctx.font = '82px system-ui';
+        ctx.textAlign = 'center';
+        ctx.fillText(scene.icon || '🎬', canvas.width / 2, 185);
+
+        // Heading
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 42px system-ui';
+        ctx.fillText(scene.heading || '', canvas.width / 2, 275);
+
+        // Subtitle
+        ctx.fillStyle = scene.accent || '#38bdf8';
+        ctx.font = '26px system-ui';
+        ctx.fillText(scene.subtitle || '', canvas.width / 2, 330);
+
+        // Kinetic Captions bar
+        if (scene.voiceover) {
+          ctx.fillStyle = 'rgba(0,0,0,0.62)';
+          ctx.fillRect(80, 415, canvas.width - 160, 62);
+          ctx.fillStyle = '#f8fafc';
+          ctx.font = '22px system-ui';
+          ctx.fillText(scene.voiceover.slice(0, 62), canvas.width / 2, 453);
+        }
+
+        // Top Montage HUD
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.font = '16px system-ui';
+        ctx.fillText(`مشهد ${idx + 1}/${scenes.length} • انتقال: ${scene.transition || 'cut'} • ${scene.colorGrade || 'Studio'}`, canvas.width / 2, 36);
+
+        // Progress bar
+        ctx.fillStyle = 'rgba(255,255,255,0.18)';
+        ctx.fillRect(0, canvas.height - 6, canvas.width, 6);
+        ctx.fillStyle = scene.accent || '#38bdf8';
+        ctx.fillRect(0, canvas.height - 6, canvas.width * (elapsed / totalSec), 6);
+
+        ctx.restore();
+        videoAnimFrame = requestAnimationFrame(drawFrame);
+      }
+
+      videoAnimFrame = requestAnimationFrame(drawFrame);
+
+      document.getElementById('playVidBtn').onclick = () => {
+        speakEnabled = !speakEnabled;
+        lastSpokenIdx = -1;
+        startTime = performance.now();
+        document.getElementById('playVidBtn').textContent = speakEnabled ? '🔇 كتم التعليق الصوتي' : '▶️ تشغيل مع التعليق الصوتي';
+        if (!speakEnabled && window.speechSynthesis) window.speechSynthesis.cancel();
+      };
+
+      document.getElementById('exportVidBtn').onclick = () => {
+        if (!canvas.captureStream || !window.MediaRecorder) {
+          alert('متصفحك لا يدعم تسجيل WebM المباشر.');
+          return;
+        }
+        const btn = document.getElementById('exportVidBtn');
+        btn.disabled = true;
+        btn.textContent = '⏳ جاري تصدير الفيديو...';
+        startTime = performance.now();
+        const stream = canvas.captureStream(30);
+        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+        const chunks = [];
+        recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
+        recorder.onstop = () => {
+          const blob = new Blob(chunks, { type: 'video/webm' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = (video.title || 'ai-video').replace(/[^\w\u0600-\u06FF-]+/g, '_') + '.webm';
+          a.click();
+          btn.disabled = false;
+          btn.textContent = '⬇️ تصدير وحفظ فيديو (.webm)';
+        };
+        recorder.start();
+        setTimeout(() => recorder.stop(), Math.min(totalSec * 1000, 16500));
+      };
+    };
+
+    // API actions
+    async function postJson(url, payload = {}) {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      return res.json();
+    }
+
+    document.getElementById('stepBtn').onclick = () => postJson('/api/tick');
+    document.getElementById('toggleAutoBtn').onclick = () => {
+      postJson('/api/autopilot', { enabled: !currentState?.autopilotEnabled });
+    };
+    document.getElementById('addDirectiveBtn').onclick = async () => {
+      const title = document.getElementById('dirTitle').value.trim();
+      const type = document.getElementById('dirType').value;
+      if (!title) return;
+      await postJson('/api/directive', { type, title, description: title });
+      document.getElementById('dirTitle').value = '';
+    };
+    document.getElementById('hireBtn').onclick = async () => {
+      const name = document.getElementById('hireName').value.trim();
+      if (!name) return;
+      await postJson('/api/hr/hire', {
+        name,
+        role: document.getElementById('hireRole').value.trim() || 'SPECIALIST',
+        room: document.getElementById('hireRoom').value.trim() || 'مكتب العمليات',
+        systemPrompt: document.getElementById('hirePrompt').value.trim(),
+      });
+      document.getElementById('hireName').value = '';
+    };
+    document.getElementById('saveCfgBtn').onclick = async () => {
+      await postJson('/api/settings', {
+        tickIntervalMs: Number(document.getElementById('cfgInterval').value || 4) * 1000,
+        llmConfig: {
+          provider: document.getElementById('cfgProvider').value,
+          apiKey: document.getElementById('cfgApiKey').value,
+          model: document.getElementById('cfgModel').value,
+          baseUrl: document.getElementById('cfgBaseUrl').value,
+          backupProvider: document.getElementById('cfgBackupProvider').value,
+          backupApiKey: document.getElementById('cfgBackupApiKey').value,
+        },
+      });
+      alert('✅ تم حفظ الإعدادات وتطبيقها على المكتب فوراً!');
+    };
+
+    document.getElementById('restoreFileInput').onchange = async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      try {
+        const json = JSON.parse(await file.text());
+        const res = await postJson('/api/restore', json);
+        if (res.ok) alert('♻️ تم استرجاع النسخة الاحتياطية بنجاح!');
+        else alert('❌ فشل الاسترجاع: ' + (res.error || 'خطأ غير معروف'));
+      } catch (err) {
+        alert('❌ ملف نسخة احتياطية غير صالح');
+      }
+      e.target.value = '';
+    };
+
+    window.focusAgentChat = function (agentId) {
+      const sel = document.getElementById('chatAgentSelect');
+      if (sel) sel.value = agentId;
+      const inp = document.getElementById('chatMsgInput');
+      if (inp) {
+        inp.focus();
+        inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    };
+
+    document.getElementById('chatSendBtn').onclick = async () => {
+      const agentId = document.getElementById('chatAgentSelect').value || 'ceo';
+      const inp = document.getElementById('chatMsgInput');
+      const msg = inp.value.trim();
+      if (!msg) return;
+      const box = document.getElementById('chatReplyBox');
+      box.style.display = 'block';
+      box.textContent = '⏳ جاري انتظار رد الموظف...';
+      inp.value = '';
+      const res = await postJson('/api/chat', { agentId, message: msg });
+      box.innerHTML = `<strong>${esc(res.agentName || 'الموظف')}:</strong> ${esc(res.reply || '')}`;
+    };
+
+    // Connect SSE stream
+    function connectSSE() {
+      const es = new EventSource('/api/events');
+      es.onmessage = (e) => {
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg.state) renderAll(msg.state);
+        } catch {}
+      };
+      es.onerror = () => {
+        es.close();
+        setTimeout(connectSSE, 3000);
+      };
+    }
+
+    fetch('/api/state').then((r) => r.json()).then(renderAll).catch(() => {});
+    connectSSE();
+  </script>
+</body>
+</html>

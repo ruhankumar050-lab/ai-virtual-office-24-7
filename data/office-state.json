@@ -1,0 +1,2507 @@
+{
+  "officeName": "مكتب الذكاء الاصطناعي المستقل 24/7",
+  "autopilotEnabled": true,
+  "tickIntervalMs": 4000,
+  "cycleCount": 121,
+  "llmConfig": {
+    "provider": "builtin",
+    "apiKey": "",
+    "model": "",
+    "baseUrl": "http://127.0.0.1:11434"
+  },
+  "agents": [
+    {
+      "id": "ceo",
+      "name": "أ. طارق — المدير التنفيذي",
+      "shortName": "طارق (CEO)",
+      "role": "CEO",
+      "department": "executive",
+      "room": "مكتب الإدارة العليا",
+      "avatar": "👔",
+      "color": "#6366f1",
+      "desk": {
+        "x": 14,
+        "y": 18
+      },
+      "status": "idle",
+      "currentTask": "متابعة تنفيذ المشروع الحالي",
+      "tasksCompleted": 61,
+      "qualityScore": 99,
+      "systemPrompt": "أنت المدير التنفيذي لمكتب ذكاء اصطناعي متكامل يعمل 24/7 بدون تدخل بشري. مهمتك ابتكار أفكار مشاريع مفيدة (تطبيقات ويب أو فيديوهات قصيرة)، تقسيمها إلى مهام واضحة، متابعة الموظفين، واعتماد المخرجات النهائية.",
+      "bubble": "تم تكليف الفريق 🚀",
+      "lastActiveAt": "2026-11-23T23:54:40.786Z"
+    },
+    {
+      "id": "hr",
+      "name": "أ. سارة — مديرة الموارد البشرية",
+      "shortName": "سارة (HR)",
+      "role": "HR",
+      "department": "hr",
+      "room": "قسم الموارد البشرية",
+      "avatar": "🧑‍💼",
+      "color": "#ec4899",
+      "desk": {
+        "x": 50,
+        "y": 18
+      },
+      "status": "idle",
+      "currentTask": "متابعة الأداء وجاهزية الفريق",
+      "tasksCompleted": 30,
+      "qualityScore": 98,
+      "systemPrompt": "أنت مديرة الموارد البشرية (HR). تراقبين ضغط العمل بين الموظفين، تقيمين الأداء، تقترحين توظيف موظفين متخصصين جدد تلقائياً عند الحاجة، وتنسقين الاجتماعات لحل أي اختناق في المهام.",
+      "bubble": "الفريق متوازن وجاهز ✅",
+      "lastActiveAt": "2026-11-23T23:54:36.777Z"
+    },
+    {
+      "id": "app_dev",
+      "name": "م. كريم — مطور التطبيقات",
+      "shortName": "كريم (Dev)",
+      "role": "APP_DEV",
+      "department": "engineering",
+      "room": "استوديو البرمجة",
+      "avatar": "👨‍💻",
+      "color": "#06b6d4",
+      "desk": {
+        "x": 14,
+        "y": 58
+      },
+      "status": "idle",
+      "currentTask": "بانتظار المشروع التالي",
+      "tasksCompleted": 17,
+      "qualityScore": 94,
+      "systemPrompt": "أنت مطور تطبيقات ويب محترف. تبني تطبيقات HTML/CSS/JS كاملة في ملف واحد أنيق ومستجيب باللغة العربية (RTL) بدون أي مكتبات خارجية ثقيلة، مع وظائف حقيقية وتصميم عصري.",
+      "bubble": "تم تسليم v1 بنجاح ✅",
+      "lastActiveAt": "2026-11-23T23:46:08.483Z"
+    },
+    {
+      "id": "qa_fixer",
+      "name": "م. ندى — مراجعة ومعدّلة الكود",
+      "shortName": "ندى (QA & Fix)",
+      "role": "QA_FIXER",
+      "department": "engineering",
+      "room": "مختبر الجودة والتعديل",
+      "avatar": "🔍",
+      "color": "#10b981",
+      "desk": {
+        "x": 40,
+        "y": 58
+      },
+      "status": "idle",
+      "currentTask": "جاهزة لفحص التطبيق القادم",
+      "tasksCompleted": 17,
+      "qualityScore": 97,
+      "systemPrompt": "أنت مهندسة جودة ومراجعة كود ذاتية (QA & Auto-Fixer). تفحصين أي تطبيق يتم إنتاجه، تكتشفين الأخطاء البرمجية أو نواقص تجربة المستخدم، وتقومين بتعديل الكود مباشرة وإصلاحه حتى يصبح مثالياً دون الرجوع لصاحب العمل.",
+      "bubble": "تم التعديل والاعتماد v2 🛠️",
+      "lastActiveAt": "2026-11-23T23:46:12.493Z"
+    },
+    {
+      "id": "video_creator",
+      "name": "م. يوسف — صانع الفيديوهات",
+      "shortName": "يوسف (Video)",
+      "role": "VIDEO_CREATOR",
+      "department": "media",
+      "room": "استوديو صناعة الفيديو",
+      "avatar": "🎬",
+      "color": "#f59e0b",
+      "desk": {
+        "x": 66,
+        "y": 58
+      },
+      "status": "idle",
+      "currentTask": "جاهز للفيديو القادم",
+      "tasksCompleted": 13,
+      "qualityScore": 95,
+      "systemPrompt": "أنت مخرج وصانع فيديوهات إبداعي. تكتب السيناريو، تقسم الفيديو إلى مشاهد بصرية جذابة مع نصوص قصيرة قوية وألوان متناسقة وتوجيهات صوتية.",
+      "bubble": "المشاهد جاهزة للمونتاج 🎥",
+      "lastActiveAt": "2026-11-23T23:54:28.760Z"
+    },
+    {
+      "id": "video_editor",
+      "name": "أ. ليلى — مونتيرة الفيديو",
+      "shortName": "ليلى (Montage)",
+      "role": "VIDEO_EDITOR",
+      "department": "media",
+      "room": "غرفة المونتاج",
+      "avatar": "✂️",
+      "color": "#8b5cf6",
+      "desk": {
+        "x": 86,
+        "y": 58
+      },
+      "status": "idle",
+      "currentTask": "جاهزة لمونتاج الفيديو القادم",
+      "tasksCompleted": 13,
+      "qualityScore": 96,
+      "systemPrompt": "أنت مونتيرة فيديو محترفة. تستلمين مسودة الفيديو، تضيفين الانتقالات السلسة، تصحيح الألوان، الترجمة المتزامنة، وإيقاع الحركة والصوت، ثم تعتمدين النسخة النهائية الجاهزة للنشر.",
+      "bubble": "تم إخراج الفيديو v2 🎞️",
+      "lastActiveAt": "2026-11-23T23:54:32.769Z"
+    },
+    {
+      "id": "ui_ux_designer",
+      "name": "أ. ريم — مصممة واجهات UI/UX",
+      "shortName": "ريم (UI/UX)",
+      "role": "UI_UX_DESIGNER",
+      "department": "engineering",
+      "room": "استوديو التصميم",
+      "avatar": "🎨",
+      "color": "#f43f5e",
+      "desk": {
+        "x": 26,
+        "y": 18
+      },
+      "status": "idle",
+      "currentTask": "جاهزة لتحسين الواجهات",
+      "tasksCompleted": 11,
+      "qualityScore": 95,
+      "systemPrompt": "أنت مصممة واجهات وتجربة مستخدم تساعدين في تحسين جماليات التطبيقات وتناسق الألوان.",
+      "bubble": "تم تحسين الواجهة ✨",
+      "lastActiveAt": "2026-11-23T23:46:12.493Z"
+    },
+    {
+      "id": "growth_marketer",
+      "name": "أ. عمر — خبير نمو وتسويق",
+      "shortName": "عمر (Growth)",
+      "role": "GROWTH_MARKETER",
+      "department": "media",
+      "room": "قسم التسويق الذكي",
+      "avatar": "📈",
+      "color": "#14b8a6",
+      "desk": {
+        "x": 50,
+        "y": 18
+      },
+      "status": "idle",
+      "currentTask": "تحليل فرص الانتشار",
+      "tasksCompleted": 9,
+      "qualityScore": 95,
+      "systemPrompt": "أنت خبير تسويق ومحتوى تقترح عناوين جذابة وخطافات (Hooks) لزيادة مشاهدات الفيديوهات.",
+      "bubble": "جاهز للحملة القادمة 📈",
+      "lastActiveAt": "2026-11-23T23:54:32.769Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "app-mwtxahoy",
+      "type": "app",
+      "title": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "description": "تتبع الدخل والمصروفات مع تصنيفات ورسوم بيانية تفاعلية وحفظ في المتصفح",
+      "ideaKey": "budget",
+      "topic": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "status": "developing",
+      "stageLabel": "جاري البرمجة",
+      "assigneeId": "app_dev",
+      "version": 0,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T23:54:40.786Z",
+      "updatedAt": "2026-11-23T23:54:40.786Z"
+    },
+    {
+      "id": "video-mwtxa5bk",
+      "type": "video",
+      "title": "فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: أتمتة الأعمال والوكلاء الأذكياء",
+      "ideaKey": "ai-office",
+      "topic": "أتمتة الأعمال والوكلاء الأذكياء",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T23:54:24.752Z",
+      "updatedAt": "2026-11-23T23:54:36.780Z",
+      "deliverableUrl": "/deliverables/videos/video-mwtxa5bk/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "completedAt": "2026-11-23T23:54:36.780Z"
+    },
+    {
+      "id": "app-mwtwzfb0",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "ideaKey": "pomodoro",
+      "topic": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T23:46:04.476Z",
+      "updatedAt": "2026-11-23T23:46:16.504Z",
+      "deliverableUrl": "/deliverables/apps/app-mwtwzfb0/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T23:46:16.504Z"
+    },
+    {
+      "id": "video-mwtw18q8",
+      "type": "video",
+      "title": "فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: العمل الحر والأتمتة",
+      "ideaKey": "freelance",
+      "topic": "العمل الحر والأتمتة",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T23:19:29.648Z",
+      "updatedAt": "2026-11-23T23:19:41.682Z",
+      "deliverableUrl": "/deliverables/videos/video-mwtw18q8/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "completedAt": "2026-11-23T23:19:41.682Z"
+    },
+    {
+      "id": "app-mwtvmg3v",
+      "type": "app",
+      "title": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "description": "إنشاء فواتير احترافية بالعربية مع حساب الضريبة والطباعة الفورية",
+      "ideaKey": "invoice",
+      "topic": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T23:07:59.371Z",
+      "updatedAt": "2026-11-23T23:08:11.395Z",
+      "deliverableUrl": "/deliverables/apps/app-mwtvmg3v/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T23:08:11.395Z"
+    },
+    {
+      "id": "video-mwtvj6sz",
+      "type": "video",
+      "title": "فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: تسويق التطبيقات",
+      "ideaKey": "app-launch",
+      "topic": "تسويق التطبيقات",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T23:05:27.347Z",
+      "updatedAt": "2026-11-23T23:07:55.362Z",
+      "deliverableUrl": "/deliverables/videos/video-mwtvj6sz/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "completedAt": "2026-11-23T23:07:55.362Z"
+    },
+    {
+      "id": "app-mwtv5h3e",
+      "type": "app",
+      "title": "تطبيق متابعة العادات والأهداف اليومية",
+      "description": "متابعة العادات اليومية مع سلسلة الإنجاز (Streaks) ونسبة التقدم",
+      "ideaKey": "habits",
+      "topic": "تطبيق متابعة العادات والأهداف اليومية",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "تحسين أمان DOM: حماية المدخلات من XSS وتنقية النصوص المعروضة",
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T22:54:47.498Z",
+      "updatedAt": "2026-11-23T23:05:23.337Z",
+      "deliverableUrl": "/deliverables/apps/app-mwtv5h3e/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T23:05:23.337Z"
+    },
+    {
+      "id": "app-mwtuwylp",
+      "type": "app",
+      "title": "اعمل تطبيق متابعة مهام",
+      "description": "اعمل تطبيق متابعة مهام",
+      "ideaKey": "pomodoro",
+      "topic": "اعمل تطبيق متابعة مهام",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T22:48:10.285Z",
+      "updatedAt": "2026-11-23T22:48:22.319Z",
+      "deliverableUrl": "/deliverables/apps/app-mwtuwylp/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"اعمل تطبيق متابعة مهام\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T22:48:22.319Z"
+    },
+    {
+      "id": "app-mwtuwi40",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "ideaKey": "pomodoro",
+      "topic": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T22:47:48.912Z",
+      "updatedAt": "2026-11-23T22:48:06.278Z",
+      "deliverableUrl": "/deliverables/apps/app-mwtuwi40/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T22:48:06.278Z"
+    },
+    {
+      "id": "video-mwtuw5qk",
+      "type": "video",
+      "title": "فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: الإنتاجية والعمل الذكي",
+      "ideaKey": "productivity",
+      "topic": "الإنتاجية والعمل الذكي",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T22:47:32.876Z",
+      "updatedAt": "2026-11-23T22:47:44.902Z",
+      "deliverableUrl": "/deliverables/videos/video-mwtuw5qk/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "completedAt": "2026-11-23T22:47:44.902Z"
+    },
+    {
+      "id": "app-mwtuuhs5",
+      "type": "app",
+      "title": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "description": "إنشاء فواتير احترافية بالعربية مع حساب الضريبة والطباعة الفورية",
+      "ideaKey": "invoice",
+      "topic": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T22:46:15.173Z",
+      "updatedAt": "2026-11-23T22:47:28.864Z",
+      "deliverableUrl": "/deliverables/apps/app-mwtuuhs5/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T22:47:28.864Z"
+    },
+    {
+      "id": "video-mwt8mxfz",
+      "type": "video",
+      "title": "فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: أتمتة الأعمال والوكلاء الأذكياء",
+      "ideaKey": "ai-office",
+      "topic": "أتمتة الأعمال والوكلاء الأذكياء",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:24:30.671Z",
+      "updatedAt": "2026-11-23T12:26:33.698Z",
+      "deliverableUrl": "/deliverables/videos/video-mwt8mxfz/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "completedAt": "2026-11-23T12:26:33.698Z"
+    },
+    {
+      "id": "app-mwt8ml2j",
+      "type": "app",
+      "title": "تطبيق متابعة العادات والأهداف اليومية",
+      "description": "متابعة العادات اليومية مع سلسلة الإنجاز (Streaks) ونسبة التقدم",
+      "ideaKey": "habits",
+      "topic": "تطبيق متابعة العادات والأهداف اليومية",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "تحسين أمان DOM: حماية المدخلات من XSS وتنقية النصوص المعروضة",
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:24:14.635Z",
+      "updatedAt": "2026-11-23T12:24:26.666Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt8ml2j/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T12:24:26.666Z"
+    },
+    {
+      "id": "video-mwt8m8p3",
+      "type": "video",
+      "title": "فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: العمل الحر والأتمتة",
+      "ideaKey": "freelance",
+      "topic": "العمل الحر والأتمتة",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:23:58.599Z",
+      "updatedAt": "2026-11-23T12:24:10.630Z",
+      "deliverableUrl": "/deliverables/videos/video-mwt8m8p3/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "completedAt": "2026-11-23T12:24:10.630Z"
+    },
+    {
+      "id": "app-mwt8f6qg",
+      "type": "app",
+      "title": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "description": "تتبع الدخل والمصروفات مع تصنيفات ورسوم بيانية تفاعلية وحفظ في المتصفح",
+      "ideaKey": "budget",
+      "topic": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:18:29.464Z",
+      "updatedAt": "2026-11-23T12:18:44.092Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt8f6qg/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق إدارة المصروفات والميزانية الذكي\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T12:18:44.092Z"
+    },
+    {
+      "id": "video-mwt8eud1",
+      "type": "video",
+      "title": "فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: تسويق التطبيقات",
+      "ideaKey": "app-launch",
+      "topic": "تسويق التطبيقات",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:18:13.429Z",
+      "updatedAt": "2026-11-23T12:18:25.456Z",
+      "deliverableUrl": "/deliverables/videos/video-mwt8eud1/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "completedAt": "2026-11-23T12:18:25.456Z"
+    },
+    {
+      "id": "app-mwt8ehzu",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "ideaKey": "pomodoro",
+      "topic": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:17:57.402Z",
+      "updatedAt": "2026-11-23T12:18:09.422Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt8ehzu/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T12:18:09.422Z"
+    },
+    {
+      "id": "video-mwt8e5mg",
+      "type": "video",
+      "title": "فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: الإنتاجية والعمل الذكي",
+      "ideaKey": "productivity",
+      "topic": "الإنتاجية والعمل الذكي",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:17:41.368Z",
+      "updatedAt": "2026-11-23T12:17:53.394Z",
+      "deliverableUrl": "/deliverables/videos/video-mwt8e5mg/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "completedAt": "2026-11-23T12:17:53.394Z"
+    },
+    {
+      "id": "app-mwt7yfb8",
+      "type": "app",
+      "title": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "description": "إنشاء فواتير احترافية بالعربية مع حساب الضريبة والطباعة الفورية",
+      "ideaKey": "invoice",
+      "topic": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:05:27.428Z",
+      "updatedAt": "2026-11-23T12:17:37.361Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt7yfb8/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T12:17:37.361Z"
+    },
+    {
+      "id": "video-mwt7y58h",
+      "type": "video",
+      "title": "فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: أتمتة الأعمال والوكلاء الأذكياء",
+      "ideaKey": "ai-office",
+      "topic": "أتمتة الأعمال والوكلاء الأذكياء",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:05:14.369Z",
+      "updatedAt": "2026-11-23T12:05:23.421Z",
+      "deliverableUrl": "/deliverables/videos/video-mwt7y58h/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "completedAt": "2026-11-23T12:05:23.421Z"
+    },
+    {
+      "id": "app-mwt7xqhj",
+      "type": "app",
+      "title": "تطبيق متابعة العادات والأهداف اليومية",
+      "description": "متابعة العادات اليومية مع سلسلة الإنجاز (Streaks) ونسبة التقدم",
+      "ideaKey": "habits",
+      "topic": "تطبيق متابعة العادات والأهداف اليومية",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "تحسين أمان DOM: حماية المدخلات من XSS وتنقية النصوص المعروضة",
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:04:55.255Z",
+      "updatedAt": "2026-11-23T12:05:11.405Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt7xqhj/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T12:05:11.405Z"
+    },
+    {
+      "id": "video-mwt7xe4f",
+      "type": "video",
+      "title": "فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: العمل الحر والأتمتة",
+      "ideaKey": "freelance",
+      "topic": "العمل الحر والأتمتة",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:04:39.231Z",
+      "updatedAt": "2026-11-23T12:04:51.250Z",
+      "deliverableUrl": "/deliverables/videos/video-mwt7xe4f/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "completedAt": "2026-11-23T12:04:51.250Z"
+    },
+    {
+      "id": "app-mwt7x1r7",
+      "type": "app",
+      "title": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "description": "تتبع الدخل والمصروفات مع تصنيفات ورسوم بيانية تفاعلية وحفظ في المتصفح",
+      "ideaKey": "budget",
+      "topic": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم"
+      ],
+      "createdAt": "2026-11-23T12:04:23.203Z",
+      "updatedAt": "2026-11-23T12:04:35.224Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt7x1r7/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق إدارة المصروفات والميزانية الذكي\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T12:04:35.224Z"
+    },
+    {
+      "id": "video-mwt7wpe3",
+      "type": "video",
+      "title": "فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: تسويق التطبيقات",
+      "ideaKey": "app-launch",
+      "topic": "تسويق التطبيقات",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:04:07.179Z",
+      "updatedAt": "2026-11-23T12:04:19.200Z",
+      "deliverableUrl": "/deliverables/videos/video-mwt7wpe3/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "completedAt": "2026-11-23T12:04:19.200Z"
+    },
+    {
+      "id": "app-mwt7wd0z",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "ideaKey": "pomodoro",
+      "topic": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)"
+      ],
+      "createdAt": "2026-11-23T12:03:51.155Z",
+      "updatedAt": "2026-11-23T12:04:03.175Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt7wd0z/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T12:04:03.175Z"
+    },
+    {
+      "id": "video-mwt7kui4",
+      "type": "video",
+      "title": "فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: الإنتاجية والعمل الذكي",
+      "ideaKey": "productivity",
+      "topic": "الإنتاجية والعمل الذكي",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T11:54:53.932Z",
+      "updatedAt": "2026-11-23T12:03:47.153Z",
+      "deliverableUrl": "/deliverables/videos/video-mwt7kui4/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "completedAt": "2026-11-23T12:03:47.153Z"
+    },
+    {
+      "id": "app-mwt7kqi8",
+      "type": "app",
+      "title": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "description": "إنشاء فواتير احترافية بالعربية مع حساب الضريبة والطباعة الفورية",
+      "ideaKey": "invoice",
+      "topic": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم"
+      ],
+      "createdAt": "2026-11-23T11:54:48.752Z",
+      "updatedAt": "2026-11-23T11:54:49.926Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt7kqi8/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T11:54:49.926Z"
+    },
+    {
+      "id": "video-mwt7knvj",
+      "type": "video",
+      "title": "فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: أتمتة الأعمال والوكلاء الأذكياء",
+      "ideaKey": "ai-office",
+      "topic": "أتمتة الأعمال والوكلاء الأذكياء",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [],
+      "createdAt": "2026-11-23T11:54:45.343Z",
+      "updatedAt": "2026-11-23T11:54:48.743Z",
+      "deliverableUrl": "/deliverables/videos/video-mwt7knvj/storyboard.json",
+      "providerUsed": "builtin",
+      "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "completedAt": "2026-11-23T11:54:48.743Z"
+    },
+    {
+      "id": "app-mwt7kgz6",
+      "type": "app",
+      "title": "تطبيق متابعة العادات والأهداف اليومية",
+      "description": "متابعة العادات اليومية مع سلسلة الإنجاز (Streaks) ونسبة التقدم",
+      "ideaKey": "habits",
+      "topic": "تطبيق متابعة العادات والأهداف اليومية",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "تحسين أمان DOM: حماية المدخلات من XSS وتنقية النصوص المعروضة",
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم"
+      ],
+      "createdAt": "2026-11-23T11:54:36.402Z",
+      "updatedAt": "2026-11-23T11:54:45.329Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt7kgz6/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T11:54:45.329Z"
+    },
+    {
+      "id": "app-mwt7kgy4",
+      "type": "app",
+      "title": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "description": "تتبع الدخل والمصروفات مع تصنيفات ورسوم بيانية تفاعلية وحفظ في المتصفح",
+      "ideaKey": "budget",
+      "topic": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم"
+      ],
+      "createdAt": "2026-11-23T11:54:36.364Z",
+      "updatedAt": "2026-11-23T11:54:36.393Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt7kgy4/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق إدارة المصروفات والميزانية الذكي\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T11:54:36.393Z"
+    },
+    {
+      "id": "app-mwt7kg7c",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "ideaKey": "pomodoro",
+      "topic": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "status": "completed",
+      "stageLabel": "مكتمل ومنشور",
+      "assigneeId": "ceo",
+      "version": 2,
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)"
+      ],
+      "createdAt": "2026-11-23T11:54:35.400Z",
+      "updatedAt": "2026-11-23T11:54:36.354Z",
+      "deliverableUrl": "/deliverables/apps/app-mwt7kg7c/index.html",
+      "providerUsed": "builtin",
+      "qaSummary": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "completedAt": "2026-11-23T11:54:36.354Z"
+    }
+  ],
+  "deliverables": [
+    {
+      "id": "video-mwtxa5bk",
+      "type": "video",
+      "title": "فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: أتمتة الأعمال والوكلاء الأذكياء",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwtxa5bk/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T23:54:36.780Z"
+    },
+    {
+      "id": "app-mwtwzfb0",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwtwzfb0/index.html",
+      "notes": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T23:46:16.504Z"
+    },
+    {
+      "id": "video-mwtw18q8",
+      "type": "video",
+      "title": "فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: العمل الحر والأتمتة",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwtw18q8/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T23:19:41.682Z"
+    },
+    {
+      "id": "app-mwtvmg3v",
+      "type": "app",
+      "title": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "description": "إنشاء فواتير احترافية بالعربية مع حساب الضريبة والطباعة الفورية",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwtvmg3v/index.html",
+      "notes": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T23:08:11.395Z"
+    },
+    {
+      "id": "video-mwtvj6sz",
+      "type": "video",
+      "title": "فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: تسويق التطبيقات",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwtvj6sz/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T23:07:55.362Z"
+    },
+    {
+      "id": "app-mwtv5h3e",
+      "type": "app",
+      "title": "تطبيق متابعة العادات والأهداف اليومية",
+      "description": "متابعة العادات اليومية مع سلسلة الإنجاز (Streaks) ونسبة التقدم",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwtv5h3e/index.html",
+      "notes": "تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "qaNotes": [
+        "تحسين أمان DOM: حماية المدخلات من XSS وتنقية النصوص المعروضة",
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T23:05:23.337Z"
+    },
+    {
+      "id": "app-mwtuwylp",
+      "type": "app",
+      "title": "اعمل تطبيق متابعة مهام",
+      "description": "اعمل تطبيق متابعة مهام",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwtuwylp/index.html",
+      "notes": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"اعمل تطبيق متابعة مهام\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T22:48:22.319Z"
+    },
+    {
+      "id": "app-mwtuwi40",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwtuwi40/index.html",
+      "notes": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T22:48:06.278Z"
+    },
+    {
+      "id": "video-mwtuw5qk",
+      "type": "video",
+      "title": "فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: الإنتاجية والعمل الذكي",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwtuw5qk/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T22:47:44.902Z"
+    },
+    {
+      "id": "app-mwtuuhs5",
+      "type": "app",
+      "title": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "description": "إنشاء فواتير احترافية بالعربية مع حساب الضريبة والطباعة الفورية",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwtuuhs5/index.html",
+      "notes": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T22:47:28.864Z"
+    },
+    {
+      "id": "video-mwt8mxfz",
+      "type": "video",
+      "title": "فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: أتمتة الأعمال والوكلاء الأذكياء",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwt8mxfz/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:26:33.698Z"
+    },
+    {
+      "id": "app-mwt8ml2j",
+      "type": "app",
+      "title": "تطبيق متابعة العادات والأهداف اليومية",
+      "description": "متابعة العادات اليومية مع سلسلة الإنجاز (Streaks) ونسبة التقدم",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt8ml2j/index.html",
+      "notes": "تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "qaNotes": [
+        "تحسين أمان DOM: حماية المدخلات من XSS وتنقية النصوص المعروضة",
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:24:26.666Z"
+    },
+    {
+      "id": "video-mwt8m8p3",
+      "type": "video",
+      "title": "فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: العمل الحر والأتمتة",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwt8m8p3/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:24:10.630Z"
+    },
+    {
+      "id": "app-mwt8f6qg",
+      "type": "app",
+      "title": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "description": "تتبع الدخل والمصروفات مع تصنيفات ورسوم بيانية تفاعلية وحفظ في المتصفح",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt8f6qg/index.html",
+      "notes": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق إدارة المصروفات والميزانية الذكي\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:18:44.092Z"
+    },
+    {
+      "id": "video-mwt8eud1",
+      "type": "video",
+      "title": "فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: تسويق التطبيقات",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwt8eud1/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:18:25.456Z"
+    },
+    {
+      "id": "app-mwt8ehzu",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt8ehzu/index.html",
+      "notes": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:18:09.422Z"
+    },
+    {
+      "id": "video-mwt8e5mg",
+      "type": "video",
+      "title": "فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: الإنتاجية والعمل الذكي",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwt8e5mg/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:17:53.394Z"
+    },
+    {
+      "id": "app-mwt7yfb8",
+      "type": "app",
+      "title": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "description": "إنشاء فواتير احترافية بالعربية مع حساب الضريبة والطباعة الفورية",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt7yfb8/index.html",
+      "notes": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:17:37.361Z"
+    },
+    {
+      "id": "video-mwt7y58h",
+      "type": "video",
+      "title": "فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: أتمتة الأعمال والوكلاء الأذكياء",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwt7y58h/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:05:23.421Z"
+    },
+    {
+      "id": "app-mwt7xqhj",
+      "type": "app",
+      "title": "تطبيق متابعة العادات والأهداف اليومية",
+      "description": "متابعة العادات اليومية مع سلسلة الإنجاز (Streaks) ونسبة التقدم",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt7xqhj/index.html",
+      "notes": "تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "qaNotes": [
+        "تحسين أمان DOM: حماية المدخلات من XSS وتنقية النصوص المعروضة",
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم",
+        "لمسات ريم (UI/UX): تحسين تباين الألوان وحركة الأزرار"
+      ],
+      "createdAt": "2026-11-23T12:05:11.405Z"
+    },
+    {
+      "id": "video-mwt7xe4f",
+      "type": "video",
+      "title": "فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: العمل الحر والأتمتة",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwt7xe4f/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:04:51.250Z"
+    },
+    {
+      "id": "app-mwt7x1r7",
+      "type": "app",
+      "title": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "description": "تتبع الدخل والمصروفات مع تصنيفات ورسوم بيانية تفاعلية وحفظ في المتصفح",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt7x1r7/index.html",
+      "notes": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق إدارة المصروفات والميزانية الذكي\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم"
+      ],
+      "createdAt": "2026-11-23T12:04:35.224Z"
+    },
+    {
+      "id": "video-mwt7wpe3",
+      "type": "video",
+      "title": "فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: تسويق التطبيقات",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwt7wpe3/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:04:19.200Z"
+    },
+    {
+      "id": "app-mwt7wd0z",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt7wd0z/index.html",
+      "notes": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)"
+      ],
+      "createdAt": "2026-11-23T12:04:03.175Z"
+    },
+    {
+      "id": "video-mwt7kui4",
+      "type": "video",
+      "title": "فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: الإنتاجية والعمل الذكي",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwt7kui4/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T12:03:47.153Z"
+    },
+    {
+      "id": "app-mwt7kqi8",
+      "type": "app",
+      "title": "تطبيق صانع الفواتير وعروض الأسعار السريع",
+      "description": "إنشاء فواتير احترافية بالعربية مع حساب الضريبة والطباعة الفورية",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt7kqi8/index.html",
+      "notes": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم"
+      ],
+      "createdAt": "2026-11-23T11:54:49.926Z"
+    },
+    {
+      "id": "video-mwt7knvj",
+      "type": "video",
+      "title": "فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً",
+      "description": "إنتاج ومونتاج فيديو احترافي حول: أتمتة الأعمال والوكلاء الأذكياء",
+      "version": 2,
+      "url": "/deliverables/videos/video-mwt7knvj/storyboard.json",
+      "notes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "qaNotes": [],
+      "createdAt": "2026-11-23T11:54:48.743Z"
+    },
+    {
+      "id": "app-mwt7kgz6",
+      "type": "app",
+      "title": "تطبيق متابعة العادات والأهداف اليومية",
+      "description": "متابعة العادات اليومية مع سلسلة الإنجاز (Streaks) ونسبة التقدم",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt7kgz6/index.html",
+      "notes": "تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "qaNotes": [
+        "تحسين أمان DOM: حماية المدخلات من XSS وتنقية النصوص المعروضة",
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم"
+      ],
+      "createdAt": "2026-11-23T11:54:45.329Z"
+    },
+    {
+      "id": "app-mwt7kgy4",
+      "type": "app",
+      "title": "تطبيق إدارة المصروفات والميزانية الذكي",
+      "description": "تتبع الدخل والمصروفات مع تصنيفات ورسوم بيانية تفاعلية وحفظ في المتصفح",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt7kgy4/index.html",
+      "notes": "تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق إدارة المصروفات والميزانية الذكي\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)",
+        "إضافة أزرار تحكم سريعة (تصدير / مسح / طباعة) لتحسين تجربة المستخدم"
+      ],
+      "createdAt": "2026-11-23T11:54:36.393Z"
+    },
+    {
+      "id": "app-mwt7kg7c",
+      "type": "app",
+      "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+      "description": "مؤقت تركيز ذكي مع جلسات عمل واستراحة وإحصائيات الإنجاز وحفظ تلقائي",
+      "version": 2,
+      "url": "/deliverables/apps/app-mwt7kg7c/index.html",
+      "notes": "تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "qaNotes": [
+        "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+        "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)"
+      ],
+      "createdAt": "2026-11-23T11:54:36.354Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "c108bb1d",
+      "timestamp": "2026-11-23T23:54:40.786Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق إدارة المصروفات والميزانية الذكي\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "86cbc48a",
+      "timestamp": "2026-11-23T23:54:36.780Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "9546d5bc",
+      "timestamp": "2026-11-23T23:54:36.777Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "5e68a2c7",
+      "timestamp": "2026-11-23T23:54:32.769Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "level": "info"
+    },
+    {
+      "id": "10c36298",
+      "timestamp": "2026-11-23T23:54:28.760Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "bd4085d8",
+      "timestamp": "2026-11-23T23:54:24.753Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "7ac3407c",
+      "timestamp": "2026-11-23T23:46:16.504Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "9bac5ca1",
+      "timestamp": "2026-11-23T23:46:16.502Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "8d96924d",
+      "timestamp": "2026-11-23T23:46:12.493Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "64a38383",
+      "timestamp": "2026-11-23T23:46:08.483Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "877d323a",
+      "timestamp": "2026-11-23T23:46:04.476Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "df26d555",
+      "timestamp": "2026-11-23T23:19:41.682Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "e3f1b4c2",
+      "timestamp": "2026-11-23T23:19:41.680Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "aae06c58",
+      "timestamp": "2026-11-23T23:19:37.671Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "level": "info"
+    },
+    {
+      "id": "1c4ecb63",
+      "timestamp": "2026-11-23T23:19:33.661Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "c1ea4e8e",
+      "timestamp": "2026-11-23T23:19:29.648Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "96c32076",
+      "timestamp": "2026-11-23T23:08:11.395Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق صانع الفواتير وعروض الأسعار السريع\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "dbede419",
+      "timestamp": "2026-11-23T23:08:11.393Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "7cbb238f",
+      "timestamp": "2026-11-23T23:08:07.384Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "2ea2dbcf",
+      "timestamp": "2026-11-23T23:08:03.377Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق صانع الفواتير وعروض الأسعار السريع\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "7d1fbfbb",
+      "timestamp": "2026-11-23T23:07:59.371Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق صانع الفواتير وعروض الأسعار السريع\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "8d6f59d2",
+      "timestamp": "2026-11-23T23:07:55.362Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "b5fc96d9",
+      "timestamp": "2026-11-23T23:07:55.360Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "12ef148b",
+      "timestamp": "2026-11-23T23:05:35.366Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "level": "info"
+    },
+    {
+      "id": "f43069f7",
+      "timestamp": "2026-11-23T23:05:31.357Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "6ec55d7a",
+      "timestamp": "2026-11-23T23:05:27.347Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "99eeee5b",
+      "timestamp": "2026-11-23T23:05:23.337Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق متابعة العادات والأهداف اليومية\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "1fce366a",
+      "timestamp": "2026-11-23T23:05:23.335Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "658e1078",
+      "timestamp": "2026-11-23T22:54:55.518Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "c497f2ac",
+      "timestamp": "2026-11-23T22:54:51.509Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق متابعة العادات والأهداف اليومية\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "d778cd85",
+      "timestamp": "2026-11-23T22:54:47.498Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق متابعة العادات والأهداف اليومية\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "6f984cc2",
+      "timestamp": "2026-11-23T22:48:22.319Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"اعمل تطبيق متابعة مهام\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "c42c3ea1",
+      "timestamp": "2026-11-23T22:48:22.316Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "dc787659",
+      "timestamp": "2026-11-23T22:48:18.308Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"اعمل تطبيق متابعة مهام\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "e56f0393",
+      "timestamp": "2026-11-23T22:48:14.295Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"اعمل تطبيق متابعة مهام\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "8759c45b",
+      "timestamp": "2026-11-23T22:48:10.286Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"اعمل تطبيق متابعة مهام\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "e644c6f9",
+      "timestamp": "2026-11-23T22:48:07.627Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "💬 رد على المالك: أهلاً بك يا فندم! استلمت توجيهك فوراً: \"اعمل تطبيق متابعة مهام\". أضفت المشروع الآن لقائمة ...",
+      "level": "info"
+    },
+    {
+      "id": "f9f8fae7",
+      "timestamp": "2026-11-23T22:48:07.625Z",
+      "agentId": "ceo",
+      "actorName": "توجيه جديد",
+      "message": "📌 تمت إضافة طلب \"اعمل تطبيق متابعة مهام\" إلى قائمة المشاريع ليبدأ الفريق بتنفيذه فوراً.",
+      "level": "info"
+    },
+    {
+      "id": "cde5f233",
+      "timestamp": "2026-11-23T22:48:06.278Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "11afc2f3",
+      "timestamp": "2026-11-23T22:48:06.275Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "add3d29c",
+      "timestamp": "2026-11-23T22:47:56.929Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "1dc1d8b0",
+      "timestamp": "2026-11-23T22:47:52.920Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "84fba2db",
+      "timestamp": "2026-11-23T22:47:48.912Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "5183af73",
+      "timestamp": "2026-11-23T22:47:44.902Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "565d97f8",
+      "timestamp": "2026-11-23T22:47:44.901Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "5227aeac",
+      "timestamp": "2026-11-23T22:47:40.895Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "level": "info"
+    },
+    {
+      "id": "92cff559",
+      "timestamp": "2026-11-23T22:47:36.884Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "7de23558",
+      "timestamp": "2026-11-23T22:47:32.876Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "cb574683",
+      "timestamp": "2026-11-23T22:47:28.864Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق صانع الفواتير وعروض الأسعار السريع\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "19551299",
+      "timestamp": "2026-11-23T22:47:28.862Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "a4215fae",
+      "timestamp": "2026-11-23T22:47:24.851Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "2bad8383",
+      "timestamp": "2026-11-23T22:46:19.179Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق صانع الفواتير وعروض الأسعار السريع\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "bb1e4651",
+      "timestamp": "2026-11-23T22:46:15.173Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق صانع الفواتير وعروض الأسعار السريع\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "1062bc33",
+      "timestamp": "2026-11-23T12:26:33.698Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "38d7abb2",
+      "timestamp": "2026-11-23T12:26:33.696Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "3cfb61ef",
+      "timestamp": "2026-11-23T12:26:29.690Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "level": "info"
+    },
+    {
+      "id": "5b8f4600",
+      "timestamp": "2026-11-23T12:26:25.667Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "57192660",
+      "timestamp": "2026-11-23T12:24:30.671Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "46bec779",
+      "timestamp": "2026-11-23T12:24:26.666Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق متابعة العادات والأهداف اليومية\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "a5b7cc56",
+      "timestamp": "2026-11-23T12:24:26.663Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "9b9c8d92",
+      "timestamp": "2026-11-23T12:24:22.653Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "ac3e92a5",
+      "timestamp": "2026-11-23T12:24:18.644Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق متابعة العادات والأهداف اليومية\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "de6e3ddb",
+      "timestamp": "2026-11-23T12:24:14.635Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق متابعة العادات والأهداف اليومية\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "767c2ad5",
+      "timestamp": "2026-11-23T12:24:10.630Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "81cb3a8a",
+      "timestamp": "2026-11-23T12:24:10.628Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "87314289",
+      "timestamp": "2026-11-23T12:24:06.619Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "level": "info"
+    },
+    {
+      "id": "3dd49cd1",
+      "timestamp": "2026-11-23T12:24:02.609Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "5ce7caea",
+      "timestamp": "2026-11-23T12:23:58.599Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "8eaa7028",
+      "timestamp": "2026-11-23T12:18:44.092Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق إدارة المصروفات والميزانية الذكي\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "4f4c5c67",
+      "timestamp": "2026-11-23T12:18:44.090Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "51f768d5",
+      "timestamp": "2026-11-23T12:18:40.083Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق إدارة المصروفات والميزانية الذكي\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "0110dba6",
+      "timestamp": "2026-11-23T12:18:36.077Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق إدارة المصروفات والميزانية الذكي\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "8a47413d",
+      "timestamp": "2026-11-23T12:18:29.465Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق إدارة المصروفات والميزانية الذكي\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "b5cab29c",
+      "timestamp": "2026-11-23T12:18:25.456Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "5bf7b093",
+      "timestamp": "2026-11-23T12:18:25.454Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "ae845d79",
+      "timestamp": "2026-11-23T12:18:21.445Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "level": "info"
+    },
+    {
+      "id": "01f9c0d3",
+      "timestamp": "2026-11-23T12:18:17.437Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "a2c4ec2b",
+      "timestamp": "2026-11-23T12:18:13.429Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "f4f35656",
+      "timestamp": "2026-11-23T12:18:09.422Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "edfa7861",
+      "timestamp": "2026-11-23T12:18:09.421Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "67cc9cfe",
+      "timestamp": "2026-11-23T12:18:05.413Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 2 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "767f8bff",
+      "timestamp": "2026-11-23T12:18:01.406Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "062ff396",
+      "timestamp": "2026-11-23T12:17:57.402Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "137ccc99",
+      "timestamp": "2026-11-23T12:17:53.394Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "1b4e7b22",
+      "timestamp": "2026-11-23T12:17:53.392Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "ebfbaa5f",
+      "timestamp": "2026-11-23T12:17:49.385Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "level": "info"
+    },
+    {
+      "id": "c4a0cb44",
+      "timestamp": "2026-11-23T12:17:45.377Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "547fa9ee",
+      "timestamp": "2026-11-23T12:17:41.368Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "27b1d638",
+      "timestamp": "2026-11-23T12:17:37.361Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق صانع الفواتير وعروض الأسعار السريع\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "d3771a9d",
+      "timestamp": "2026-11-23T12:17:37.359Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "52721a5e",
+      "timestamp": "2026-11-23T12:17:33.352Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق صانع الفواتير وعروض الأسعار السريع\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "b6e6d3d6",
+      "timestamp": "2026-11-23T12:05:31.432Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق صانع الفواتير وعروض الأسعار السريع\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "5125a12b",
+      "timestamp": "2026-11-23T12:05:27.428Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق صانع الفواتير وعروض الأسعار السريع\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "99e40af8",
+      "timestamp": "2026-11-23T12:05:23.421Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "c854b16c",
+      "timestamp": "2026-11-23T12:05:23.420Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "e04d1d53",
+      "timestamp": "2026-11-23T12:05:19.415Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة. + تحسين النمو والجاذبية بواسطة عمر (Growth)",
+      "level": "info"
+    },
+    {
+      "id": "fc19c0b2",
+      "timestamp": "2026-11-23T12:05:15.408Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "1d6daa7c",
+      "timestamp": "2026-11-23T12:05:14.369Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "9154c48c",
+      "timestamp": "2026-11-23T12:05:11.405Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق متابعة العادات والأهداف اليومية\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "0a0c7d0e",
+      "timestamp": "2026-11-23T12:05:11.403Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "7a8e716b",
+      "timestamp": "2026-11-23T12:05:07.400Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 4 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق متابعة العادات والأهداف اليومية\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "6133647c",
+      "timestamp": "2026-11-23T12:04:59.263Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق متابعة العادات والأهداف اليومية\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "f6fb8d1e",
+      "timestamp": "2026-11-23T12:04:55.255Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق متابعة العادات والأهداف اليومية\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "d9729b5e",
+      "timestamp": "2026-11-23T12:04:51.250Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "ba87af8d",
+      "timestamp": "2026-11-23T12:04:51.249Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "9161eba8",
+      "timestamp": "2026-11-23T12:04:47.243Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "level": "info"
+    },
+    {
+      "id": "ea7145b1",
+      "timestamp": "2026-11-23T12:04:43.236Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "f30ca58c",
+      "timestamp": "2026-11-23T12:04:39.231Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "b57fa4ee",
+      "timestamp": "2026-11-23T12:04:35.224Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق إدارة المصروفات والميزانية الذكي\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "cf29341a",
+      "timestamp": "2026-11-23T12:04:35.223Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "f2cfb512",
+      "timestamp": "2026-11-23T12:04:31.217Z",
+      "agentId": "qa_fixer",
+      "actorName": "ندى (QA & Fix)",
+      "message": "🔍 تم اكتشاف 3 ملاحظة وتعديل الكود تلقائياً إلى الإصدار v2 لـ \"تطبيق إدارة المصروفات والميزانية الذكي\" بدون تدخل بشري.",
+      "level": "info"
+    },
+    {
+      "id": "949a8b48",
+      "timestamp": "2026-11-23T12:04:27.210Z",
+      "agentId": "app_dev",
+      "actorName": "كريم (Dev)",
+      "message": "👨‍💻 أنجزت النسخة الأولى (v1) من \"تطبيق إدارة المصروفات والميزانية الذكي\" وأرسلتها لقسم الجودة للتدقيق والتعديل.",
+      "level": "info"
+    },
+    {
+      "id": "d144e7ff",
+      "timestamp": "2026-11-23T12:04:23.203Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"تطبيق إدارة المصروفات والميزانية الذكي\" وتكليف قسم البرمجة بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "6cbf0ced",
+      "timestamp": "2026-11-23T12:04:19.200Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "9676f98f",
+      "timestamp": "2026-11-23T12:04:19.199Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    },
+    {
+      "id": "d19c9fdf",
+      "timestamp": "2026-11-23T12:04:15.193Z",
+      "agentId": "video_editor",
+      "actorName": "ليلى (Montage)",
+      "message": "✂️ تم إتمام المونتاج لـ \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\": تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+      "level": "info"
+    },
+    {
+      "id": "ae0a0bac",
+      "timestamp": "2026-11-23T12:04:11.186Z",
+      "agentId": "video_creator",
+      "actorName": "يوسف (Video)",
+      "message": "🎬 تم تصوير وتجهيز 4 مشاهد لـ \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" وإرسالها لغرفة المونتاج.",
+      "level": "info"
+    },
+    {
+      "id": "8ac9949c",
+      "timestamp": "2026-11-23T12:04:07.179Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "👔 قرار المدير التنفيذي: إطلاق مشروع \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" وتكليف قسم الفيديو بالتنفيذ الفوري.",
+      "level": "info"
+    },
+    {
+      "id": "0ab00951",
+      "timestamp": "2026-11-23T12:04:03.175Z",
+      "agentId": "ceo",
+      "actorName": "طارق (CEO)",
+      "message": "🏆 اعتماد المدير التنفيذي: تم إكمال \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\" (الإصدار v2) وإضافته لمعرض المخرجات النهائية!",
+      "level": "info"
+    },
+    {
+      "id": "8ab0d77d",
+      "timestamp": "2026-11-23T12:04:03.174Z",
+      "agentId": "hr",
+      "actorName": "سارة (HR)",
+      "message": "📋 تقرير HR الدوري: جميع الموظفين (8) يعملون بكفاءة عالية (متوسط الجودة 96%).",
+      "level": "info"
+    }
+  ],
+  "meetings": [
+    {
+      "id": "7b054378",
+      "timestamp": "2026-11-23T23:54:40.786Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق إدارة المصروفات والميزانية الذكي\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "34ce3bd7",
+      "timestamp": "2026-11-23T23:54:32.769Z",
+      "speaker": "ليلى (Montage)",
+      "role": "Montage",
+      "text": "أنهيت مونتاج \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" مع انتقالات سينمائية وترجمة متزامنة وإخراج نهائي جاهز للعرض."
+    },
+    {
+      "id": "c9ced02b",
+      "timestamp": "2026-11-23T23:54:24.753Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "0caecb39",
+      "timestamp": "2026-11-23T23:46:12.493Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\"، ووجدت 3 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "25aa5d71",
+      "timestamp": "2026-11-23T23:46:04.476Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "ada5afbd",
+      "timestamp": "2026-11-23T23:19:37.671Z",
+      "speaker": "ليلى (Montage)",
+      "role": "Montage",
+      "text": "أنهيت مونتاج \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" مع انتقالات سينمائية وترجمة متزامنة وإخراج نهائي جاهز للعرض."
+    },
+    {
+      "id": "0e3645f1",
+      "timestamp": "2026-11-23T23:19:29.648Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "b068f7f0",
+      "timestamp": "2026-11-23T23:08:07.384Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"تطبيق صانع الفواتير وعروض الأسعار السريع\"، ووجدت 4 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "ca18fe67",
+      "timestamp": "2026-11-23T23:07:59.371Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق صانع الفواتير وعروض الأسعار السريع\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "907713c2",
+      "timestamp": "2026-11-23T23:05:35.366Z",
+      "speaker": "ليلى (Montage)",
+      "role": "Montage",
+      "text": "أنهيت مونتاج \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" مع انتقالات سينمائية وترجمة متزامنة وإخراج نهائي جاهز للعرض."
+    },
+    {
+      "id": "e5ff6bcf",
+      "timestamp": "2026-11-23T23:05:27.347Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "2c95a694",
+      "timestamp": "2026-11-23T22:54:55.518Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"تطبيق متابعة العادات والأهداف اليومية\"، ووجدت 5 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "21cb5d8b",
+      "timestamp": "2026-11-23T22:54:47.498Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق متابعة العادات والأهداف اليومية\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "262b0fbb",
+      "timestamp": "2026-11-23T22:48:18.308Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"اعمل تطبيق متابعة مهام\"، ووجدت 3 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "ceed7b3a",
+      "timestamp": "2026-11-23T22:48:10.286Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"اعمل تطبيق متابعة مهام\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "0788984b",
+      "timestamp": "2026-11-23T22:48:07.627Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "أهلاً بك يا فندم! استلمت توجيهك فوراً: \"اعمل تطبيق متابعة مهام\". أضفت المشروع الآن لقائمة التنفيذ وسيبدأ الفريق بالعمل والمراجعة والتعديل تلقائياً بدون إزعاجك."
+    },
+    {
+      "id": "e3686fd1",
+      "timestamp": "2026-11-23T22:48:07.627Z",
+      "speaker": "أنت (المالك)",
+      "role": "Owner",
+      "text": "@طارق (CEO): اعمل تطبيق متابعة مهام"
+    },
+    {
+      "id": "f00e4447",
+      "timestamp": "2026-11-23T22:47:56.929Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\"، ووجدت 3 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "53358cbd",
+      "timestamp": "2026-11-23T22:47:48.912Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "ba82d558",
+      "timestamp": "2026-11-23T22:47:40.895Z",
+      "speaker": "ليلى (Montage)",
+      "role": "Montage",
+      "text": "أنهيت مونتاج \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\" مع انتقالات سينمائية وترجمة متزامنة وإخراج نهائي جاهز للعرض."
+    },
+    {
+      "id": "458c1efa",
+      "timestamp": "2026-11-23T22:47:32.876Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "2d262ccb",
+      "timestamp": "2026-11-23T22:47:24.851Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"تطبيق صانع الفواتير وعروض الأسعار السريع\"، ووجدت 4 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "a26cceb1",
+      "timestamp": "2026-11-23T22:46:15.173Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق صانع الفواتير وعروض الأسعار السريع\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "7f3484ab",
+      "timestamp": "2026-11-23T12:26:29.690Z",
+      "speaker": "ليلى (Montage)",
+      "role": "Montage",
+      "text": "أنهيت مونتاج \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" مع انتقالات سينمائية وترجمة متزامنة وإخراج نهائي جاهز للعرض."
+    },
+    {
+      "id": "39b34e30",
+      "timestamp": "2026-11-23T12:24:30.671Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "c6f55ac5",
+      "timestamp": "2026-11-23T12:24:22.653Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"تطبيق متابعة العادات والأهداف اليومية\"، ووجدت 5 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "720366ff",
+      "timestamp": "2026-11-23T12:24:14.636Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق متابعة العادات والأهداف اليومية\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "b31036a2",
+      "timestamp": "2026-11-23T12:24:06.619Z",
+      "speaker": "ليلى (Montage)",
+      "role": "Montage",
+      "text": "أنهيت مونتاج \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\" مع انتقالات سينمائية وترجمة متزامنة وإخراج نهائي جاهز للعرض."
+    },
+    {
+      "id": "8a582401",
+      "timestamp": "2026-11-23T12:23:58.599Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"فيديو ريلز: كيف تبني دخلاً مستمراً عبر أتمتة المونتاج والبرمجة\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "45f24918",
+      "timestamp": "2026-11-23T12:18:40.083Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"تطبيق إدارة المصروفات والميزانية الذكي\"، ووجدت 4 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "bbfdf98a",
+      "timestamp": "2026-11-23T12:18:29.465Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق إدارة المصروفات والميزانية الذكي\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "9bca5794",
+      "timestamp": "2026-11-23T12:18:21.445Z",
+      "speaker": "ليلى (Montage)",
+      "role": "Montage",
+      "text": "أنهيت مونتاج \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\" مع انتقالات سينمائية وترجمة متزامنة وإخراج نهائي جاهز للعرض."
+    },
+    {
+      "id": "81426ee3",
+      "timestamp": "2026-11-23T12:18:13.429Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"فيديو إعلاني: إطلاق تطبيق جديد تم برمجته ومراجعته ذاتياً\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "00dfbdc7",
+      "timestamp": "2026-11-23T12:18:05.413Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\"، ووجدت 3 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "6a9b114e",
+      "timestamp": "2026-11-23T12:17:57.402Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "1fcc8ce6",
+      "timestamp": "2026-11-23T12:17:49.385Z",
+      "speaker": "ليلى (Montage)",
+      "role": "Montage",
+      "text": "أنهيت مونتاج \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\" مع انتقالات سينمائية وترجمة متزامنة وإخراج نهائي جاهز للعرض."
+    },
+    {
+      "id": "fd747da6",
+      "timestamp": "2026-11-23T12:17:41.368Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "e4384f46",
+      "timestamp": "2026-11-23T12:17:33.352Z",
+      "speaker": "ندى (QA & Fix)",
+      "role": "QA & Fix",
+      "text": "فحصت تطبيق \"تطبيق صانع الفواتير وعروض الأسعار السريع\"، ووجدت 4 نقاط تحسين وقمت بتعديل الكود بنفسي إلى v2 دون إزعاج صاحب العمل."
+    },
+    {
+      "id": "daeec4fb",
+      "timestamp": "2026-11-23T12:05:27.428Z",
+      "speaker": "طارق (CEO)",
+      "role": "CEO",
+      "text": "مشروع جديد الآن: \"تطبيق صانع الفواتير وعروض الأسعار السريع\". يا فريق العمل، نريد تنفيذ ومراجعة تلقائية بالكامل دون الرجوع لصاحب الشركة."
+    },
+    {
+      "id": "a0e73e3a",
+      "timestamp": "2026-11-23T12:05:19.415Z",
+      "speaker": "ليلى (Montage)",
+      "role": "Montage",
+      "text": "أنهيت مونتاج \"فيديو تعريفي: كيف يدير الذكاء الاصطناعي شركتك 24 ساعة مجاناً\" مع انتقالات سينمائية وترجمة متزامنة وإخراج نهائي جاهز للعرض."
+    }
+  ],
+  "customQueue": [],
+  "stats": {
+    "totalAppsBuilt": 17,
+    "totalAutoFixes": 17,
+    "totalVideosProduced": 13,
+    "totalMontageEdits": 13,
+    "totalHires": 2
+  }
+}

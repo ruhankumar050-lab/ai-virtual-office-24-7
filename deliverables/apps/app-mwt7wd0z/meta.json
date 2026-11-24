@@ -1,0 +1,10 @@
+{
+  "title": "تطبيق مؤقت التركيز والإنتاجية (Pomodoro Pro)",
+  "version": 2,
+  "qaVerified": true,
+  "qaNotes": [
+    "إضافة شارة الاعتماد التلقائي للجودة (QA Verified) ومعلومات الإصدار",
+    "تحسين التجاوب على الهواتف الذكية (Responsive Mobile Layout)"
+  ],
+  "updatedAt": "2026-11-23T12:03:59.167Z"
+}

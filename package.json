@@ -1,0 +1,12 @@
+{
+  "name": "ai-virtual-office-24-7",
+  "version": "1.0.0",
+  "description": "Free 24/7 Autonomous AI Virtual Office with CEO, HR, App Developer, QA Auto-Fixer, Video Creator & Montage Editor",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

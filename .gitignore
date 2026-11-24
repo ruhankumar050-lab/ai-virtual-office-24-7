@@ -1,0 +1,6 @@
+node_modules/
+.env
+.env.local
+.render-secrets.json
+ai-virtual-office-botkeep.zip
+data/*.tmp

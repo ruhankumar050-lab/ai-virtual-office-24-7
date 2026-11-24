@@ -1,0 +1,73 @@
+{
+  "title": "فيديو قصير: 5 أسرار لمضاعفة إنتاجيتك باستخدام أدوات الذكاء الاصطناعي",
+  "topic": "الإنتاجية والعمل الذكي",
+  "version": 2,
+  "edited": true,
+  "aspectRatio": "16:9",
+  "fps": 30,
+  "musicMood": "Electronic Uplifting",
+  "scenes": [
+    {
+      "id": 1,
+      "durationSec": 4,
+      "heading": "هل تحلم بفريق يعمل 24 ساعة؟",
+      "subtitle": "بدون رواتب شهرية أو توقف عن العمل...",
+      "icon": "🚀",
+      "bgStart": "#0f172a",
+      "bgEnd": "#312e81",
+      "accent": "#38bdf8",
+      "transition": "fade",
+      "voiceover": "هل تحلم بفريق عمل متكامل يشتغل أربعة وعشرين ساعة مجاناً؟",
+      "colorGrade": "Cinematic High-Contrast",
+      "captionStyle": "kinetic-pill",
+      "sfx": "Whoosh Impact"
+    },
+    {
+      "id": 2,
+      "durationSec": 4,
+      "heading": "المدير التنفيذي والـ HR يخططان",
+      "subtitle": "المشروع الحالي: الإنتاجية والعمل الذكي",
+      "icon": "👔",
+      "bgStart": "#1e1b4b",
+      "bgEnd": "#4c1d95",
+      "accent": "#ec4899",
+      "transition": "zoom-in",
+      "voiceover": "المدير التنفيذي يحدد الخطة، والـ HR يوزع المهام على الفريق تلقائياً.",
+      "colorGrade": "Vibrant Studio",
+      "captionStyle": "kinetic-pill",
+      "sfx": "Soft Swooch"
+    },
+    {
+      "id": 3,
+      "durationSec": 4,
+      "heading": "برمجة، مراجعة، وتعديل ذاتي",
+      "subtitle": "اكتشاف الأخطاء وإصلاحها قبل التسليم",
+      "icon": "⚡",
+      "bgStart": "#064e3b",
+      "bgEnd": "#0f172a",
+      "accent": "#10b981",
+      "transition": "slide-left",
+      "voiceover": "المبرمج يبني التطبيق، ومهندسة الجودة تفحصه وتعدّله تلقائياً.",
+      "colorGrade": "Cinematic High-Contrast",
+      "captionStyle": "kinetic-pill",
+      "sfx": "Soft Swooch"
+    },
+    {
+      "id": 4,
+      "durationSec": 4,
+      "heading": "جاهز للانطلاق الآن!",
+      "subtitle": "مكتبك الافتراضي الذكي يعمل لأجلك 24/7",
+      "icon": "🎬",
+      "bgStart": "#1e293b",
+      "bgEnd": "#0f172a",
+      "accent": "#f59e0b",
+      "transition": "wipe-glow",
+      "voiceover": "صناعة فيديو، مونتاج، وتطبيقات متكاملة بدون الرجوع إليك.",
+      "colorGrade": "Vibrant Studio",
+      "captionStyle": "kinetic-pill",
+      "sfx": "Success Chime"
+    }
+  ],
+  "editorNotes": "تمت إضافة انتقالات سينمائية، تصحيح الألوان، توقيت الترجمة الديناميكية، ومؤثرات صوتية متزامنة.",
+  "totalDurationSec": 16
+}
