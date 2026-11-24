@@ -755,15 +755,31 @@ ${currentHtml}`;
     this.persistAndBroadcast();
 
     const lower = message.toLowerCase();
-    const isTaskOrder =
-      lower.includes('فيديو') ||
-      lower.includes('مونتاج') ||
-      lower.includes('تطبيق') ||
-      lower.includes('برنامج') ||
-      lower.includes('موقع') ||
+    const hasActionVerb =
       lower.includes('ابني') ||
       lower.includes('اعمل') ||
-      lower.includes('صمم');
+      lower.includes('صمم') ||
+      lower.includes('انشئ') ||
+      lower.includes('أنشئ') ||
+      lower.includes('سوي') ||
+      lower.includes('اصنع') ||
+      lower.includes('نفذ') ||
+      lower.includes('جهز') ||
+      lower.includes('ابدأ') ||
+      lower.includes('build') ||
+      lower.includes('create') ||
+      lower.includes('make');
+    const isTaskOrder =
+      hasActionVerb &&
+      (lower.includes('فيديو') ||
+        lower.includes('مونتاج') ||
+        lower.includes('تطبيق') ||
+        lower.includes('برنامج') ||
+        lower.includes('موقع') ||
+        lower.includes('لعبة') ||
+        lower.includes('صفحة') ||
+        lower.includes('أداة') ||
+        lower.includes('مشروع'));
 
     if (isTaskOrder && (agent.role === 'CEO' || agent.role === 'APP_DEV' || agent.role === 'VIDEO_CREATOR')) {
       const isVideo = lower.includes('فيديو') || lower.includes('مونتاج');

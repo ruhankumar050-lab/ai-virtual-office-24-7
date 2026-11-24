@@ -41,7 +41,7 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
 
   if (provider === 'groq') {
     if (!apiKey) throw new Error('Groq API key missing');
-    const chosenModel = model || 'llama-3.3-70b-versatile';
+    const chosenModel = model || 'openai/gpt-oss-120b';
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
