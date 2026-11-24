@@ -151,6 +151,11 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 200, { ok: true, reply: result.reply, agentName: result.agent.name });
   }
 
+  if (pathname === '/api/reset' && req.method === 'POST') {
+    orchestrator.resetOffice();
+    return sendJson(res, 200, { ok: true, state: orchestrator.getPublicState() });
+  }
+
   if (pathname === '/api/backup' && req.method === 'GET') {
     const backup = orchestrator.exportFullBackup();
     res.writeHead(200, {

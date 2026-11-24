@@ -508,11 +508,15 @@
       <span class="pill">🧠 المزود: <strong id="providerBadge">builtin</strong></span>
       <span class="pill">🔄 الدورة: <strong id="cycleBadge">0</strong></span>
       <button id="stepBtn" class="secondary">⚡ تنفيذ خطوة الآن</button>
+      <button id="toggleAutoInventBtn" class="secondary">🤖 ابتكار تلقائي: متوقف</button>
       <button id="toggleAutoBtn" class="warn">⏸️ إيقاف مؤقت</button>
     </div>
   </header>
 
   <div class="container">
+    <div id="builtinBanner" style="display:none;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.4);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:0.84rem;line-height:1.5;">
+      💡 <strong>ملاحظة مهمّة:</strong> المكتب يعمل الآن على <strong>المحرك التجريبي المدمج (بدون API Key)</strong>. لتشغيل حوار ذكي طبيعي وبناء تطبيقات وفيديوهات مخصصة 100% بالذكاء الاصطناعي مجاناً، افتح تبويب <strong>⚙️ التشغيل المجاني 24/7</strong> وأضف مفتاح <strong>Google Gemini</strong> أو <strong>Groq</strong> المجاني.
+    </div>
     <div class="stats-bar">
       <div class="stat-card"><div><small>التطبيقات المنجزة</small><strong id="statApps">0</strong></div><div class="stat-icon">📱</div></div>
       <div class="stat-card"><div><small>تعديلات QA الذاتية</small><strong id="statFixes">0</strong></div><div class="stat-icon">🛠️</div></div>
@@ -531,12 +535,30 @@
 
     <!-- TAB 1: LIVE OFFICE -->
     <section id="tab-office" class="tab-panel active">
+      <div class="panel-box" style="margin-bottom:14px;border-color:rgba(56,189,248,0.45);">
+        <h3 style="margin-bottom:10px;">
+          <span>🎙️ تحدّث مع أي موظف مباشرة (صوت + كتابة)</span>
+          <label style="font-size:0.78rem;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:6px;cursor:pointer;">
+            <input type="checkbox" id="voiceReplyToggle" checked />
+            🔊 الموظف يرد بالصوت + الكتابة
+          </label>
+        </h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <select id="chatAgentSelect" style="min-width:210px;"></select>
+          <input id="chatMsgInput" style="flex:1;min-width:200px;" placeholder="تكلّم أو اكتب للموظف (مثال: ازيك يا طارق / اعمل تطبيق مهام / اعمل فيديو)..." />
+          <button id="micBtn" class="warn" title="اضغط وتحدث بصوتك">🎤 تحدّث</button>
+          <button id="chatSendBtn" class="success">إرسال ↵</button>
+        </div>
+        <div id="micStatus" style="font-size:0.76rem;color:var(--amber);margin-top:6px;display:none;"></div>
+        <div id="chatThread" style="margin-top:10px;display:none;max-height:210px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
+      </div>
+
       <div class="office-layout">
         <div class="floorplan">
           <div class="floor-header">
             <div>
               <strong>🗺️ خريطة المكتب التفاعلية</strong>
-              <span style="font-size:0.8rem;color:var(--muted);margin-right:8px;">كل موظف ينفذ مهمته ويسلمها للقسم التالي تلقائياً</span>
+              <span style="font-size:0.8rem;color:var(--muted);margin-right:8px;">اضغط "💬 خاطبه" على أي موظف للتحدث معه فوراً</span>
             </div>
           </div>
           <div class="rooms-grid" id="desksGrid"></div>
@@ -550,17 +572,6 @@
           <div class="panel-box">
             <h3>💬 قاعة الاجتماعات والتنسيق <span style="font-size:0.75rem;color:var(--muted)">بدون تدخلك</span></h3>
             <div class="feed-list" id="meetingsFeed"></div>
-          </div>
-          <div class="panel-box">
-            <h3>🗣️ تحدّث مع أي موظف مباشرة</h3>
-            <div style="display:flex;gap:6px;flex-direction:column;">
-              <select id="chatAgentSelect"></select>
-              <div style="display:flex;gap:6px;">
-                <input id="chatMsgInput" style="flex:1;" placeholder="اكتب توجيهاً أو سؤالاً (مثال: اعمل تطبيق حاسبة أو فيديو جديد)..." />
-                <button id="chatSendBtn" class="success">إرسال</button>
-              </div>
-              <div id="chatReplyBox" style="display:none;background:var(--panel-2);border:1px solid var(--accent);border-radius:10px;padding:9px;font-size:0.82rem;line-height:1.5;"></div>
-            </div>
           </div>
         </div>
       </div>
@@ -666,6 +677,7 @@
               ♻️ استرجاع نسخة
               <input id="restoreFileInput" type="file" accept=".json" style="display:none;" />
             </label>
+            <button id="resetOfficeBtn" class="warn">🧹 تصفير المكتب والبدء من الصفر</button>
           </div>
         </div>
 
@@ -726,7 +738,16 @@
       currentState = state;
       document.getElementById('officeTitle').textContent = state.officeName || 'المكتب الافتراضي الذكي 24/7';
       document.getElementById('cycleBadge').textContent = state.cycleCount || 0;
-      document.getElementById('providerBadge').textContent = state.llmConfig?.provider || 'builtin';
+      const prov = state.llmConfig?.provider || 'builtin';
+      document.getElementById('providerBadge').textContent = prov;
+      const banner = document.getElementById('builtinBanner');
+      if (banner) banner.style.display = prov === 'builtin' ? 'block' : 'none';
+
+      const inventBtn = document.getElementById('toggleAutoInventBtn');
+      if (inventBtn) {
+        inventBtn.textContent = state.autoInventProjects ? '🤖 ابتكار تلقائي: شغال' : '🤖 ابتكار تلقائي: بأمرك فقط';
+        inventBtn.className = state.autoInventProjects ? 'success' : 'secondary';
+      }
 
       const dot = document.getElementById('statusDot');
       const autoLabel = document.getElementById('autopilotLabel');
@@ -1159,6 +1180,18 @@
       e.target.value = '';
     };
 
+    document.getElementById('toggleAutoInventBtn').onclick = async () => {
+      await postJson('/api/settings', { autoInventProjects: !currentState?.autoInventProjects });
+    };
+
+    document.getElementById('resetOfficeBtn').onclick = async () => {
+      if (!confirm('هل تريد تصفير كل المشاريع التجريبية والبدء من الصفر (0)؟')) return;
+      await postJson('/api/reset');
+      document.getElementById('chatThread').innerHTML = '';
+      document.getElementById('chatThread').style.display = 'none';
+      alert('✅ تم تصفير المكتب بنجاح! الآن الفريق بانتظار أول أمر منك.');
+    };
+
     window.focusAgentChat = function (agentId) {
       const sel = document.getElementById('chatAgentSelect');
       if (sel) sel.value = agentId;
@@ -1169,17 +1202,103 @@
       }
     };
 
-    document.getElementById('chatSendBtn').onclick = async () => {
+    function speakArabic(text) {
+      if (!document.getElementById('voiceReplyToggle')?.checked) return;
+      if (!window.speechSynthesis || !text) return;
+      try {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'ar-EG';
+        utter.rate = 1.0;
+        window.speechSynthesis.speak(utter);
+      } catch {}
+    }
+
+    function appendChatBubble(sender, text, isOwner) {
+      const thread = document.getElementById('chatThread');
+      thread.style.display = 'flex';
+      const div = document.createElement('div');
+      div.style.cssText = isOwner
+        ? 'align-self:flex-start;background:rgba(99,102,241,0.22);border:1px solid rgba(99,102,241,0.45);border-radius:10px;padding:8px 12px;font-size:0.84rem;max-width:88%;'
+        : 'align-self:flex-end;background:var(--panel-2);border:1px solid var(--accent);border-radius:10px;padding:8px 12px;font-size:0.84rem;max-width:92%;line-height:1.5;';
+      div.innerHTML = `<strong style="color:${isOwner ? '#a5b4fc' : '#38bdf8'};">${esc(sender)}:</strong> ${esc(text)}`;
+      thread.appendChild(div);
+      thread.scrollTop = thread.scrollHeight;
+    }
+
+    async function sendChatMessage(customText) {
       const agentId = document.getElementById('chatAgentSelect').value || 'ceo';
       const inp = document.getElementById('chatMsgInput');
-      const msg = inp.value.trim();
+      const msg = (customText ?? inp.value).trim();
       if (!msg) return;
-      const box = document.getElementById('chatReplyBox');
-      box.style.display = 'block';
-      box.textContent = '⏳ جاري انتظار رد الموظف...';
-      inp.value = '';
-      const res = await postJson('/api/chat', { agentId, message: msg });
-      box.innerHTML = `<strong>${esc(res.agentName || 'الموظف')}:</strong> ${esc(res.reply || '')}`;
+      if (!customText) inp.value = '';
+      appendChatBubble('أنت', msg, true);
+      const sendBtn = document.getElementById('chatSendBtn');
+      sendBtn.disabled = true;
+      sendBtn.textContent = '...';
+      try {
+        const res = await postJson('/api/chat', { agentId, message: msg });
+        const reply = res.reply || 'تم الاستلام.';
+        appendChatBubble(res.agentName || 'الموظف', reply, false);
+        speakArabic(reply);
+      } catch (err) {
+        appendChatBubble('النظام', 'تعذر الاتصال بالسيرفر، حاول مجدداً.', false);
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'إرسال ↵';
+      }
+    }
+
+    document.getElementById('chatSendBtn').onclick = () => sendChatMessage();
+    document.getElementById('chatMsgInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        sendChatMessage();
+      }
+    });
+
+    // Voice Input via Web Speech API (Chrome Android / Desktop)
+    const micBtn = document.getElementById('micBtn');
+    const micStatus = document.getElementById('micStatus');
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let isListening = false;
+
+    micBtn.onclick = () => {
+      if (!SpeechRec) {
+        alert('التعرف الصوتي غير مدعوم في هذا المتصفح. افتح الرابط في متصفح Google Chrome.');
+        return;
+      }
+      if (isListening && recognition) {
+        recognition.stop();
+        return;
+      }
+      recognition = new SpeechRec();
+      recognition.lang = 'ar-EG';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      isListening = true;
+      micBtn.textContent = '⏹️ أستمع لك...';
+      micBtn.className = 'success';
+      micStatus.style.display = 'block';
+      micStatus.textContent = '🎤 تكلّم الآن باللغة العربية...';
+
+      recognition.onresult = (event) => {
+        const transcript = event.results?.[0]?.[0]?.transcript || '';
+        if (transcript) {
+          sendChatMessage(transcript);
+        }
+      };
+      recognition.onerror = (err) => {
+        micStatus.textContent = '⚠️ لم يتم التقاط الصوت (' + (err.error || 'تأكد من إذن المايكروفون') + ')';
+      };
+      recognition.onend = () => {
+        isListening = false;
+        micBtn.textContent = '🎤 تحدّث';
+        micBtn.className = 'warn';
+        setTimeout(() => { if (!isListening) micStatus.style.display = 'none'; }, 2500);
+      };
+      recognition.start();
     };
 
     // Connect SSE stream

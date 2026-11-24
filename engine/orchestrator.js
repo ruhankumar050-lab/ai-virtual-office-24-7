@@ -7,7 +7,8 @@ const templates = require('./templates');
 const DEFAULT_STATE = {
   officeName: 'مكتب الذكاء الاصطناعي المستقل 24/7',
   autopilotEnabled: true,
-  tickIntervalMs: 4000,
+  autoInventProjects: false,
+  tickIntervalMs: 5000,
   cycleCount: 0,
   llmConfig: {
     provider: process.env.AI_PROVIDER || 'builtin', // builtin | gemini | groq | openrouter | ollama
@@ -167,6 +168,14 @@ class VirtualOfficeOrchestrator {
 
     this.isTicking = true;
     try {
+      const activeTask = this.state.tasks.find((t) => t.status !== 'completed');
+      const hasQueued = this.state.customQueue.length > 0;
+
+      if (!activeTask && !hasQueued && !this.state.autoInventProjects && !force) {
+        // Idle peacefully until user assigns a project or turns on autoInventProjects
+        return;
+      }
+
       this.state.cycleCount += 1;
 
       // 1. Periodic HR Audit & Auto-Hiring
@@ -174,9 +183,7 @@ class VirtualOfficeOrchestrator {
         await this.runHRCheck();
       }
 
-      // 2. Find an active non-completed task to advance one autonomous stage
-      const activeTask = this.state.tasks.find((t) => t.status !== 'completed');
-
+      // 2. Advance active task or start next queued/invented project
       if (!activeTask) {
         await this.ceoCreateNextProject();
       } else {
@@ -628,8 +635,19 @@ ${currentHtml}`;
       if (typeof payload.llmConfig.backupModel === 'string') next.backupModel = payload.llmConfig.backupModel.trim();
       this.state.llmConfig = next;
     }
+    if (typeof payload.autoInventProjects === 'boolean') {
+      this.state.autoInventProjects = payload.autoInventProjects;
+    }
     this.addLog('system', 'الإعدادات', `⚙️ تم تحديث إعدادات المزود (${this.state.llmConfig.provider}) وسرعة الدورة.`);
     if (this.state.autopilotEnabled) this.scheduleNextTick();
+    this.persistAndBroadcast();
+  }
+
+  resetOffice() {
+    const savedLlm = structuredClone(this.state.llmConfig);
+    this.state = structuredClone(DEFAULT_STATE);
+    this.state.llmConfig = savedLlm;
+    this.addLog('system', 'النظام', '🧹 تم تصفير المكتب والبدء من الصفر — الفريق بانتظار أول توجيه منك (أو تفعيل الابتكار التلقائي).');
     this.persistAndBroadcast();
   }
 
@@ -725,31 +743,50 @@ ${currentHtml}`;
     const agent = this.state.agents.find((a) => a.id === agentId) || this.state.agents[0];
     if (!agent) throw new Error('Agent not found');
 
-    this.setAgentState(agent.id, 'thinking', `يرد على رسالة المالك: ${message.slice(0, 40)}`, 'أقرأ توجيهك الآن 💬');
+    this.setAgentState(agent.id, 'thinking', `يرد على رسالة المالك: ${message.slice(0, 40)}`, 'أسمعك الآن... 💬');
     this.persistAndBroadcast();
+
+    const lower = message.toLowerCase();
+    const isTaskOrder =
+      lower.includes('فيديو') ||
+      lower.includes('مونتاج') ||
+      lower.includes('تطبيق') ||
+      lower.includes('برنامج') ||
+      lower.includes('موقع') ||
+      lower.includes('ابني') ||
+      lower.includes('اعمل') ||
+      lower.includes('صمم');
+
+    if (isTaskOrder && (agent.role === 'CEO' || agent.role === 'APP_DEV' || agent.role === 'VIDEO_CREATOR')) {
+      const isVideo = lower.includes('فيديو') || lower.includes('مونتاج');
+      this.enqueueDirective({ type: isVideo ? 'video' : 'app', title: message.slice(0, 80), description: message });
+    }
 
     const contextSummary = `حالة المكتب: التطبيقات=${this.state.stats.totalAppsBuilt}، الفيديوهات=${this.state.stats.totalVideosProduced}، الموظفون=${this.state.agents.length}.`;
     const fallbackReply = () => {
-      const lower = message.toLowerCase();
-      if (agent.role === 'CEO' && (lower.includes('فيديو') || lower.includes('تطبيق') || lower.includes('ابني') || lower.includes('اعمل'))) {
-        const isVideo = lower.includes('فيديو');
-        this.enqueueDirective({ type: isVideo ? 'video' : 'app', title: message.slice(0, 80), description: message });
-        return `أهلاً بك يا فندم! استلمت توجيهك فوراً: "${message}". أضفت المشروع الآن لقائمة التنفيذ وسيبدأ الفريق بالعمل والمراجعة والتعديل تلقائياً بدون إزعاجك.`;
+      if (isTaskOrder) {
+        return `حاضر يا فندم! أنا ${agent.shortName}، استلمت طلبك: "${message}". أضفته الآن لقائمة العمل وهيبدأ الفريق ينفذه ويراجعه ويعدله ذاتياً في ثوانٍ بدون ما يرجع لك. (ملاحظة: لتوليد أفكار وتطبيقات مخصصة بالكامل، ضع مفتاح Gemini أو Groq المجاني من الإعدادات).`;
+      }
+      if (lower.includes('اهلا') || lower.includes('سلام') || lower.includes('ازيك') || lower.includes('صباح') || lower.includes('مساء') || lower.includes('عامل ايه')) {
+        return `أهلاً بك يا فندم! أنا ${agent.name}، كل أموري تمام وجاهز لتنفيذ أوامرك. لو حابب نبدأ مشروع تطبيق أو فيديو قولي فوراً بصوتك أو بالكتابة!`;
+      }
+      if (lower.includes('بتعمل') || lower.includes('شغال') || lower.includes('اخبار') || lower.includes('وضع')) {
+        return `أنا ${agent.name} في ${agent.room}. حاليّاً أنجزنا ${this.state.stats.totalAppsBuilt} تطبيقات و${this.state.stats.totalVideosProduced} فيديوهات، وحالتي الآن: ${agent.currentTask}.`;
       }
       if (agent.role === 'HR') {
-        return `أهلاً بك! أنا ${agent.name}. لدينا حالياً ${this.state.agents.length} موظفين نشطين بجودة متوسطة 96%، وأراقب الأحمال لتعيين أي تخصص جديد تحتاجه فوراً.`;
+        return `أهلاً بك! أنا ${agent.name}. لدينا حالياً ${this.state.agents.length} موظفين جاهزين. تحب أوظف لك تخصص جديد أو أتابع أداء حد معين؟`;
       }
       if (agent.role === 'QA_FIXER') {
-        return `مرحباً! أنا ${agent.name}. قمت حتى الآن بفحص وتعديل ${this.state.stats.totalAutoFixes} تطبيقاً ذاتياً إلى الإصدار v2، وأي تطبيق جديد أفحصه وأصلح أخطاءه قبل الاعتماد.`;
+        return `مرحباً! أنا ${agent.name}. أي تطبيق يعمله المبرمج بفحصه وأصلح أخطاءه وأعدله بنفسي إلى v2 قبل التسليم. حالياً أنجزت ${this.state.stats.totalAutoFixes} تعديل ذاتي.`;
       }
       if (agent.role === 'VIDEO_CREATOR' || agent.role === 'VIDEO_EDITOR') {
-        return `أهلاً بك! أنتجنا وحررنا حتى الآن ${this.state.stats.totalVideosProduced} فيديو كامل مع انتقالات وترجمة. يمكنك مشاهدتها وتحميلها من تبويب المخرجات.`;
+        return `أهلاً بك! أنا ${agent.name}. لو طلبت مني أو من أ. طارق فيديو جديد هكتب السيناريو وأعمل المونتاج والترجمة وتقدر تحمله فيديو WebM جاهز.`;
       }
-      return `تحت أمرك! أنا ${agent.name} (${agent.room}). استلمت رسالتك: "${message}"، وأعمل حالياً على: ${agent.currentTask}.`;
+      return `تحت أمرك يا فندم! أنا ${agent.name}. استلمت كلامك: "${message}". لو ده أمر شغل قولي "اعمل تطبيق..." أو "اعمل فيديو..." وهبدأ فوراً. (ملحوظة: لتشغيل حوار ذكي مفتوح، أضف مفتاح Gemini أو Groq المجاني من تبويب الإعدادات).`;
     };
 
     const res = await this.generateWithLLMOrFallback(
-      `${agent.systemPrompt}\n${contextSummary}\nأجب باحترافية وباختصار باللغة العربية بصفتك ${agent.name}.`,
+      `${agent.systemPrompt}\n${contextSummary}\nأجب باللهجة المصرية الودودة والاحترافية باختصار بصفتك ${agent.name}.`,
       message,
       fallbackReply
     );
@@ -758,9 +795,9 @@ ${currentHtml}`;
     this.addMeetingMessage('أنت (المالك)', 'Owner', `@${agent.shortName}: ${message}`);
     this.addMeetingMessage(agent.shortName, agent.role, reply);
     this.addLog(agent.id, agent.shortName, `💬 رد على المالك: ${reply.slice(0, 90)}${reply.length > 90 ? '...' : ''}`);
-    this.setAgentState(agent.id, 'idle', 'جاهز للمهمة التالية', reply.slice(0, 65));
+    this.setAgentState(agent.id, 'idle', 'جاهز لتوجيهك القادم', reply.slice(0, 70));
     this.persistAndBroadcast();
-    return { agent, reply };
+    return { agent, reply, usedProvider: res.usedProvider };
   }
 }
 

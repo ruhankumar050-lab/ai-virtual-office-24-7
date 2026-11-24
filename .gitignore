@@ -3,4 +3,5 @@ node_modules/
 .env.local
 .render-secrets.json
 ai-virtual-office-botkeep.zip
-data/*.tmp
+data/
+deliverables/
