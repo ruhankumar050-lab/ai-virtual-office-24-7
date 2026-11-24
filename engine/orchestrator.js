@@ -37,6 +37,14 @@ const DEFAULT_STATE = {
 class VirtualOfficeOrchestrator {
   constructor() {
     this.state = storage.loadState(DEFAULT_STATE);
+    if (process.env.AI_PROVIDER && process.env.AI_API_KEY && (this.state.llmConfig?.provider === 'builtin' || !this.state.llmConfig?.apiKey)) {
+      this.state.llmConfig = {
+        ...this.state.llmConfig,
+        provider: process.env.AI_PROVIDER,
+        apiKey: process.env.AI_API_KEY,
+        model: process.env.AI_MODEL || this.state.llmConfig?.model || '',
+      };
+    }
     // Reset any mid-flight busy states after a server restart
     for (const a of this.state.agents) {
       if (a.status !== 'idle') a.status = 'idle';
