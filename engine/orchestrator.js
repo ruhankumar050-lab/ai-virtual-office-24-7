@@ -787,7 +787,7 @@ class VirtualOfficeOrchestrator {
         const outDir = path.join(projectDir, 'web');
         fs.mkdirSync(outDir, { recursive: true });
         const html = templates.buildBuiltinAppV1({ title: `بوابة الويب: ${job.project_title}`, topic: payload.lessonText || job.project_title });
-        const patched = templates.applyQAPatchesToApp(html).html;
+        const patched = templates.runStaticQAAndAutoFix(html, job.project_title).fixedHtml;
         const safety = scanGeneratedCodeSafety(patched);
         if (!safety.safe) throw new Error(`ملاحظة أمان ويب: ${safety.findings.join('، ')}`);
         const filePath = path.join(outDir, 'portal.html');
@@ -1294,10 +1294,11 @@ class VirtualOfficeOrchestrator {
     const latestDelivs = (this.state.deliverables || []).slice(0, 5).map((d) => `- ${d.title} (${d.type})`);
     const openBugs = (dbOv.bugReports || []).filter((b) => b.status === 'open').length;
     const completedTasks = (dbOv.dbTasks || []).filter((t) => t.status === 'completed').length;
+    const failedTasks = (dbOv.dbTasks || []).filter((t) => t.status === 'failed').length;
     const activeTasks = (dbOv.dbTasks || []).filter((t) => ['queued', 'in_progress', 'testing', 'waiting_dependency'].includes(t.status)).length;
     return [
       `المشاريع المسجلة: ${dbOv.projects.length} (منها مكتمل: ${dbOv.projects.filter((p) => p.status === 'completed').length})`,
-      `المهام في القاعدة: مكتملة=${completedTasks} | نشطة/منتظرة=${activeTasks} | تقارير أخطاء مفتوحة=${openBugs}`,
+      `المهام في القاعدة: مكتملة=${completedTasks} | نشطة/منتظرة=${activeTasks} | فاشلة=${failedTasks} | تقارير أخطاء مفتوحة=${openBugs}`,
       `المخرجات الجاهزة للتحميل: ${this.state.deliverables.length}`,
       `الموظفون العاملون حالياً (${busy.length}/${this.state.agents.length}): ${busy.length ? busy.join('؛ ') : 'الجميع جاهز بانتظار أمر جديد'}`,
       `المزود الأساسي (الجميع): ${this.state.llmConfig?.provider} (${this.state.llmConfig?.model || 'auto'}) | مزود العصفورة السريع: ${this.state.llmConfig?.geminiApiKey ? 'gemini' : this.state.llmConfig?.provider}`,
