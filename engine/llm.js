@@ -15,7 +15,7 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
 
   if (provider === 'gemini') {
     if (!apiKey) throw new Error('Gemini API key missing');
-    const chosenModel = model || 'gemini-2.5-flash';
+    const chosenModel = model || 'gemini-flash-lite-latest';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(chosenModel)}:generateContent?key=${encodeURIComponent(apiKey)}`;
     const res = await fetch(url, {
       method: 'POST',
@@ -128,23 +128,35 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
 }
 
 async function callExternalLLM(providerConfig, systemPrompt, userPrompt, options = {}) {
+  const hasBackup =
+    providerConfig.backupProvider &&
+    providerConfig.backupProvider !== 'none' &&
+    providerConfig.backupProvider !== 'builtin' &&
+    providerConfig.backupApiKey;
+
+  const primaryCfg = {
+    provider: providerConfig.provider,
+    apiKey: providerConfig.apiKey,
+    model: providerConfig.model,
+    baseUrl: providerConfig.baseUrl,
+  };
+  const backupCfg = {
+    provider: providerConfig.backupProvider,
+    apiKey: providerConfig.backupApiKey,
+    model: providerConfig.backupModel,
+    baseUrl: providerConfig.baseUrl,
+  };
+
+  const firstCfg = options.preferBackup && hasBackup ? backupCfg : primaryCfg;
+  const secondCfg = options.preferBackup && hasBackup ? primaryCfg : backupCfg;
+
   try {
-    return await callSingleProvider(providerConfig, systemPrompt, userPrompt, options);
-  } catch (primaryErr) {
-    if (providerConfig.backupProvider && providerConfig.backupProvider !== 'none' && providerConfig.backupProvider !== 'builtin') {
-      return await callSingleProvider(
-        {
-          provider: providerConfig.backupProvider,
-          apiKey: providerConfig.backupApiKey,
-          model: providerConfig.backupModel,
-          baseUrl: providerConfig.baseUrl,
-        },
-        systemPrompt,
-        userPrompt,
-        options
-      );
+    return await callSingleProvider(firstCfg, systemPrompt, userPrompt, options);
+  } catch (firstErr) {
+    if (hasBackup) {
+      return await callSingleProvider(secondCfg, systemPrompt, userPrompt, options);
     }
-    throw primaryErr;
+    throw firstErr;
   }
 }
 

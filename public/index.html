@@ -739,7 +739,8 @@
       document.getElementById('officeTitle').textContent = state.officeName || 'المكتب الافتراضي الذكي 24/7';
       document.getElementById('cycleBadge').textContent = state.cycleCount || 0;
       const prov = state.llmConfig?.provider || 'builtin';
-      document.getElementById('providerBadge').textContent = prov;
+      const bProv = state.llmConfig?.backupProvider;
+      document.getElementById('providerBadge').textContent = (bProv && bProv !== 'none' && bProv !== 'builtin') ? `${prov} + ${bProv}` : prov;
       const banner = document.getElementById('builtinBanner');
       if (banner) banner.style.display = prov === 'builtin' ? 'block' : 'none';
 

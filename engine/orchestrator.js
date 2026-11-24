@@ -45,6 +45,14 @@ class VirtualOfficeOrchestrator {
         model: process.env.AI_MODEL || this.state.llmConfig?.model || '',
       };
     }
+    if (process.env.AI_BACKUP_PROVIDER && process.env.AI_BACKUP_API_KEY && (this.state.llmConfig?.backupProvider === 'none' || !this.state.llmConfig?.backupApiKey)) {
+      this.state.llmConfig = {
+        ...this.state.llmConfig,
+        backupProvider: process.env.AI_BACKUP_PROVIDER,
+        backupApiKey: process.env.AI_BACKUP_API_KEY,
+        backupModel: process.env.AI_BACKUP_MODEL || this.state.llmConfig?.backupModel || '',
+      };
+    }
     // Reset any mid-flight busy states after a server restart
     for (const a of this.state.agents) {
       if (a.status !== 'idle') a.status = 'idle';
@@ -151,13 +159,13 @@ class VirtualOfficeOrchestrator {
     }
   }
 
-  async generateWithLLMOrFallback(systemPrompt, userPrompt, fallbackFn) {
+  async generateWithLLMOrFallback(systemPrompt, userPrompt, fallbackFn, options = {}) {
     const cfg = this.state.llmConfig;
     if (!cfg || cfg.provider === 'builtin') {
       return { text: null, usedProvider: 'builtin', fallback: fallbackFn() };
     }
     try {
-      const res = await callExternalLLM(cfg, systemPrompt, userPrompt);
+      const res = await callExternalLLM(cfg, systemPrompt, userPrompt, options);
       return { ...res, fallback: null };
     } catch (err) {
       this.addLog(
@@ -492,8 +500,11 @@ ${currentHtml}`;
     const prompt = `اكتب سيناريو فيديو قصير من 4 مشاهد حول "${task.title}" (${task.description}) وأرجعه بصيغة JSON فقط بهذا الهيكل:
 {"title":"...","topic":"...","musicMood":"...","scenes":[{"id":1,"durationSec":4,"heading":"عنوان قصير","subtitle":"وصف مختصر","icon":"🚀","bgStart":"#0f172a","bgEnd":"#312e81","accent":"#38bdf8","voiceover":"النص الصوتي بالعربية"}]}`;
 
-    const res = await this.generateWithLLMOrFallback(creator.systemPrompt, prompt, () =>
-      templates.buildBuiltinVideoV1({ title: task.title, topic: task.topic })
+    const res = await this.generateWithLLMOrFallback(
+      creator.systemPrompt,
+      prompt,
+      () => templates.buildBuiltinVideoV1({ title: task.title, topic: task.topic }),
+      { preferBackup: true }
     );
 
     let videoData = res.fallback;
@@ -809,10 +820,12 @@ ${currentHtml}`;
       return `تحت أمرك يا فندم! أنا ${agent.name}. استلمت كلامك: "${message}". لو ده أمر شغل قولي "اعمل تطبيق..." أو "اعمل فيديو..." وهبدأ فوراً. (ملحوظة: لتشغيل حوار ذكي مفتوح، أضف مفتاح Gemini أو Groq المجاني من تبويب الإعدادات).`;
     };
 
+    const preferCreativeAI = agent.role === 'VIDEO_CREATOR' || agent.role === 'VIDEO_EDITOR' || agent.role === 'HR';
     const res = await this.generateWithLLMOrFallback(
       `${agent.systemPrompt}\n${contextSummary}\nأجب باللهجة المصرية الودودة والاحترافية باختصار بصفتك ${agent.name}.`,
       message,
-      fallbackReply
+      fallbackReply,
+      { preferBackup: preferCreativeAI }
     );
 
     const reply = res.text ? res.text.trim() : res.fallback;
