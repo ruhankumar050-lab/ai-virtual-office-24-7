@@ -36,6 +36,16 @@ const PROVIDER_CATALOG = [
     note: 'بديل احتياطي مرن يجمع نماذج مفتوحة مجانية.',
   },
   {
+    id: 'arena',
+    name: 'Arena API (api.arena.ai)',
+    tier: 'حسب رصيد مساحة العمل في platform.arena.ai',
+    models: [
+      { id: 'coding-router-preview', roleFit: ['coding', 'reasoning'], limits: 'مضبوط لأدوات البرمجة؛ وللمهام العامة اختر نموذجاً من /v1/models' },
+    ],
+    officialDocs: 'https://platform.arena.ai/docs/api',
+    note: 'يتطلب مفتاح API من platform.arena.ai/dashboard/keys ورصيداً مفعلاً في مساحة العمل.',
+  },
+  {
     id: 'ollama',
     name: 'Ollama (محلي / خادم خاص)',
     tier: 'مجاني غير محدود على جهازك أو VPS قوي',

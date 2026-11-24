@@ -331,15 +331,17 @@
               <option value="builtin">المحرك المدمج (بدون API)</option>
               <option value="groq">Groq Cloud (openai/gpt-oss-120b)</option>
               <option value="gemini">Google Gemini (gemini-flash-lite-latest)</option>
+              <option value="arena">Arena API (api.arena.ai — يتطلب مفتاحك)</option>
               <option value="openrouter">OpenRouter (:free)</option>
               <option value="ollama">Ollama محلي</option>
             </select>
             <input id="cfgApiKey" type="password" placeholder="أدخل مفتاح API جديد لتحديثه (لن يظهر بعد الحفظ)" />
-            <input id="cfgModel" placeholder="اسم الموديل (اختياري)" />
+            <input id="cfgModel" placeholder="اسم الموديل (اختياري — مثل coding-router-preview لـ Arena)" />
             <select id="cfgBackupProvider">
               <option value="none">بدون احتياطي</option>
               <option value="gemini">Google Gemini (احتياطي / إبداع)</option>
               <option value="groq">Groq Cloud</option>
+              <option value="arena">Arena API (api.arena.ai)</option>
               <option value="openrouter">OpenRouter</option>
             </select>
             <input id="cfgBackupApiKey" type="password" placeholder="مفتاح المزود الاحتياطي (اختياري)" />

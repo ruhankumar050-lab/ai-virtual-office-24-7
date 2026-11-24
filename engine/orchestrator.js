@@ -98,6 +98,13 @@ class VirtualOfficeOrchestrator {
         backupModel: process.env.AI_BACKUP_MODEL || this.state.llmConfig?.backupModel || '',
       };
     }
+    if (process.env.ARENA_API_KEY && process.env.AI_PROVIDER === 'arena' && !this.state.llmConfig?.apiKey) {
+      this.state.llmConfig = {
+        ...this.state.llmConfig,
+        provider: 'arena',
+        apiKey: process.env.ARENA_API_KEY,
+      };
+    }
   }
 
   mergeExpandedAgents() {
@@ -1249,7 +1256,7 @@ class VirtualOfficeOrchestrator {
       const contextSummary = `حالة الشركة: مشاريع=${dbOverview.projects.length}، تطبيقات=${this.state.stats.totalAppsBuilt}، فيديوهات=${this.state.stats.totalVideosProduced}، ألعاب=${this.state.stats.totalGamesBuilt}، ملازم=${this.state.stats.totalBookletsBuilt}.`;
       const strictRules = `قواعد صارمة جداً يجب الالتزام بها في ردك:
 1. ممنوع منعاً باتاً إعطاء أي مواعيد أو وعود زمنية وهمية مثل "خلال ساعتين" أو "خلال 3 أيام" أو "أسبوعين" أو "هرسله لك لاحقاً".
-2. إذا سأل المالك عن ربط موقع Arena.ai، وضح بصدق أن Arena.ai لا يوفر API عاماً للربط المباشر هنا، وأن المكتب يعتمد فعلياً على Groq وGoogle Gemini وOpenRouter.
+2. إذا سأل المالك عن ربط Arena.ai، وضح بصدق أن المكتب يدعم الآن بوابة Arena API الرسمية (https://api.arena.ai/v1) ضمن قائمة المزودات، ولكن لا يوجد مفتاح عام مجاني مشترك — يحتاج المالك فقط إلى إنشاء مفتاحه الشخصي من https://platform.arena.ai/dashboard/keys ولصقه في تبويب الإعدادات.
 3. ما تستطيع تنفيذه فوراً هنا خلال ثوانٍ هو: عروض PowerPoint (.pptx)، ملازم PDF و Word (.docx)، فيديوهات MP4، تطبيقات ويب HTML، وألعاب تعليمية؛ أما الصور الفوتوغرافية بالذكاء الاصطناعي فتتطلب إضافة مفتاح HuggingFace مجاني (HF_API_KEY) في الإعدادات.
 4. أجب باللهجة المصرية الاحترافية المباشرة في 3 أسطر كحد أقصى.`;
 

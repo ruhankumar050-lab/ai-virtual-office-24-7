@@ -5,7 +5,8 @@
  * 2. "gemini" (Google AI Studio Free Tier)
  * 3. "groq" (Groq Cloud Free Tier)
  * 4. "openrouter" (OpenRouter :free models)
- * 5. "ollama" (Local unlimited free models)
+ * 5. "arena" (Arena API Gateway — https://api.arena.ai/v1)
+ * 6. "ollama" (Local unlimited free models)
  */
 
 async function callSingleProvider(providerConfig, systemPrompt, userPrompt, options = {}) {
@@ -97,6 +98,36 @@ async function callSingleProvider(providerConfig, systemPrompt, userPrompt, opti
     const text = data?.choices?.[0]?.message?.content || '';
     if (!text) throw new Error('Empty OpenRouter response');
     return { text, usedProvider: `openrouter:${chosenModel}` };
+  }
+
+  if (provider === 'arena') {
+    if (!apiKey) throw new Error('Arena API key missing');
+    const chosenModel = model || 'coding-router-preview';
+    const endpoint = (baseUrl && baseUrl.includes('arena.ai') ? baseUrl : 'https://api.arena.ai/v1').replace(/\/$/, '');
+    const res = await fetch(`${endpoint}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: chosenModel,
+        temperature,
+        max_tokens: maxTokens,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+      }),
+    });
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Arena HTTP ${res.status}: ${errText.slice(0, 180)}`);
+    }
+    const data = await res.json();
+    const text = data?.choices?.[0]?.message?.content || '';
+    if (!text) throw new Error('Empty Arena response');
+    return { text, usedProvider: `arena:${chosenModel}` };
   }
 
   if (provider === 'ollama') {
