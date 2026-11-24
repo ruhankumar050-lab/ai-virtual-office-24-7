@@ -3,492 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>المكتب الافتراضي الذكي 24/7 — AI Virtual Office</title>
+  <title>شركة الذكاء الاصطناعي المستقلة 24/7 — أ. طارق وفريق العمل</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "/vendor/three/build/three.module.js",
+      "three/addons/": "/vendor/three/examples/jsm/"
+    }
+  }
+  </script>
   <style>
     :root {
-      --bg: #070b14;
+      --bg: #070b17;
       --panel: #0f172a;
-      --panel-2: #162036;
-      --border: #24324d;
+      --panel-2: #172136;
+      --border: #253352;
       --text: #f1f5f9;
       --muted: #94a3b8;
       --accent: #38bdf8;
       --indigo: #6366f1;
-      --emerald: #10b981;
+      --green: #10b981;
       --amber: #f59e0b;
       --pink: #ec4899;
-      --purple: #8b5cf6;
-      --danger: #ef4444;
+      --red: #ef4444;
     }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
-      background: radial-gradient(circle at top right, #111c38 0%, var(--bg) 55%);
-      color: var(--text);
-      min-height: 100vh;
-    }
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      background: rgba(7, 11, 20, 0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .brand-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--indigo), var(--accent));
-      display: grid;
-      place-items: center;
-      font-size: 1.4rem;
-      box-shadow: 0 0 24px rgba(56, 189, 248, 0.28);
-    }
-    .brand h1 {
-      margin: 0;
-      font-size: 1.1rem;
-      font-weight: 800;
-    }
-    .brand small {
-      color: var(--muted);
-      display: block;
-      font-size: 0.78rem;
-    }
-    .header-actions {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--panel-2);
-      border: 1px solid var(--border);
-      font-size: 0.8rem;
-      color: var(--text);
-    }
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--emerald);
-      box-shadow: 0 0 8px var(--emerald);
-      animation: pulse 1.6s infinite;
-    }
-    .dot.paused {
-      background: var(--amber);
-      box-shadow: none;
-      animation: none;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(1.25); }
-    }
-    button, .btn {
-      font-family: inherit;
-      border: none;
-      border-radius: 10px;
-      padding: 8px 14px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      color: #fff;
-      background: var(--indigo);
-      transition: transform 0.14s ease, opacity 0.14s ease;
-    }
-    button:hover { transform: translateY(-1px); opacity: 0.94; }
-    button.secondary { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); }
-    button.success { background: var(--emerald); color: #052e16; }
-    button.warn { background: var(--amber); color: #1f1300; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: radial-gradient(circle at top right, #172044, var(--bg) 52%); color: var(--text); min-height: 100vh; }
+    header { position: sticky; top: 0; z-index: 50; background: rgba(7, 11, 23, 0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--indigo), var(--accent)); display: grid; place-items: center; font-size: 20px; }
+    .brand h1 { margin: 0; font-size: 1.02rem; }
+    .brand small { color: var(--muted); display: flex; align-items: center; gap: 6px; font-size: 0.76rem; flex-wrap: wrap; }
+    .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); display: inline-block; }
+    .pulse-dot.paused { background: var(--amber); box-shadow: none; }
+    .top-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    button, .btn { border: none; border-radius: 9px; padding: 7px 12px; font-family: inherit; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: var(--indigo); color: #fff; transition: 0.15s; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
+    button:hover, .btn:hover { opacity: 0.92; }
+    button.secondary, .btn.secondary { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); }
+    button.warn { background: #b45309; }
+    button.success { background: #059669; }
+    button.danger { background: #b91c1c; }
 
-    .container {
-      max-width: 1420px;
-      margin: 0 auto;
-      padding: 18px 20px 40px;
-    }
+    .container { max-width: 1460px; margin: 0 auto; padding: 14px; }
+    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .stat-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+    .stat-card .label { font-size: 0.74rem; color: var(--muted); }
+    .stat-card .value { font-size: 1.35rem; font-weight: 800; color: var(--accent); margin-top: 2px; }
 
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .stat-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .stat-card small { color: var(--muted); display: block; font-size: 0.78rem; margin-bottom: 4px; }
-    .stat-card strong { font-size: 1.45rem; }
-    .stat-icon { font-size: 1.6rem; opacity: 0.9; }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
-    }
-    .tab-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--muted);
-      padding: 9px 15px;
-      border-radius: 10px;
-      font-weight: 700;
-    }
-    .tab-btn.active {
-      background: var(--panel-2);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
+    .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+    .tab-btn { background: var(--panel); border: 1px solid var(--border); color: var(--muted); padding: 8px 13px; border-radius: 10px; }
+    .tab-btn.active { background: linear-gradient(135deg, var(--indigo), #4f46e5); color: #fff; border-color: transparent; }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* Live Office Grid */
-    .office-layout {
-      display: grid;
-      grid-template-columns: 1.55fr 1fr;
-      gap: 16px;
-    }
-    @media (max-width: 1050px) {
-      .office-layout { grid-template-columns: 1fr; }
-    }
+    .panel-box { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 14px; }
+    .panel-box h3 { margin: 0 0 10px; font-size: 0.94rem; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .grid-2 { display: grid; grid-template-columns: 1.6fr 1fr; gap: 14px; }
+    .grid-equal { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 12px; }
+    @media (max-width: 1024px) { .grid-2 { grid-template-columns: 1fr; } }
 
-    .floorplan {
-      background:
-        linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
-        var(--panel);
-      background-size: 28px 28px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 16px;
-      position: relative;
-    }
-    .floor-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .rooms-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 12px;
-    }
-    .desk-card {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      position: relative;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-    }
-    .desk-card.working {
-      border-color: var(--accent);
-      box-shadow: 0 0 22px rgba(56, 189, 248, 0.22);
-      transform: translateY(-2px);
-    }
-    .desk-room {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .status-badge {
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      background: rgba(148, 163, 184, 0.14);
-      color: var(--muted);
-    }
-    .status-badge.active {
-      background: rgba(16, 185, 129, 0.16);
-      color: #34d399;
-    }
-    .agent-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .avatar-box {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      font-size: 1.5rem;
-      flex-shrink: 0;
-      position: relative;
-    }
-    .desk-card.working .avatar-box::after {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: 16px;
-      border: 2px solid var(--accent);
-      animation: pulse 1.2s infinite;
-    }
-    .agent-name { font-weight: 800; font-size: 0.9rem; }
-    .agent-role { font-size: 0.74rem; color: var(--muted); }
-    .speech-bubble {
-      background: var(--panel-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 8px 10px;
-      font-size: 0.78rem;
-      line-height: 1.45;
-      color: #cbd5e1;
-      min-height: 44px;
-    }
-    .desk-footer {
-      margin-top: 8px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
+    input, select, textarea { background: var(--panel-2); border: 1px solid var(--border); border-radius: 9px; color: var(--text); padding: 8px 10px; font-family: inherit; font-size: 0.84rem; }
+    input, select { min-height: 36px; }
+    textarea { width: 100%; min-height: 84px; resize: vertical; }
 
-    /* Side feeds */
-    .side-col {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .panel-box {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 14px;
-    }
-    .panel-box h3 {
-      margin: 0 0 10px;
-      font-size: 0.96rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .feed-list {
-      max-height: 270px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .feed-item {
-      background: var(--panel-2);
-      border-radius: 10px;
-      padding: 8px 10px;
-      font-size: 0.8rem;
-      line-height: 1.5;
-      border-right: 3px solid var(--indigo);
-    }
+    #office3DCanvasWrap { width: 100%; height: 470px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: #050814; position: relative; }
+    .room-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .room-pill { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); font-size: 0.74rem; padding: 5px 10px; border-radius: 999px; cursor: pointer; }
+    .room-pill:hover { border-color: var(--accent); }
+
+    .rooms-grid-2d { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+    .desk-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px; padding: 10px; position: relative; }
+    .desk-card.working { border-color: var(--amber); }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
+    .badge-idle { background: rgba(16,185,129,0.18); color: #34d399; }
+    .badge-working { background: rgba(245,158,11,0.2); color: #fbbf24; }
+    .badge-error { background: rgba(239,68,68,0.2); color: #f87171; }
+    .badge-info { background: rgba(56,189,248,0.18); color: #38bdf8; }
+
+    .feed-list { display: flex; flex-direction: column; gap: 7px; max-height: 290px; overflow-y: auto; }
+    .feed-item { background: var(--panel-2); border-right: 3px solid var(--indigo); padding: 8px 10px; border-radius: 8px; font-size: 0.8rem; line-height: 1.45; }
     .feed-item.warn { border-right-color: var(--amber); }
-    .feed-item.error { border-right-color: var(--danger); }
-    .feed-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-bottom: 3px;
-    }
+    .feed-item.error { border-right-color: var(--red); }
 
-    /* Kanban */
-    .directive-bar {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-    input, select, textarea {
-      font-family: inherit;
-      background: var(--bg);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 9px 12px;
-      font-size: 0.88rem;
-    }
-    .directive-bar input { flex: 1; min-width: 220px; }
-    .kanban-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-    @media (max-width: 980px) {
-      .kanban-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .kanban-grid { grid-template-columns: 1fr; }
-    }
-    .kanban-col {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px;
-      min-height: 260px;
-    }
-    .kanban-col h4 {
-      margin: 0 0 10px;
-      font-size: 0.88rem;
-      color: var(--accent);
-      display: flex;
-      justify-content: space-between;
-    }
-    .task-card {
-      background: var(--panel-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px;
-      margin-bottom: 8px;
-      font-size: 0.82rem;
-    }
-    .task-card strong { display: block; margin-bottom: 4px; }
-    .task-tag {
-      display: inline-block;
-      font-size: 0.68rem;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(99, 102, 241, 0.2);
-      color: #a5b4fc;
-      margin-bottom: 6px;
-    }
-    .task-tag.video { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    th, td { border-bottom: 1px solid var(--border); padding: 8px 6px; text-align: right; vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; }
 
-    /* Deliverables */
-    .deliverables-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 14px;
-    }
-    .deliv-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .deliv-card h4 { margin: 0; font-size: 0.98rem; }
-    .deliv-notes {
-      font-size: 0.8rem;
-      color: var(--muted);
-      background: var(--panel-2);
-      padding: 10px;
-      border-radius: 10px;
-      line-height: 1.5;
-    }
-    .deliv-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: auto;
-    }
-
-    /* Settings & HR */
-    .settings-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 16px;
-    }
-    .form-group {
-      margin-bottom: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .form-group label { font-size: 0.82rem; color: var(--muted); font-weight: 700; }
-
-    /* Modal */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 6, 23, 0.82);
-      backdrop-filter: blur(6px);
-      display: none;
-      place-items: center;
-      z-index: 100;
-      padding: 18px;
-    }
-    .modal-backdrop.open { display: grid; }
-    .modal {
-      width: min(980px, 96vw);
-      max-height: 92vh;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .modal-head {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-    .modal-body {
-      padding: 14px;
-      overflow-y: auto;
-      flex: 1;
-    }
-    iframe.app-preview {
-      width: 100%;
-      height: 68vh;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: #fff;
-    }
-    canvas.video-canvas {
-      width: 100%;
-      max-width: 800px;
-      aspect-ratio: 16 / 9;
-      background: #000;
-      border-radius: 12px;
-      display: block;
-      margin: 0 auto 12px;
-      border: 1px solid var(--border);
-    }
-    .guide-list li { margin-bottom: 8px; line-height: 1.6; font-size: 0.86rem; color: #cbd5e1; }
-    code { background: var(--panel-2); padding: 2px 6px; border-radius: 6px; color: var(--accent); direction: ltr; display: inline-block; }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.74); display: none; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
+    .modal-backdrop.open { display: flex; }
+    .modal { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; width: min(980px, 100%); max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; }
+    .modal-head { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .modal-body { padding: 16px; overflow-y: auto; }
+    .chip-bar { display: flex; gap: 6px; flex-wrap: wrap; }
   </style>
 </head>
 <body>
@@ -496,828 +102,793 @@
     <div class="brand">
       <div class="brand-logo">🏢</div>
       <div>
-        <h1 id="officeTitle">المكتب الافتراضي الذكي 24/7</h1>
-        <small>مدير تنفيذي • HR • مطور تطبيقات • مراجع ومعدل ذاتي • صناعة ومونتاج فيديو</small>
+        <h1 id="officeTitle">شركة الذكاء الاصطناعي المستقلة 24/7</h1>
+        <small>
+          <span id="statusDot" class="pulse-dot"></span>
+          <span id="autopilotLabel">يعمل</span>
+          • دورة <strong id="cycleBadge">0</strong>
+          • AI: <strong id="providerBadge">groq + gemini</strong>
+        </small>
       </div>
     </div>
-    <div class="header-actions">
-      <span class="pill">
-        <span class="dot" id="statusDot"></span>
-        <span id="autopilotLabel">يعمل تلقائياً 24/7</span>
-      </span>
-      <span class="pill">🧠 المزود: <strong id="providerBadge">builtin</strong></span>
-      <span class="pill">🔄 الدورة: <strong id="cycleBadge">0</strong></span>
-      <button id="stepBtn" class="secondary">⚡ تنفيذ خطوة الآن</button>
-      <button id="toggleAutoInventBtn" class="secondary">🤖 ابتكار تلقائي: متوقف</button>
+    <div class="top-actions">
+      <button id="toggle3DBtn" class="secondary">🧊 وضع 3D مفعل</button>
+      <button id="stepBtn" class="secondary">⚡ خطوة الآن</button>
+      <button id="toggleAutoInventBtn" class="secondary">🤖 ابتكار: بأمرك</button>
       <button id="toggleAutoBtn" class="warn">⏸️ إيقاف مؤقت</button>
+      <button id="authHeaderBtn" class="secondary">🔒 أمان المالك</button>
     </div>
   </header>
 
   <div class="container">
-    <div id="builtinBanner" style="display:none;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.4);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:0.84rem;line-height:1.5;">
-      💡 <strong>ملاحظة مهمّة:</strong> المكتب يعمل الآن على <strong>المحرك التجريبي المدمج (بدون API Key)</strong>. لتشغيل حوار ذكي طبيعي وبناء تطبيقات وفيديوهات مخصصة 100% بالذكاء الاصطناعي مجاناً، افتح تبويب <strong>⚙️ التشغيل المجاني 24/7</strong> وأضف مفتاح <strong>Google Gemini</strong> أو <strong>Groq</strong> المجاني.
-    </div>
     <div class="stats-bar">
-      <div class="stat-card"><div><small>التطبيقات المنجزة</small><strong id="statApps">0</strong></div><div class="stat-icon">📱</div></div>
-      <div class="stat-card"><div><small>تعديلات QA الذاتية</small><strong id="statFixes">0</strong></div><div class="stat-icon">🛠️</div></div>
-      <div class="stat-card"><div><small>الفيديوهات والمونتاج</small><strong id="statVideos">0</strong></div><div class="stat-icon">🎬</div></div>
-      <div class="stat-card"><div><small>عدد الموظفين النشطين</small><strong id="statAgents">6</strong></div><div class="stat-icon">👥</div></div>
-      <div class="stat-card"><div><small>تعيينات HR التلقائية</small><strong id="statHires">0</strong></div><div class="stat-icon">🧑‍💼</div></div>
+      <div class="stat-card"><div class="label">📂 المشاريع</div><div class="value" id="statProjects">0</div></div>
+      <div class="stat-card"><div class="label">⚙️ مهام نشطة</div><div class="value" id="statActiveTasks">0</div></div>
+      <div class="stat-card"><div class="label">🎬 فيديوهات MP4</div><div class="value" id="statVideos">0</div></div>
+      <div class="stat-card"><div class="label">🎮 ألعاب تعليمية</div><div class="value" id="statGames">0</div></div>
+      <div class="stat-card"><div class="label">📚 ملازم PDF/DOCX</div><div class="value" id="statBooklets">0</div></div>
+      <div class="stat-card"><div class="label">💻 تطبيقات/مواقع</div><div class="value" id="statApps">0</div></div>
+      <div class="stat-card"><div class="label">👥 الموظفون</div><div class="value" id="statAgents">0</div></div>
     </div>
 
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="office">🏢 المكتب المباشر</button>
-      <button class="tab-btn" data-tab="pipeline">📋 خط الإنتاج والمهام</button>
-      <button class="tab-btn" data-tab="deliverables">🎁 المخرجات (التطبيقات والفيديوهات)</button>
-      <button class="tab-btn" data-tab="hr">👥 الموارد البشرية (HR)</button>
-      <button class="tab-btn" data-tab="settings">⚙️ التشغيل المجاني 24/7</button>
-    </div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="office">🏢 الشركة 3D والمحادثة</button>
+      <button class="tab-btn" data-tab="projects">📂 المشاريع والـ 11 حالة</button>
+      <button class="tab-btn" data-tab="deliverables">📦 الملفات وDrive وفحص 3D</button>
+      <button class="tab-btn" data-tab="meetings">🤝 غرفة الاجتماعات</button>
+      <button class="tab-btn" data-tab="ai">🧠 إدارة نماذج AI والابتكار</button>
+      <button class="tab-btn" data-tab="hr">👥 الأقسام الـ 11 والموظفون</button>
+      <button class="tab-btn" data-tab="settings">🛡️ المراقبة والأمان والمنصة</button>
+    </nav>
 
-    <!-- TAB 1: LIVE OFFICE -->
+    <!-- TAB 1: 3D OFFICE + VOICE CHAT -->
     <section id="tab-office" class="tab-panel active">
-      <div class="panel-box" style="margin-bottom:14px;border-color:rgba(56,189,248,0.45);">
-        <h3 style="margin-bottom:10px;">
-          <span>🎙️ تحدّث مع أي موظف مباشرة (صوت + كتابة)</span>
-          <label style="font-size:0.78rem;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:6px;cursor:pointer;">
-            <input type="checkbox" id="voiceReplyToggle" checked />
-            🔊 الموظف يرد بالصوت + الكتابة
-          </label>
+      <div class="panel-box" style="border-color:rgba(56,189,248,0.45);">
+        <h3>
+          <span>🎙️ المحادثة المباشرة (صوت + كتابة + مزامنة حركة الفم 3D)</span>
+          <div class="chip-bar">
+            <label style="font-size:0.76rem;display:flex;align-items:center;gap:4px;">
+              <input type="checkbox" id="voiceReplyToggle" checked /> 🔊 الرد الصوتي
+            </label>
+            <label style="font-size:0.76rem;display:flex;align-items:center;gap:4px;">
+              مستوى الصوت <input type="range" id="voiceVol" min="0" max="1" step="0.1" value="1" style="width:70px;min-height:auto;" />
+            </label>
+            <select id="voiceSelect" style="max-width:160px;font-size:0.74rem;"></select>
+            <button id="stopSpeechBtn" class="secondary" title="مقاطعة صوت الموظف">⏹️ مقاطعة الصوت</button>
+          </div>
         </h3>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <select id="chatAgentSelect" style="min-width:210px;"></select>
-          <input id="chatMsgInput" style="flex:1;min-width:200px;" placeholder="تكلّم أو اكتب للموظف (مثال: ازيك يا طارق / اعمل تطبيق مهام / اعمل فيديو)..." />
-          <button id="micBtn" class="warn" title="اضغط وتحدث بصوتك">🎤 تحدّث</button>
+          <select id="chatAgentSelect" style="min-width:220px;"></select>
+          <input id="chatMsgInput" style="flex:1;min-width:210px;" placeholder="تكلّم مع أ. طارق أو أي موظف (مثال: نفذ مشروع درس متكامل عن الطاقة الشمسية)..." />
+          <button id="micBtn" class="warn">🎤 تحدّث</button>
           <button id="chatSendBtn" class="success">إرسال ↵</button>
         </div>
         <div id="micStatus" style="font-size:0.76rem;color:var(--amber);margin-top:6px;display:none;"></div>
-        <div id="chatThread" style="margin-top:10px;display:none;max-height:210px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
+        <div id="chatThread" style="margin-top:10px;display:none;max-height:190px;overflow-y:auto;flex-direction:column;gap:6px;"></div>
       </div>
 
-      <div class="office-layout">
-        <div class="floorplan">
-          <div class="floor-header">
-            <div>
-              <strong>🗺️ خريطة المكتب التفاعلية</strong>
-              <span style="font-size:0.8rem;color:var(--muted);margin-right:8px;">اضغط "💬 خاطبه" على أي موظف للتحدث معه فوراً</span>
-            </div>
-          </div>
-          <div class="rooms-grid" id="desksGrid"></div>
+      <div class="grid-2">
+        <div class="panel-box">
+          <h3>
+            <span id="viewTitle">🧊 المكتب ثلاثي الأبعاد (12 قسماً — اضغط على أي موظف لفتح ملفه)</span>
+            <button id="goMeeting3DBtn" class="secondary">🤝 دخول غرفة الاجتماعات</button>
+          </h3>
+          <div id="roomTeleportBar" class="room-pills"></div>
+          <div id="office3DCanvasWrap"></div>
+          <div id="office2DWrap" class="rooms-grid-2d" style="display:none;"></div>
         </div>
 
-        <div class="side-col">
+        <div>
           <div class="panel-box">
-            <h3>📡 سجل العمليات المباشر <span style="font-size:0.75rem;color:var(--muted)">تحديث لحظي</span></h3>
+            <h3>📡 سجل العمليات المباشر</h3>
             <div class="feed-list" id="logsFeed"></div>
           </div>
           <div class="panel-box">
-            <h3>💬 قاعة الاجتماعات والتنسيق <span style="font-size:0.75rem;color:var(--muted)">بدون تدخلك</span></h3>
+            <h3>💬 مداولات الاجتماعات الفورية</h3>
             <div class="feed-list" id="meetingsFeed"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 2: KANBAN -->
-    <section id="tab-panel-pipeline" class="tab-panel" data-panel="pipeline">
-      <div class="directive-bar">
-        <select id="dirType">
-          <option value="app">📱 مشروع تطبيق ويب</option>
-          <option value="video">🎬 مشروع فيديو + مونتاج</option>
-        </select>
-        <input id="dirTitle" placeholder="اختياري: أضف فكرة مشروع مخصص (وإلا سيبتكر المدير التنفيذي المشاريع تلقائياً)..." />
-        <button id="addDirectiveBtn" class="success">➕ إرسال للمدير التنفيذي</button>
+    <!-- TAB 2: PROJECTS & LESSON MULTI-TRACK -->
+    <section id="tab-projects" class="tab-panel">
+      <div class="panel-box" style="border-color:rgba(16,185,129,0.45);">
+        <h3>🚀 إطلاق مشروع متكامل لـ أ. طارق (4 مسارات متوازية: فيديو MP4 + لعبة + ملزمة PDF/DOCX + حزمة منهج)</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-bottom:8px;">
+          <input id="lessonTitle" placeholder="عنوان الدرس أو المشروع (مثال: الطاقة الشمسية)" />
+          <input id="lessonGrade" placeholder="الصف الدراسي (مثال: الخامس الابتدائي)" />
+          <input id="lessonTerm" placeholder="الترم / الوحدة" />
+          <input id="lessonFile" type="file" accept=".txt,.md,.pdf,.docx,.pptx" />
+        </div>
+        <textarea id="lessonContent" placeholder="الصق نص الدرس هنا (أو ارفع ملف PDF / DOCX / PPTX / TXT أعلاه)..."></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+          <button id="launchLessonBtn" class="success">🚀 إرسال الدرس لـ أ. طارق وتنفيذ المسارات الـ 4 بالتوازي</button>
+          <button id="quickAppBtn" class="secondary">💻 أو اطلب تطبيق ويب سريع</button>
+          <button id="quickVideoBtn" class="secondary">🎬 أو اطلب فيديو MP4 سريع</button>
+        </div>
       </div>
-      <div class="kanban-grid" id="kanbanGrid"></div>
+
+      <div class="panel-box">
+        <h3>📊 المشروعات وتقارير التسليم الموحدة</h3>
+        <div id="projectsList"></div>
+      </div>
+
+      <div class="panel-box">
+        <h3>📋 جدول المهام التفصيلي (الـ 11 حالة + الاعتماديات + محاولات الإصلاح)</h3>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>المهمة</th><th>المسار</th><th>المسؤول</th><th>الحالة</th><th>الاعتماديات</th><th>محاولات</th><th>الموديل</th><th>المخرجات</th></tr>
+            </thead>
+            <tbody id="tasksTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <h3>🐞 تقارير الأخطاء المستقلة (Bug Reports — QA)</h3>
+        <div id="bugsList"></div>
+      </div>
     </section>
 
-    <!-- TAB 3: DELIVERABLES -->
+    <!-- TAB 3: FILES, DELIVERABLES, 3D INSPECTOR & GOOGLE DRIVE -->
     <section id="tab-deliverables" class="tab-panel">
-      <div class="deliverables-grid" id="deliverablesGrid"></div>
-    </section>
-
-    <!-- TAB 4: HR -->
-    <section id="tab-hr" class="tab-panel">
-      <div class="settings-grid">
+      <div class="grid-2">
         <div class="panel-box">
-          <h3>🧑‍💼 تعيين موظف ذكاء اصطناعي جديد (أو اترك الـ HR توظف تلقائياً)</h3>
-          <div class="form-group">
-            <label>اسم الموظف واللقب</label>
-            <input id="hireName" placeholder="مثال: م. خالد — مطور ألعاب ويب" />
-          </div>
-          <div class="form-group">
-            <label>المسمى الوظيفي / التخصص</label>
-            <input id="hireRole" placeholder="GAME_DEV" />
-          </div>
-          <div class="form-group">
-            <label>القسم / الغرفة</label>
-            <input id="hireRoom" placeholder="استوديو الألعاب التفاعلية" />
-          </div>
-          <div class="form-group">
-            <label>تعليمات الموظف (System Prompt)</label>
-            <textarea id="hirePrompt" rows="3" placeholder="اشرح دور الموظف الجديد..."></textarea>
-          </div>
-          <button id="hireBtn" class="success">✨ توظيف الآن</button>
+          <h3>📦 المخرجات الفعلية (MP4 / PDF / DOCX / ألعاب / تطبيقات)</h3>
+          <div id="deliverablesList" class="grid-equal"></div>
         </div>
-        <div class="panel-box">
-          <h3>📊 بطاقات أداء الموظفين</h3>
-          <div id="hrRoster" style="display:flex;flex-direction:column;gap:8px;max-height:380px;overflow-y:auto;"></div>
+
+        <div>
+          <div class="panel-box" style="border-color:rgba(56,189,248,0.4);">
+            <h3>☁️ التكامل الرسمي مع Google Drive (OAuth 2.0)</h3>
+            <div id="driveStatusBox" style="font-size:0.82rem;line-height:1.6;margin-bottom:10px;">جاري فحص حالة Drive...</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+              <button id="connectDriveBtn" class="success">🔗 ربط Google Drive</button>
+              <button id="refreshDriveFilesBtn" class="secondary">🔄 تحديث الملفات</button>
+              <button id="disconnectDriveBtn" class="danger">قطع الربط</button>
+            </div>
+            <details style="font-size:0.8rem;background:var(--panel-2);padding:8px;border-radius:10px;">
+              <summary style="cursor:pointer;font-weight:700;">⚙️ إعداد بيانات Google OAuth App (Client ID & Secret)</summary>
+              <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+                <input id="driveClientId" placeholder="GOOGLE_CLIENT_ID" />
+                <input id="driveClientSecret" type="password" placeholder="GOOGLE_CLIENT_SECRET" />
+                <input id="driveRedirectUri" placeholder="Redirect URI (اتركه فارغاً للتلقائي)" />
+                <button id="saveDriveCredsBtn" class="secondary">💾 حفظ بيانات OAuth على الخادم</button>
+              </div>
+            </details>
+            <div id="driveFilesList" style="margin-top:10px;max-height:200px;overflow-y:auto;"></div>
+          </div>
+
+          <div class="panel-box">
+            <h3>🗿 فاحص نماذج 3D (GLB / GLTF + التراخيص)</h3>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <input id="glbFileInput" type="file" accept=".glb,.gltf" />
+              <input id="glbSourceInput" placeholder="مصدر النموذج (مثال: Sketchfab / Poly Pizza)" />
+              <input id="glbLicenseInput" placeholder="الترخيص (مثال: CC-BY-4.0 أو CC0)" />
+              <button id="inspectGlbBtn" class="secondary">🔍 فحص السلامة والهيكل العظمي والترخيص</button>
+              <div id="glbReportBox" style="font-size:0.78rem;color:var(--muted);"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 5: SETTINGS & 24/7 -->
+    <!-- TAB 4: LIVE MEETING ROOM -->
+    <section id="tab-meetings" class="tab-panel">
+      <div class="panel-box">
+        <h3>🤝 عقد اجتماع تنسيقي حقيقي مع أ. طارق ورؤساء الأقسام</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+          <input id="mtgTitle" style="flex:1;min-width:200px;" placeholder="موضوع الاجتماع (مثال: مراجعة جودة مخرجات الدرس)" />
+          <input id="mtgAgenda" style="flex:1;min-width:200px;" placeholder="بنود جدول الأعمال (افصلها بفاصلة)" />
+          <button id="conveneMtgBtn" class="success">🎙️ بدء الاجتماع وتسجيل القرارات</button>
+        </div>
+      </div>
+      <div class="panel-box">
+        <h3>📜 سجل الاجتماعات والقرارات المرتبطة بالمهام</h3>
+        <div id="meetingsHistoryList"></div>
+      </div>
+    </section>
+
+    <!-- TAB 5: AI MODEL ROUTER & INNOVATION -->
+    <section id="tab-ai" class="tab-panel">
+      <div class="panel-box">
+        <h3>
+          <span>🧠 شاشة إدارة نماذج الذكاء الاصطناعي (AI Model Router)</span>
+          <button id="runInnovationBtn" class="secondary">🧪 تشغيل تقرير الابتكار (د. زياد)</button>
+        </h3>
+        <div id="routerStatsBox"></div>
+      </div>
+      <div class="panel-box">
+        <h3>📚 جدول المزودين والحدود الرسمية الموثقة</h3>
+        <div id="routerCatalogBox"></div>
+      </div>
+    </section>
+
+    <!-- TAB 6: 11 DEPARTMENTS & HR -->
+    <section id="tab-hr" class="tab-panel">
+      <div class="panel-box">
+        <h3>✨ تعيين متخصص إضافي عبر قسم الموارد البشرية (أ. سارة)</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="hireName" placeholder="الاسم واللقب" />
+          <input id="hireRole" placeholder="الدور (مثال: DATA_ANALYST)" />
+          <input id="hireRoom" placeholder="القسم / الغرفة" />
+          <input id="hirePrompt" style="flex:1;min-width:220px;" placeholder="الوصف الوظيفي..." />
+          <button id="hireBtn" class="success">➕ تعيين</button>
+        </div>
+      </div>
+      <div id="departmentsGrid" class="grid-equal"></div>
+    </section>
+
+    <!-- TAB 7: MONITORING, SECURITY, PLATFORM & SETTINGS -->
     <section id="tab-settings" class="tab-panel">
-      <div class="settings-grid">
+      <div class="grid-equal">
         <div class="panel-box">
-          <h3>🔌 ربط مزود الذكاء الاصطناعي المجاني</h3>
-          <div class="form-group">
-            <label>المزود (100% مجاني)</label>
+          <h3>🔌 إعدادات مزودي الذكاء الاصطناعي (محفوظة بأمان على الخادم)</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;">
             <select id="cfgProvider">
-              <option value="builtin">المحرك الذكي المدمج (مجاني بدون API Key — يعمل فوراً)</option>
-              <option value="gemini">Google Gemini Free Tier (مفتاح مجاني من AI Studio)</option>
-              <option value="groq">Groq Free Tier (سريع جداً ومجاني - GPT-OSS 120B / Qwen3.8)</option>
-              <option value="openrouter">OpenRouter Free Models (:free)</option>
-              <option value="ollama">Ollama محلي على جهازك (مجاني 100% بلا حدود)</option>
+              <option value="builtin">المحرك المدمج (بدون API)</option>
+              <option value="groq">Groq Cloud (openai/gpt-oss-120b)</option>
+              <option value="gemini">Google Gemini (gemini-flash-lite-latest)</option>
+              <option value="openrouter">OpenRouter (:free)</option>
+              <option value="ollama">Ollama محلي</option>
             </select>
-          </div>
-          <div class="form-group">
-            <label>مفتاح API المجاني (اتركه فارغاً للمحرك المدمج أو Ollama)</label>
-            <input id="cfgApiKey" type="password" placeholder="AIza... أو gsk_... أو sk-or-..." />
-          </div>
-          <div class="form-group">
-            <label>اسم الموديل (اختياري — يستخدم الافتراضي المجاني)</label>
-            <input id="cfgModel" placeholder="مثال: openai/gpt-oss-120b أو gemini-2.5-flash" />
-          </div>
-          <div class="form-group">
-            <label>رابط Ollama (إذا اخترت Ollama)</label>
-            <input id="cfgBaseUrl" placeholder="http://127.0.0.1:11434" />
-          </div>
-          <div class="form-group">
-            <label>الفاصل الزمني بين كل خطوة عمل (بالثواني)</label>
-            <input id="cfgInterval" type="number" min="2" max="300" value="4" />
-          </div>
-          <hr style="border:none;border-top:1px solid var(--border);margin:14px 0;">
-          <div class="form-group">
-            <label>مزود احتياطي تلقائي عند امتلاء الحد المجاني (Backup LLM)</label>
+            <input id="cfgApiKey" type="password" placeholder="أدخل مفتاح API جديد لتحديثه (لن يظهر بعد الحفظ)" />
+            <input id="cfgModel" placeholder="اسم الموديل (اختياري)" />
             <select id="cfgBackupProvider">
-              <option value="none">بدون (يتحول تلقائياً للمحرك المدمج)</option>
-              <option value="gemini">Google Gemini Free Tier</option>
-              <option value="groq">Groq Free Tier</option>
-              <option value="openrouter">OpenRouter Free Models</option>
+              <option value="none">بدون احتياطي</option>
+              <option value="gemini">Google Gemini (احتياطي / إبداع)</option>
+              <option value="groq">Groq Cloud</option>
+              <option value="openrouter">OpenRouter</option>
             </select>
-          </div>
-          <div class="form-group">
-            <label>مفتاح API الاحتياطي (اختياري)</label>
-            <input id="cfgBackupApiKey" type="password" placeholder="مفتاح المزود الاحتياطي..." />
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button id="saveCfgBtn" class="success">💾 حفظ الإعدادات وتطبيقها فوراً</button>
-            <a href="/api/backup" class="btn secondary" style="text-decoration:none;">⬇️ تصدير نسخة احتياطية</a>
-            <label class="btn secondary" style="cursor:pointer;">
-              ♻️ استرجاع نسخة
-              <input id="restoreFileInput" type="file" accept=".json" style="display:none;" />
-            </label>
-            <button id="resetOfficeBtn" class="warn">🧹 تصفير المكتب والبدء من الصفر</button>
+            <input id="cfgBackupApiKey" type="password" placeholder="مفتاح المزود الاحتياطي (اختياري)" />
+            <div style="display:flex;gap:8px;">
+              <label style="font-size:0.8rem;">الفاصل (ثوانٍ): <input id="cfgInterval" type="number" min="2" max="300" value="4" style="width:70px;" /></label>
+              <label style="font-size:0.8rem;">التوازي: <input id="cfgConcurrency" type="number" min="1" max="4" value="3" style="width:65px;" /></label>
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button id="saveCfgBtn" class="success">💾 حفظ الإعدادات</button>
+              <a href="/api/backup" class="btn secondary">⬇️ نسخة احتياطية</a>
+              <label class="btn secondary" style="cursor:pointer;">♻️ استعادة <input id="restoreFileInput" type="file" accept=".json" style="display:none;" /></label>
+              <button id="resetOfficeBtn" class="danger">🧹 تصفير الشركة (0)</button>
+            </div>
           </div>
         </div>
 
         <div class="panel-box">
-          <h3>☁️ أفضل السيرفرات المجانية لربط المكتب 24/7</h3>
-          <ul class="guide-list">
-            <li><strong>1) Koyeb (Free Nano Service):</strong> يعطيك حاوية مجانية دائمة (512MB RAM)، يدعم Docker وNode.js بدون إطفاء مع مسار <code>/health</code>.</li>
-            <li><strong>2) Render (Free Web Service):</strong> أسهل ربط مباشر مع GitHub مجاناً (بدون بطاقة بنكية، 750 ساعة/شهر)، ومع ملف <code>.github/workflows/keep-alive.yml</code> المرفق يظل مستيقظاً 24 ساعة.</li>
-            <li><strong>3) Oracle Cloud Always Free:</strong> أقوى سيرفر VPS مجاني للأبد (حتى 24GB RAM ARM أو جهازي AMD micro)، تشغّل عليه <code>docker compose up -d</code> فيعمل 24/7 للأبد.</li>
-            <li><strong>4) Northflank (Free Tier):</strong> يدعم تشغيل خدمة Node.js/Docker دائمة بدون نوم على الباقة المجانية.</li>
-            <li><strong>5) Hugging Face Spaces (Docker):</strong> مجاني بالكامل (2 vCPU) لرفع مجلد المشروع عبر Docker.</li>
-            <li><strong>6) Google Cloud e2-micro / جهازك الشخصي:</strong> مجاني عبر Docker أو PM2.</li>
-          </ul>
+          <h3>📡 مراقبة التشغيل 24/7 والأمان</h3>
+          <div id="monitoringBox" style="font-size:0.82rem;line-height:1.7;margin-bottom:10px;"></div>
+          <hr style="border:none;border-top:1px solid var(--border);margin:10px 0;">
+          <h4 style="margin:0 0 6px;">🔒 حماية المالك (Owner Auth)</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <input id="ownerPassInput" type="password" placeholder="كلمة مرور المالك" />
+            <button id="setOwnerPassBtn" class="secondary">تعيين / تحديث كلمة المرور</button>
+            <button id="loginOwnerBtn" class="success">تسجيل دخول</button>
+          </div>
+          <hr style="border:none;border-top:1px solid var(--border);margin:10px 0;">
+          <h4 style="margin:0 0 6px;">🎓 ربط المنصة التعليمية (Unified API)</h4>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <input id="platUrlInput" placeholder="رابط المنصة التعليمية (اختياري)" />
+            <input id="platKeyInput" type="password" placeholder="مفتاح التكامل X-Platform-Key" />
+            <button id="savePlatBtn" class="secondary">💾 حفظ إعدادات تكامل المنصة</button>
+          </div>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- MODAL FOR APP PREVIEW OR VIDEO PLAYER -->
+  <!-- MODAL -->
   <div class="modal-backdrop" id="previewModal">
     <div class="modal">
       <div class="modal-head">
-        <strong id="modalTitle">معاينة المخرج</strong>
+        <strong id="modalTitle">المعاينة</strong>
         <button id="closeModalBtn" class="secondary">✖️ إغلاق</button>
       </div>
       <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
+  <script type="module" src="/office3d.js"></script>
   <script>
     let currentState = null;
-    let activeTab = 'office';
-    let videoAnimFrame = null;
+    let is3DMode = true;
+    let threeInitialized = false;
 
-    // Tabs switching
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    const fmtTime = (iso) => { try { return new Date(iso).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }); } catch { return ''; } };
+    async function postJson(url, body = {}) {
+      const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      return r.json();
+    }
+
+    // Tabs
     document.querySelectorAll('.tab-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
-        activeTab = btn.dataset.tab;
+        const t = btn.dataset.tab;
         document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b === btn));
-        document.querySelectorAll('.tab-panel').forEach((p) => {
-          const match = p.id === 'tab-' + activeTab || p.dataset.panel === activeTab;
-          p.classList.toggle('active', match);
-        });
+        document.querySelectorAll('.tab-panel').forEach((p) => p.classList.toggle('active', p.id === 'tab-' + t));
       });
     });
 
-    function esc(str) {
-      return String(str ?? '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
-    }
+    // 3D vs 2D toggle
+    document.getElementById('toggle3DBtn').onclick = () => {
+      is3DMode = !is3DMode;
+      document.getElementById('toggle3DBtn').textContent = is3DMode ? '🧊 وضع 3D مفعل' : '🗺️ وضع 2D الخفيف';
+      document.getElementById('office3DCanvasWrap').style.display = is3DMode ? 'block' : 'none';
+      document.getElementById('roomTeleportBar').style.display = is3DMode ? 'flex' : 'none';
+      document.getElementById('office2DWrap').style.display = is3DMode ? 'none' : 'grid';
+      if (window.Office3D) window.Office3D.setEnabled(is3DMode);
+    };
+    document.getElementById('goMeeting3DBtn').onclick = () => window.Office3D?.focusRoom('meeting_room');
 
-    function fmtTime(iso) {
-      try {
-        return new Date(iso).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      } catch { return ''; }
+    function openModal(title, htmlContent) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalBody').innerHTML = htmlContent;
+      document.getElementById('previewModal').classList.add('open');
     }
+    document.getElementById('closeModalBtn').onclick = () => document.getElementById('previewModal').classList.remove('open');
+
+    window.openAgentProfile = function (agentId) {
+      const a = (currentState?.agents || []).find((x) => x.id === agentId);
+      if (!a) return;
+      document.getElementById('chatAgentSelect').value = a.id;
+      window.Office3D?.focusAgent(a.id);
+      openModal(a.name, `
+        <p><strong>القسم:</strong> ${esc(a.departmentLabel || a.department)} | <strong>الغرفة:</strong> ${esc(a.room)}</p>
+        <p><strong>الوصف الوظيفي:</strong> ${esc(a.jobDescription || a.systemPrompt)}</p>
+        <p><strong>الصلاحيات:</strong> ${(a.permissions || []).map((p) => `<span class="badge badge-info">${esc(p)}</span>`).join(' ')}</p>
+        <p><strong>القيود الأمنية:</strong> ${esc(a.guardrails || 'التزام السياسات القياسية')}</p>
+        <p><strong>المهام المنجزة:</strong> ${a.tasksCompleted || 0} | <strong>مؤشر الجودة:</strong> ${a.qualityScore || 95}%</p>
+        <button class="success" onclick="document.getElementById('closeModalBtn').click();document.getElementById('chatMsgInput').focus();">💬 التحدث مع ${esc(a.shortName)}</button>
+      `);
+    };
 
     function renderAll(state) {
       currentState = state;
-      document.getElementById('officeTitle').textContent = state.officeName || 'المكتب الافتراضي الذكي 24/7';
+      if (!threeInitialized && window.Office3D && document.getElementById('office3DCanvasWrap')) {
+        threeInitialized = true;
+        window.Office3D.init(document.getElementById('office3DCanvasWrap'), (id) => window.openAgentProfile(id));
+      }
+      window.Office3D?.syncState(state);
+
       document.getElementById('cycleBadge').textContent = state.cycleCount || 0;
       const prov = state.llmConfig?.provider || 'builtin';
       const bProv = state.llmConfig?.backupProvider;
-      document.getElementById('providerBadge').textContent = (bProv && bProv !== 'none' && bProv !== 'builtin') ? `${prov} + ${bProv}` : prov;
-      const banner = document.getElementById('builtinBanner');
-      if (banner) banner.style.display = prov === 'builtin' ? 'block' : 'none';
-
-      const inventBtn = document.getElementById('toggleAutoInventBtn');
-      if (inventBtn) {
-        inventBtn.textContent = state.autoInventProjects ? '🤖 ابتكار تلقائي: شغال' : '🤖 ابتكار تلقائي: بأمرك فقط';
-        inventBtn.className = state.autoInventProjects ? 'success' : 'secondary';
-      }
+      document.getElementById('providerBadge').textContent = bProv && bProv !== 'none' ? `${prov} + ${bProv}` : prov;
 
       const dot = document.getElementById('statusDot');
-      const autoLabel = document.getElementById('autopilotLabel');
-      const toggleBtn = document.getElementById('toggleAutoBtn');
-      if (state.autopilotEnabled) {
-        dot.classList.remove('paused');
-        autoLabel.textContent = 'يعمل تلقائياً 24/7';
-        toggleBtn.textContent = '⏸️ إيقاف مؤقت';
-        toggleBtn.className = 'warn';
-      } else {
-        dot.classList.add('paused');
-        autoLabel.textContent = 'متوقف مؤقتاً';
-        toggleBtn.textContent = '▶️ تشغيل تلقائي';
-        toggleBtn.className = 'success';
-      }
+      const autoBtn = document.getElementById('toggleAutoBtn');
+      dot.classList.toggle('paused', !state.autopilotEnabled);
+      document.getElementById('autopilotLabel').textContent = state.autopilotEnabled ? 'يعمل 24/7' : 'متوقف مؤقتاً';
+      autoBtn.textContent = state.autopilotEnabled ? '⏸️ إيقاف مؤقت' : '▶️ تشغيل تلقائي';
 
-      document.getElementById('statApps').textContent = state.stats?.totalAppsBuilt || 0;
-      document.getElementById('statFixes').textContent = state.stats?.totalAutoFixes || 0;
+      const invBtn = document.getElementById('toggleAutoInventBtn');
+      invBtn.textContent = state.autoInventProjects ? '🤖 ابتكار: شغال' : '🤖 ابتكار: بأمرك';
+      invBtn.className = state.autoInventProjects ? 'success' : 'secondary';
+
+      const dbTasks = state.dbTasks || [];
+      document.getElementById('statProjects').textContent = (state.projects || []).length;
+      document.getElementById('statActiveTasks').textContent = dbTasks.filter((t) => t.status !== 'completed' && t.status !== 'failed').length;
       document.getElementById('statVideos').textContent = state.stats?.totalVideosProduced || 0;
+      document.getElementById('statGames').textContent = state.stats?.totalGamesBuilt || 0;
+      document.getElementById('statBooklets').textContent = state.stats?.totalBookletsBuilt || 0;
+      document.getElementById('statApps').textContent = state.stats?.totalAppsBuilt || 0;
       document.getElementById('statAgents').textContent = (state.agents || []).length;
-      document.getElementById('statHires').textContent = state.stats?.totalHires || 0;
 
-      renderDesks(state.agents || []);
-      renderLogs(state.logs || []);
-      renderMeetings(state.meetings || []);
-      renderKanban(state.tasks || []);
-      renderDeliverables(state.deliverables || []);
-      renderHR(state.agents || []);
-      syncSettingsForm(state);
-    }
+      // Room teleport pills
+      document.getElementById('roomTeleportBar').innerHTML = (state.rooms3D || [])
+        .map((r) => `<button class="room-pill" onclick="window.Office3D?.focusRoom('${esc(r.id)}')">${esc(r.label)}</button>`)
+        .join('');
 
-    function renderDesks(agents) {
-      const grid = document.getElementById('desksGrid');
-      const statusText = {
-        idle: 'جاهز',
-        thinking: 'يخطط 💡',
-        coding: 'يبرمج 💻',
-        reviewing: 'يراجع ويعدّل 🔍',
-        creating: 'ينتج فيديو 🎬',
-        editing: 'مونتاج ✂️',
-        working: 'يعمل 📊',
-      };
-      grid.innerHTML = agents.map((a) => {
-        const isWorking = a.status !== 'idle';
-        return `
-          <div class="desk-card ${isWorking ? 'working' : ''}">
-            <div class="desk-room">
-              <span>📍 ${esc(a.room)}</span>
-              <span class="status-badge ${isWorking ? 'active' : ''}">${statusText[a.status] || a.status}</span>
+      // 2D fallback grid
+      document.getElementById('office2DWrap').innerHTML = (state.agents || [])
+        .map((a) => `
+          <div class="desk-card ${a.status !== 'idle' ? 'working' : ''}">
+            <div style="display:flex;justify-content:space-between;">
+              <strong>${a.avatar} ${esc(a.shortName)}</strong>
+              <span class="badge ${a.status === 'idle' ? 'badge-idle' : 'badge-working'}">${esc(a.status)}</span>
             </div>
-            <div class="agent-row">
-              <div class="avatar-box" style="background:${esc(a.color)}22;border:1px solid ${esc(a.color)}66;">${esc(a.avatar)}</div>
-              <div>
-                <div class="agent-name">${esc(a.name)}</div>
-                <div class="agent-role">${esc(a.role)}</div>
-              </div>
-            </div>
-            <div class="speech-bubble">${esc(a.bubble || a.currentTask)}</div>
-            <div class="desk-footer">
-              <span>✅ المنجز: ${a.tasksCompleted || 0}</span>
-              <button class="secondary" style="padding:3px 8px;font-size:0.72rem;" onclick="focusAgentChat('${esc(a.id)}')">💬 خاطبه</button>
-              <span>⭐ الجودة: ${a.qualityScore || 95}%</span>
-            </div>
-          </div>
-        `;
-      }).join('');
+            <div style="font-size:0.74rem;color:var(--muted);margin:4px 0;">${esc(a.room)}</div>
+            <div style="font-size:0.76rem;margin-bottom:6px;">${esc(a.currentTask)}</div>
+            <button class="secondary" style="font-size:0.72rem;padding:4px 8px;" onclick="window.openAgentProfile('${esc(a.id)}')">📄 الملف والمخاطبة</button>
+          </div>`)
+        .join('');
 
+      // Chat select preserve selection
       const sel = document.getElementById('chatAgentSelect');
-      if (sel) {
-        const prev = sel.value;
-        sel.innerHTML = agents.map((a) => `<option value="${esc(a.id)}">${esc(a.avatar)} ${esc(a.name)}</option>`).join('');
-        if (prev && agents.some((a) => a.id === prev)) sel.value = prev;
+      const prevSel = sel.value;
+      sel.innerHTML = (state.agents || []).map((a) => `<option value="${esc(a.id)}">${a.avatar} ${esc(a.name)}</option>`).join('');
+      if (prevSel) sel.value = prevSel;
+
+      // Feeds
+      document.getElementById('logsFeed').innerHTML = (state.logs || [])
+        .map((l) => `<div class="feed-item ${l.level || ''}"><strong>${esc(l.actorName)}</strong> <small style="color:var(--muted)">(${fmtTime(l.timestamp)})</small><br/>${esc(l.message)}</div>`)
+        .join('');
+      document.getElementById('meetingsFeed').innerHTML = (state.meetings || [])
+        .map((m) => `<div class="feed-item"><strong>${esc(m.speaker)}</strong>: ${esc(m.text)}</div>`)
+        .join('');
+
+      // Projects & Unified Delivery
+      document.getElementById('projectsList').innerHTML =
+        (state.projects || []).length === 0
+          ? '<p style="color:var(--muted);font-size:0.84rem;">لا توجد مشاريع بعد — ارفع درساً أو اطلب من أ. طارق بدء مشروع جديد.</p>'
+          : (state.projects || [])
+              .map(
+                (p) => `<div class="desk-card" style="margin-bottom:8px;">
+                  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+                    <strong>📁 ${esc(p.title)}</strong>
+                    <span class="badge ${p.status === 'completed' ? 'badge-idle' : 'badge-working'}">${esc(p.status)}</span>
+                  </div>
+                  <div style="font-size:0.78rem;color:var(--muted);margin:4px 0;">${esc(p.summary_report || p.description)}</div>
+                  <div style="font-size:0.74rem;color:var(--accent);">التوكنز المستخدمة: ${p.used_tokens || 0} / ${p.budget_tokens || 150000}</div>
+                </div>`
+              )
+              .join('');
+
+      // 11-status tasks table
+      document.getElementById('tasksTableBody').innerHTML = dbTasks
+        .map(
+          (t) => `<tr>
+            <td><strong>${esc(t.title)}</strong></td>
+            <td>${esc(t.track)}</td>
+            <td>${esc(t.assignee_id)}</td>
+            <td><span class="badge ${t.status === 'completed' ? 'badge-idle' : t.status === 'failed' ? 'badge-error' : 'badge-working'}">${esc(t.statusLabel || t.status)}</span></td>
+            <td>${(t.dependsOn || []).length}</td>
+            <td>${t.fix_attempts || 0}/${t.max_attempts || 3}</td>
+            <td style="font-size:0.72rem;">${esc(t.model_used || '—')}</td>
+            <td>${(t.outputFiles || []).map((f) => (f.startsWith('/') ? `<a href="${esc(f)}" target="_blank" style="color:var(--accent);display:block;">فتح</a>` : esc(f))).join('')}</td>
+          </tr>`
+        )
+        .join('');
+
+      // Bug Reports
+      document.getElementById('bugsList').innerHTML =
+        (state.bugReports || []).length === 0
+          ? '<p style="color:var(--muted);font-size:0.82rem;">لا توجد تقارير أخطاء مفتوحة ✅</p>'
+          : (state.bugReports || [])
+              .map((b) => `<div class="feed-item error"><strong>[${esc(b.severity)}] ${esc(b.title)}</strong> — المتوقع: ${esc(b.expected)} | الفعلي: ${esc(b.actual)}</div>`)
+              .join('');
+
+      // Deliverables
+      const delivHtml = (state.deliverables || [])
+        .map((d) => {
+          const links = [];
+          if (d.mp4Url) links.push(`<a class="btn success" href="${esc(d.mp4Url)}" target="_blank">🎬 تحميل/تشغيل MP4</a>`);
+          if (d.srtUrl) links.push(`<a class="btn secondary" href="${esc(d.srtUrl)}" target="_blank">💬 ترجمة SRT</a>`);
+          if (d.docxUrl) links.push(`<a class="btn secondary" href="${esc(d.docxUrl)}" target="_blank">📝 DOCX</a>`);
+          if (d.url && d.url.endsWith('.pdf')) links.push(`<a class="btn success" href="${esc(d.url)}" target="_blank">📕 PDF</a>`);
+          else if (d.url && d.url.endsWith('.html')) links.push(`<a class="btn success" href="${esc(d.url)}" target="_blank">🚀 فتح</a>`);
+          return `<div class="desk-card">
+            <strong>${esc(d.title)}</strong>
+            <div style="font-size:0.74rem;color:var(--muted);margin:4px 0;">النوع: ${esc(d.type)} • المزود: ${esc(d.provider || 'builtin')}</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">${links.join('')}</div>
+          </div>`;
+        })
+        .join('');
+      const assetsHtml = (state.assets || [])
+        .filter((a) => !a.local_path?.endsWith('.png'))
+        .slice(0, 12)
+        .map((a) => `<div class="desk-card">
+          <strong>📄 ${esc(a.file_name)}</strong>
+          <div style="font-size:0.73rem;color:var(--muted);">النوع: ${esc(a.asset_type)} • الترخيص: ${esc(a.license)}</div>
+          <div style="display:flex;gap:6px;margin-top:6px;">
+            <button class="secondary" style="font-size:0.72rem;" onclick="window.uploadAssetToDrive('${esc(a.id)}')">☁️ رفع لـ Drive</button>
+            ${a.drive_link ? `<a class="btn success" href="${esc(a.drive_link)}" target="_blank">فتح في Drive</a>` : ''}
+          </div>
+        </div>`)
+        .join('');
+      document.getElementById('deliverablesList').innerHTML = delivHtml + assetsHtml || '<p style="color:var(--muted);">لا توجد مخرجات بعد.</p>';
+
+      // Meetings history
+      document.getElementById('meetingsHistoryList').innerHTML = (state.meetingsDetailed || [])
+        .map((m) => `<div class="desk-card" style="margin-bottom:8px;">
+          <strong>🤝 ${esc(m.title)}</strong> <small style="color:var(--muted)">(${fmtTime(m.created_at)})</small>
+          <p style="font-size:0.8rem;margin:6px 0;">${esc(m.summary)}</p>
+          <div style="font-size:0.76rem;color:var(--accent);">القرارات: ${(m.decisions || []).map((d) => esc(d.decision)).join(' • ')}</div>
+        </div>`)
+        .join('') || '<p style="color:var(--muted);">لم تُعقد اجتماعات تفصيلية بعد.</p>';
+
+      // AI Router
+      if (state.routerDashboard) {
+        const rd = state.routerDashboard;
+        document.getElementById('routerStatsBox').innerHTML = `
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+            <span class="badge badge-info">الأساسي: ${esc(rd.activePrimary.provider)} (${esc(rd.activePrimary.model)})</span>
+            <span class="badge ${rd.activeBackup.connected ? 'badge-idle' : 'badge-working'}">الاحتياطي: ${esc(rd.activeBackup.provider)} (${esc(rd.activeBackup.model)})</span>
+          </div>
+          <table><thead><tr><th>المزود</th><th>الموديل</th><th>الطلبات</th><th>الأخطاء</th><th>متوسط السرعة</th><th>التوكنز</th></tr></thead>
+          <tbody>${(rd.usageByModel || []).map((u) => `<tr><td>${esc(u.provider)}</td><td>${esc(u.model)}</td><td>${u.requests}</td><td>${u.errors}</td><td>${Math.round(u.avg_latency_ms || 0)}ms</td><td>${u.tokens_est || 0}</td></tr>`).join('')}</tbody></table>`;
+        document.getElementById('routerCatalogBox').innerHTML = (rd.catalog || [])
+          .map((c) => `<div class="desk-card" style="margin-bottom:8px;"><strong>${esc(c.name)}</strong> — <span class="badge badge-info">${esc(c.tier)}</span><div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">${esc(c.note)}</div></div>`)
+          .join('');
+      }
+
+      // 11 Departments
+      document.getElementById('departmentsGrid').innerHTML = (state.departments || [])
+        .map((dep) => {
+          const members = (state.agents || []).filter((a) => a.department === dep.id);
+          return `<div class="panel-box">
+            <h3><span>${dep.icon} ${esc(dep.label)}</span><span class="badge badge-info">${members.length}</span></h3>
+            ${members.map((m) => `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:0.8rem;">
+              <span>${m.avatar} ${esc(m.shortName)}</span>
+              <button class="secondary" style="padding:3px 8px;font-size:0.72rem;" onclick="window.openAgentProfile('${esc(m.id)}')">ملف</button>
+            </div>`).join('')}
+          </div>`;
+        })
+        .join('');
+
+      // Monitoring
+      if (state.monitoring) {
+        const m = state.monitoring;
+        document.getElementById('monitoringBox').innerHTML = `
+          <div>• حالة الخادم: <strong>${m.sqliteReady ? 'متصل بقاعدة SQLite دائمة ✅' : 'تحذير ⚠️'}</strong> | وقت التشغيل: <strong>${m.uptimeSec}ث</strong> | الذاكرة: <strong>${m.memoryMb}MB</strong></div>
+          <div>• طابور المهام: قيد الانتظار <strong>${m.queueStats?.pending || 0}</strong> • قيد التشغيل <strong>${m.queueStats?.running || 0}</strong> • مكتملة <strong>${m.queueStats?.done || 0}</strong> • فاشلة <strong>${m.queueStats?.failed || 0}</strong></div>
+          <div style="color:var(--amber);margin-top:4px;">⚠️ ${esc(m.hostingNote)}</div>`;
+      }
+
+      // Sync Settings Form safely without wiping user typing
+      if (document.activeElement?.tagName !== 'SELECT' && document.activeElement?.tagName !== 'INPUT') {
+        document.getElementById('cfgProvider').value = state.llmConfig?.provider || 'builtin';
+        document.getElementById('cfgBackupProvider').value = state.llmConfig?.backupProvider || 'none';
+        document.getElementById('cfgInterval').value = Math.round((state.tickIntervalMs || 4000) / 1000);
+        document.getElementById('cfgConcurrency').value = state.maxConcurrency || 3;
       }
     }
 
-    function renderLogs(logs) {
-      const el = document.getElementById('logsFeed');
-      el.innerHTML = logs.slice(0, 35).map((l) => `
-        <div class="feed-item ${esc(l.level || 'info')}">
-          <div class="feed-meta"><strong>${esc(l.actorName)}</strong><span>${fmtTime(l.timestamp)}</span></div>
-          <div>${esc(l.message)}</div>
-        </div>
-      `).join('') || '<div style="color:var(--muted);font-size:0.85rem;">بانتظار أول دورة عمل...</div>';
-    }
-
-    function renderMeetings(meetings) {
-      const el = document.getElementById('meetingsFeed');
-      el.innerHTML = meetings.slice(0, 20).map((m) => `
-        <div class="feed-item" style="border-right-color: var(--pink);">
-          <div class="feed-meta"><strong>${esc(m.speaker)} (${esc(m.role)})</strong><span>${fmtTime(m.timestamp)}</span></div>
-          <div>${esc(m.text)}</div>
-        </div>
-      `).join('') || '<div style="color:var(--muted);font-size:0.85rem;">ستظهر نقاشات الفريق التلقائية هنا...</div>';
-    }
-
-    function renderKanban(tasks) {
-      const cols = [
-        { key: 'build', title: '⚙️ قيد التنفيذ', match: (t) => t.status === 'developing' || t.status === 'filming' },
-        { key: 'qa', title: '🔍 المراجعة / المونتاج', match: (t) => t.status === 'qa_review' || t.status === 'montage' },
-        { key: 'ceo', title: '👔 اعتماد المدير', match: (t) => t.status === 'ceo_approval' },
-        { key: 'done', title: '✅ مكتمل ومنشور', match: (t) => t.status === 'completed' },
-      ];
-      const grid = document.getElementById('kanbanGrid');
-      grid.innerHTML = cols.map((c) => {
-        const list = tasks.filter(c.match);
-        return `
-          <div class="kanban-col">
-            <h4><span>${c.title}</span><span>${list.length}</span></h4>
-            ${list.map((t) => `
-              <div class="task-card">
-                <span class="task-tag ${t.type === 'video' ? 'video' : ''}">${t.type === 'video' ? '🎬 فيديو ومونتاج' : '📱 تطبيق'} • v${t.version || 0}</span>
-                <strong>${esc(t.title)}</strong>
-                <div style="color:var(--muted);font-size:0.75rem;">${esc(t.stageLabel || '')}</div>
-              </div>
-            `).join('') || '<div style="color:var(--muted);font-size:0.78rem;">لا توجد مهام حالياً</div>'}
-          </div>
-        `;
-      }).join('');
-    }
-
-    function renderDeliverables(items) {
-      const grid = document.getElementById('deliverablesGrid');
-      if (!items.length) {
-        grid.innerHTML = '<div class="panel-box" style="grid-column:1/-1;text-align:center;padding:30px;">⏳ يعمل الفريق الآن على أول مخرج... اضغط "تنفيذ خطوة الآن" لتسريع العرض أو انتظر ثوانٍ قليلة.</div>';
-        return;
+    // Voice Synthesis & Lip Sync
+    function populateVoices() {
+      if (!window.speechSynthesis) return;
+      const vs = window.speechSynthesis.getVoices().filter((v) => v.lang.startsWith('ar') || v.lang.startsWith('en'));
+      const sel = document.getElementById('voiceSelect');
+      if (vs.length > 0 && sel.options.length === 0) {
+        sel.innerHTML = vs.map((v, i) => `<option value="${i}">${esc(v.name)} (${v.lang})</option>`).join('');
       }
-      grid.innerHTML = items.map((d) => `
-        <div class="deliv-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span class="task-tag ${d.type === 'video' ? 'video' : ''}">${d.type === 'video' ? '🎬 فيديو بعد المونتاج' : '📱 تطبيق تم اختباره وتعديله'}</span>
-            <span style="font-size:0.75rem;color:var(--emerald);">v${d.version || 2} معتمد</span>
-          </div>
-          <h4>${esc(d.title)}</h4>
-          <div class="deliv-notes">${esc(d.notes)}</div>
-          ${(d.qaNotes && d.qaNotes.length) ? `<div style="font-size:0.76rem;color:#93c5fd;">🛠️ التحسينات المطبقة تلقائياً: ${esc(d.qaNotes.join(' • '))}</div>` : ''}
-          <div class="deliv-actions">
-            ${d.type === 'app'
-              ? `<button class="success" onclick="openAppPreview('${esc(d.url)}', '${esc(d.title)}')">🚀 معاينة حية</button>
-                 <button class="secondary" onclick="openAppSource('${esc(d.id)}', '${esc(d.title)}')">📝 الكود وتعديلات QA</button>
-                 <a class="btn secondary" style="text-decoration:none;" href="${esc(d.url)}" download="${esc(d.id)}.html">⬇️ تحميل HTML</a>`
-              : `<button class="warn" onclick="openVideoPlayer('${esc(d.url)}', '${esc(d.title)}')">▶️ تشغيل الفيديو</button>
-                 <a class="btn secondary" style="text-decoration:none;" href="${esc(d.url)}" download="${esc(d.id)}-storyboard.json">⬇️ السيناريو JSON</a>`
-            }
-          </div>
-        </div>
-      `).join('');
+    }
+    if (window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = populateVoices;
+      populateVoices();
     }
 
-    function renderHR(agents) {
-      const el = document.getElementById('hrRoster');
-      el.innerHTML = agents.map((a) => `
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--panel-2);border-radius:10px;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:1.4rem;">${esc(a.avatar)}</span>
-            <div>
-              <strong style="font-size:0.88rem;">${esc(a.name)}</strong>
-              <div style="font-size:0.74rem;color:var(--muted);">${esc(a.room)} • ${esc(a.role)}</div>
-            </div>
-          </div>
-          <div style="text-align:left;font-size:0.78rem;">
-            <div>منجز: <strong>${a.tasksCompleted || 0}</strong></div>
-            <div style="color:var(--emerald);">جودة: ${a.qualityScore || 95}%</div>
-          </div>
-        </div>
-      `).join('');
+    function speakArabic(text, agentId) {
+      if (!document.getElementById('voiceReplyToggle')?.checked || !window.speechSynthesis || !text) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'ar-EG';
+      u.volume = Number(document.getElementById('voiceVol')?.value ?? 1);
+      const vs = window.speechSynthesis.getVoices().filter((v) => v.lang.startsWith('ar') || v.lang.startsWith('en'));
+      const idx = Number(document.getElementById('voiceSelect')?.value || 0);
+      if (vs[idx]) u.voice = vs[idx];
+      u.onstart = () => window.Office3D?.setSpeakingAgent(agentId, true);
+      u.onend = () => window.Office3D?.setSpeakingAgent(null, false);
+      u.onerror = () => window.Office3D?.setSpeakingAgent(null, false);
+      window.speechSynthesis.speak(u);
     }
-
-    let settingsInitialized = false;
-    function syncSettingsForm(state) {
-      if (settingsInitialized) return;
-      settingsInitialized = true;
-      document.getElementById('cfgProvider').value = state.llmConfig?.provider || 'builtin';
-      document.getElementById('cfgModel').value = state.llmConfig?.model || '';
-      document.getElementById('cfgBaseUrl').value = state.llmConfig?.baseUrl || 'http://127.0.0.1:11434';
-      document.getElementById('cfgInterval').value = Math.round((state.tickIntervalMs || 4000) / 1000);
-      document.getElementById('cfgBackupProvider').value = state.llmConfig?.backupProvider || 'none';
-    }
-
-    // Modal controls
-    const modal = document.getElementById('previewModal');
-    function closeModal() {
-      modal.classList.remove('open');
-      if (videoAnimFrame) {
-        cancelAnimationFrame(videoAnimFrame);
-        videoAnimFrame = null;
-      }
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
-      document.getElementById('modalBody').innerHTML = '';
-    }
-    document.getElementById('closeModalBtn').onclick = closeModal;
-
-    window.openAppPreview = function (url, title) {
-      document.getElementById('modalTitle').textContent = '📱 معاينة حية: ' + title;
-      document.getElementById('modalBody').innerHTML = `<iframe class="app-preview" src="${esc(url)}"></iframe>`;
-      modal.classList.add('open');
+    document.getElementById('stopSpeechBtn').onclick = () => {
+      window.speechSynthesis?.cancel();
+      window.Office3D?.setSpeakingAgent(null, false);
     };
 
-    window.openAppSource = async function (id, title) {
-      document.getElementById('modalTitle').textContent = '📝 الكود المصدري المعدّل تلقائياً: ' + title;
-      const body = document.getElementById('modalBody');
-      body.innerHTML = '<div style="padding:20px;text-align:center;">جاري تحميل الكود...</div>';
-      modal.classList.add('open');
-      const res = await fetch('/api/deliverables/app/' + encodeURIComponent(id) + '/source');
-      const data = await res.json();
-      body.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <span style="color:var(--emerald);font-size:0.85rem;">✅ هذا الكود تم تعديله وفحصه بواسطة قسم الجودة (QA & Auto-Fix)</span>
-          <button class="secondary" onclick="navigator.clipboard.writeText(document.getElementById('srcPre').textContent);alert('تم نسخ الكود!')">📋 نسخ الكود</button>
-        </div>
-        <pre id="srcPre" style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;overflow:auto;max-height:62vh;direction:ltr;text-align:left;font-size:0.78rem;line-height:1.5;color:#cbd5e1;"></pre>
-      `;
-      document.getElementById('srcPre').textContent = data.html || '';
-    };
+    function appendChat(sender, text, isOwner) {
+      const th = document.getElementById('chatThread');
+      th.style.display = 'flex';
+      const d = document.createElement('div');
+      d.style.cssText = isOwner
+        ? 'align-self:flex-start;background:rgba(99,102,241,0.22);border:1px solid #6366f1;border-radius:10px;padding:7px 11px;font-size:0.83rem;max-width:88%;'
+        : 'align-self:flex-end;background:var(--panel-2);border:1px solid var(--accent);border-radius:10px;padding:7px 11px;font-size:0.83rem;max-width:92%;';
+      d.innerHTML = `<strong>${esc(sender)}:</strong> ${esc(text)}`;
+      th.appendChild(d);
+      th.scrollTop = th.scrollHeight;
+    }
 
-    window.openVideoPlayer = async function (jsonUrl, title) {
-      document.getElementById('modalTitle').textContent = '🎬 مشغل الفيديو والمونتاج: ' + title;
-      const body = document.getElementById('modalBody');
-      body.innerHTML = '<div style="padding:20px;text-align:center;">جاري تحميل الفيديو...</div>';
-      modal.classList.add('open');
+    async function sendChat(overrideText) {
+      const agentId = document.getElementById('chatAgentSelect').value || 'ceo';
+      const inp = document.getElementById('chatMsgInput');
+      const msg = (overrideText ?? inp.value).trim();
+      if (!msg) return;
+      if (!overrideText) inp.value = '';
+      appendChat('أنت', msg, true);
+      const res = await postJson('/api/chat', { agentId, message: msg });
+      appendChat(res.agentName || 'الموظف', res.reply || '', false);
+      speakArabic(res.reply, agentId);
+    }
+    document.getElementById('chatSendBtn').onclick = () => sendChat();
+    document.getElementById('chatMsgInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(); });
 
-      const res = await fetch(jsonUrl);
-      const video = await res.json();
-      const scenes = video.scenes || [];
-      const totalSec = scenes.reduce((a, s) => a + (s.durationSec || 4), 0);
-
-      body.innerHTML = `
-        <canvas id="videoCanvas" class="video-canvas" width="960" height="540"></canvas>
-        <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-          <button id="playVidBtn" class="success">▶️ تشغيل مع التعليق الصوتي</button>
-          <button id="exportVidBtn" class="warn">⬇️ تصدير وحفظ فيديو (.webm)</button>
-        </div>
-        <div style="background:var(--panel-2);padding:12px;border-radius:10px;font-size:0.82rem;line-height:1.6;">
-          <strong>✂️ ملاحظات المونتاج:</strong> ${esc(video.editorNotes || 'نسخة أولية')}
-          <br><strong>🎵 الموسيقى المقترحة:</strong> ${esc(video.musicMood || 'Upbeat')} • <strong>المدة:</strong> ${totalSec} ثانية
-        </div>
-      `;
-
-      const canvas = document.getElementById('videoCanvas');
-      const ctx = canvas.getContext('2d');
-      let startTime = performance.now();
-      let lastSpokenIdx = -1;
-      let speakEnabled = false;
-
-      function getSceneAt(elapsedSec) {
-        let acc = 0;
-        for (let i = 0; i < scenes.length; i++) {
-          const dur = scenes[i].durationSec || 4;
-          if (elapsedSec < acc + dur) {
-            return { idx: i, scene: scenes[i], localT: (elapsedSec - acc) / dur };
-          }
-          acc += dur;
-        }
-        return { idx: 0, scene: scenes[0], localT: 0, ended: true };
-      }
-
-      function drawFrame(now) {
-        const elapsed = ((now - startTime) / 1000) % totalSec;
-        const { idx, scene, localT } = getSceneAt(elapsed);
-
-        if (speakEnabled && idx !== lastSpokenIdx) {
-          lastSpokenIdx = idx;
-          if (window.speechSynthesis && scene.voiceover) {
-            window.speechSynthesis.cancel();
-            const utter = new SpeechSynthesisUtterance(scene.voiceover);
-            utter.lang = 'ar-SA';
-            window.speechSynthesis.speak(utter);
-          }
-        }
-
-        // Background gradient
-        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        grad.addColorStop(0, scene.bgStart || '#0f172a');
-        grad.addColorStop(1, scene.bgEnd || '#312e81');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Transition animation
-        ctx.save();
-        const enter = Math.min(1, localT * 3.5);
-        if (scene.transition === 'zoom-in') {
-          const scale = 0.92 + enter * 0.08;
-          ctx.translate(canvas.width / 2, canvas.height / 2);
-          ctx.scale(scale, scale);
-          ctx.translate(-canvas.width / 2, -canvas.height / 2);
-        } else if (scene.transition === 'slide-left') {
-          ctx.translate((1 - enter) * 80, 0);
-        }
-        ctx.globalAlpha = enter;
-
-        // Decorative glow
-        ctx.beginPath();
-        ctx.arc(canvas.width / 2, 180, 120, 0, Math.PI * 2);
-        ctx.fillStyle = (scene.accent || '#38bdf8') + '22';
-        ctx.fill();
-
-        // Icon
-        ctx.font = '82px system-ui';
-        ctx.textAlign = 'center';
-        ctx.fillText(scene.icon || '🎬', canvas.width / 2, 185);
-
-        // Heading
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 42px system-ui';
-        ctx.fillText(scene.heading || '', canvas.width / 2, 275);
-
-        // Subtitle
-        ctx.fillStyle = scene.accent || '#38bdf8';
-        ctx.font = '26px system-ui';
-        ctx.fillText(scene.subtitle || '', canvas.width / 2, 330);
-
-        // Kinetic Captions bar
-        if (scene.voiceover) {
-          ctx.fillStyle = 'rgba(0,0,0,0.62)';
-          ctx.fillRect(80, 415, canvas.width - 160, 62);
-          ctx.fillStyle = '#f8fafc';
-          ctx.font = '22px system-ui';
-          ctx.fillText(scene.voiceover.slice(0, 62), canvas.width / 2, 453);
-        }
-
-        // Top Montage HUD
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.font = '16px system-ui';
-        ctx.fillText(`مشهد ${idx + 1}/${scenes.length} • انتقال: ${scene.transition || 'cut'} • ${scene.colorGrade || 'Studio'}`, canvas.width / 2, 36);
-
-        // Progress bar
-        ctx.fillStyle = 'rgba(255,255,255,0.18)';
-        ctx.fillRect(0, canvas.height - 6, canvas.width, 6);
-        ctx.fillStyle = scene.accent || '#38bdf8';
-        ctx.fillRect(0, canvas.height - 6, canvas.width * (elapsed / totalSec), 6);
-
-        ctx.restore();
-        videoAnimFrame = requestAnimationFrame(drawFrame);
-      }
-
-      videoAnimFrame = requestAnimationFrame(drawFrame);
-
-      document.getElementById('playVidBtn').onclick = () => {
-        speakEnabled = !speakEnabled;
-        lastSpokenIdx = -1;
-        startTime = performance.now();
-        document.getElementById('playVidBtn').textContent = speakEnabled ? '🔇 كتم التعليق الصوتي' : '▶️ تشغيل مع التعليق الصوتي';
-        if (!speakEnabled && window.speechSynthesis) window.speechSynthesis.cancel();
+    // Mic Input
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let rec = null, listening = false;
+    document.getElementById('micBtn').onclick = () => {
+      if (!SpeechRec) return alert('افتح الرابط في Google Chrome لاستخدام المايكروفون.');
+      if (listening && rec) return rec.stop();
+      window.speechSynthesis?.cancel();
+      rec = new SpeechRec();
+      rec.lang = 'ar-EG';
+      listening = true;
+      document.getElementById('micBtn').textContent = '⏹️ أستمع...';
+      document.getElementById('micStatus').style.display = 'block';
+      document.getElementById('micStatus').textContent = '🎤 تكلّم الآن بالعربية...';
+      rec.onresult = (ev) => { const t = ev.results?.[0]?.[0]?.transcript; if (t) sendChat(t); };
+      rec.onend = () => {
+        listening = false;
+        document.getElementById('micBtn').textContent = '🎤 تحدّث';
+        document.getElementById('micStatus').style.display = 'none';
       };
-
-      document.getElementById('exportVidBtn').onclick = () => {
-        if (!canvas.captureStream || !window.MediaRecorder) {
-          alert('متصفحك لا يدعم تسجيل WebM المباشر.');
-          return;
-        }
-        const btn = document.getElementById('exportVidBtn');
-        btn.disabled = true;
-        btn.textContent = '⏳ جاري تصدير الفيديو...';
-        startTime = performance.now();
-        const stream = canvas.captureStream(30);
-        const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-        const chunks = [];
-        recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
-        recorder.onstop = () => {
-          const blob = new Blob(chunks, { type: 'video/webm' });
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
-          a.download = (video.title || 'ai-video').replace(/[^\w\u0600-\u06FF-]+/g, '_') + '.webm';
-          a.click();
-          btn.disabled = false;
-          btn.textContent = '⬇️ تصدير وحفظ فيديو (.webm)';
-        };
-        recorder.start();
-        setTimeout(() => recorder.stop(), Math.min(totalSec * 1000, 16500));
-      };
+      rec.start();
     };
 
-    // API actions
-    async function postJson(url, payload = {}) {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      return res.json();
-    }
-
+    // Header Actions
     document.getElementById('stepBtn').onclick = () => postJson('/api/tick');
-    document.getElementById('toggleAutoBtn').onclick = () => {
-      postJson('/api/autopilot', { enabled: !currentState?.autopilotEnabled });
+    document.getElementById('toggleAutoBtn').onclick = () => postJson('/api/autopilot');
+    document.getElementById('toggleAutoInventBtn').onclick = () => postJson('/api/settings', { autoInventProjects: !currentState?.autoInventProjects });
+
+    // Projects & Lesson Launch
+    document.getElementById('launchLessonBtn').onclick = async () => {
+      const title = document.getElementById('lessonTitle').value.trim();
+      const lessonText = document.getElementById('lessonContent').value.trim();
+      const fileEl = document.getElementById('lessonFile');
+      const file = fileEl.files?.[0];
+      let fileBase64 = '', fileName = '';
+      if (file) {
+        fileName = file.name;
+        const buf = await file.arrayBuffer();
+        fileBase64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+      }
+      const res = await postJson('/api/projects/lesson', {
+        title: title || fileName || 'مشروع درس جديد',
+        lessonText,
+        fileName,
+        fileBase64,
+        curriculumMeta: {
+          grade: document.getElementById('lessonGrade').value.trim(),
+          term: document.getElementById('lessonTerm').value.trim(),
+        },
+      });
+      if (res.ok) alert(`🚀 استلم أ. طارق المشروع (${res.projectId}) ووزّع الـ 4 مسارات بالتوازي!`);
+      else alert('❌ ' + (res.error || 'تعذر الإرسال'));
     };
-    document.getElementById('addDirectiveBtn').onclick = async () => {
-      const title = document.getElementById('dirTitle').value.trim();
-      const type = document.getElementById('dirType').value;
-      if (!title) return;
-      await postJson('/api/directive', { type, title, description: title });
-      document.getElementById('dirTitle').value = '';
+
+    document.getElementById('quickAppBtn').onclick = async () => {
+      const t = document.getElementById('lessonTitle').value.trim() || 'تطبيق ويب تعليمي';
+      await postJson('/api/directive', { type: 'app', title: t });
+      alert('✅ أُضيف طلب التطبيق لقائمة التنفيذ.');
     };
+    document.getElementById('quickVideoBtn').onclick = async () => {
+      const t = document.getElementById('lessonTitle').value.trim() || 'فيديو تعليمي قصير';
+      await postJson('/api/directive', { type: 'video', title: t });
+      alert('✅ أُضيف طلب الفيديو MP4 لقائمة التنفيذ.');
+    };
+
+    // Meetings & Innovation
+    document.getElementById('conveneMtgBtn').onclick = async () => {
+      const title = document.getElementById('mtgTitle').value.trim() || 'اجتماع متابعة الأداء';
+      const agenda = document.getElementById('mtgAgenda').value.split('،').map((x) => x.trim()).filter(Boolean);
+      await postJson('/api/meetings/convene', { title, agenda });
+    };
+    document.getElementById('runInnovationBtn').onclick = async () => {
+      const res = await postJson('/api/innovation/scan');
+      openModal('تقرير د. زياد للابتكار (بانتظار موافقتك)', `<pre style="white-space:pre-wrap;font-family:inherit;">${esc(res.report || '')}</pre>`);
+    };
+
+    // 3D GLB Inspector
+    document.getElementById('inspectGlbBtn').onclick = async () => {
+      const file = document.getElementById('glbFileInput').files?.[0];
+      if (!file) return alert('اختر ملف .glb أو .gltf أولاً');
+      const buf = await file.arrayBuffer();
+      const fileBase64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+      const res = await postJson('/api/assets/inspect-3d', {
+        fileName: file.name,
+        fileBase64,
+        source: document.getElementById('glbSourceInput').value.trim(),
+        license: document.getElementById('glbLicenseInput').value.trim(),
+      });
+      document.getElementById('glbReportBox').innerHTML = `<pre style="white-space:pre-wrap;">${esc(JSON.stringify(res.report, null, 2))}</pre>`;
+    };
+
+    // Google Drive OAuth
+    async function loadDriveStatus() {
+      const st = await fetch('/api/drive/status').then((r) => r.json()).catch(() => ({}));
+      const box = document.getElementById('driveStatusBox');
+      if (st.connected) {
+        const usedGb = st.storageQuota?.usage ? (Number(st.storageQuota.usage) / 1e9).toFixed(2) : '—';
+        const limitGb = st.storageQuota?.limit ? (Number(st.storageQuota.limit) / 1e9).toFixed(2) : '—';
+        box.innerHTML = `✅ مربوط بحساب: <strong>${esc(st.user?.emailAddress || 'Google')}</strong><br/>📁 المجلد الرئيسي: <strong>${esc(st.rootFolderName)}</strong><br/>💾 المساحة المستخدمة: <strong>${usedGb} GB / ${limitGb} GB</strong><br/><small style="color:var(--amber);">${esc(st.sharedQuotaNotice)}</small>`;
+      } else {
+        box.innerHTML = `${st.oauthConfigured ? '🟡 بيانات OAuth جاهزة — اضغط "ربط Google Drive" لتسجيل الدخول.' : '⚠️ يلزم إدخال GOOGLE_CLIENT_ID و GOOGLE_CLIENT_SECRET من Google Cloud أولاً.'}<br/><small style="color:var(--muted);">${esc(st.sharedQuotaNotice || '')}</small>`;
+      }
+    }
+    document.getElementById('saveDriveCredsBtn').onclick = async () => {
+      const res = await postJson('/api/drive/credentials', {
+        clientId: document.getElementById('driveClientId').value,
+        clientSecret: document.getElementById('driveClientSecret').value,
+        redirectUri: document.getElementById('driveRedirectUri').value,
+      });
+      if (res.error) alert('❌ ' + res.error);
+      else { alert('✅ تم حفظ بيانات OAuth'); loadDriveStatus(); }
+    };
+    document.getElementById('connectDriveBtn').onclick = async () => {
+      const res = await fetch('/api/drive/auth-url').then((r) => r.json());
+      if (res.authUrl) window.open(res.authUrl, '_blank');
+      else alert('⚠️ ' + (res.error || 'اضبط بيانات Google OAuth أولاً'));
+    };
+    document.getElementById('refreshDriveFilesBtn').onclick = async () => {
+      const res = await fetch('/api/drive/files').then((r) => r.json());
+      document.getElementById('driveFilesList').innerHTML = (res.files || [])
+        .map((f) => `<div style="padding:4px 0;border-bottom:1px solid var(--border);font-size:0.78rem;"><a href="${esc(f.webViewLink)}" target="_blank" style="color:var(--accent);">${esc(f.name)}</a></div>`)
+        .join('') || '<small style="color:var(--muted);">لا توجد ملفات بعد.</small>';
+    };
+    document.getElementById('disconnectDriveBtn').onclick = async () => {
+      const res = await postJson('/api/drive/disconnect');
+      if (res.error) alert('❌ ' + res.error); else loadDriveStatus();
+    };
+    window.uploadAssetToDrive = async (assetId) => {
+      const res = await postJson('/api/drive/upload-asset', { assetId });
+      if (res.ok) alert('☁️ تم الرفع إلى Google Drive بنجاح!');
+      else alert('⚠️ ' + (res.error || 'فشل الرفع'));
+    };
+
+    // HR, Settings, Auth & Platform
     document.getElementById('hireBtn').onclick = async () => {
       const name = document.getElementById('hireName').value.trim();
       if (!name) return;
       await postJson('/api/hr/hire', {
         name,
-        role: document.getElementById('hireRole').value.trim() || 'SPECIALIST',
-        room: document.getElementById('hireRoom').value.trim() || 'مكتب العمليات',
+        role: document.getElementById('hireRole').value.trim(),
+        room: document.getElementById('hireRoom').value.trim(),
         systemPrompt: document.getElementById('hirePrompt').value.trim(),
       });
       document.getElementById('hireName').value = '';
     };
     document.getElementById('saveCfgBtn').onclick = async () => {
-      await postJson('/api/settings', {
+      const res = await postJson('/api/settings', {
         tickIntervalMs: Number(document.getElementById('cfgInterval').value || 4) * 1000,
+        maxConcurrency: Number(document.getElementById('cfgConcurrency').value || 3),
         llmConfig: {
           provider: document.getElementById('cfgProvider').value,
           apiKey: document.getElementById('cfgApiKey').value,
           model: document.getElementById('cfgModel').value,
-          baseUrl: document.getElementById('cfgBaseUrl').value,
           backupProvider: document.getElementById('cfgBackupProvider').value,
           backupApiKey: document.getElementById('cfgBackupApiKey').value,
         },
       });
-      alert('✅ تم حفظ الإعدادات وتطبيقها على المكتب فوراً!');
-    };
-
-    document.getElementById('restoreFileInput').onchange = async (e) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      try {
-        const json = JSON.parse(await file.text());
-        const res = await postJson('/api/restore', json);
-        if (res.ok) alert('♻️ تم استرجاع النسخة الاحتياطية بنجاح!');
-        else alert('❌ فشل الاسترجاع: ' + (res.error || 'خطأ غير معروف'));
-      } catch (err) {
-        alert('❌ ملف نسخة احتياطية غير صالح');
+      if (res.error) alert('❌ ' + res.error);
+      else {
+        document.getElementById('cfgApiKey').value = '';
+        document.getElementById('cfgBackupApiKey').value = '';
+        alert('✅ تم الحفظ بأمان');
       }
-      e.target.value = '';
     };
-
-    document.getElementById('toggleAutoInventBtn').onclick = async () => {
-      await postJson('/api/settings', { autoInventProjects: !currentState?.autoInventProjects });
-    };
-
     document.getElementById('resetOfficeBtn').onclick = async () => {
-      if (!confirm('هل تريد تصفير كل المشاريع التجريبية والبدء من الصفر (0)؟')) return;
-      await postJson('/api/reset');
-      document.getElementById('chatThread').innerHTML = '';
-      document.getElementById('chatThread').style.display = 'none';
-      alert('✅ تم تصفير المكتب بنجاح! الآن الفريق بانتظار أول أمر منك.');
+      if (!confirm('تصفير الشركة بالكامل إلى 0؟')) return;
+      const res = await postJson('/api/reset');
+      if (res.error) alert('❌ ' + res.error);
+    };
+    document.getElementById('setOwnerPassBtn').onclick = async () => {
+      const res = await postJson('/api/auth/setup', { password: document.getElementById('ownerPassInput').value });
+      alert(res.ok ? '🔒 تم تأمين المكتب بكلمة مرور المالك' : '❌ ' + res.error);
+    };
+    document.getElementById('loginOwnerBtn').onclick = async () => {
+      const res = await postJson('/api/auth/login', { password: document.getElementById('ownerPassInput').value });
+      alert(res.ok ? '✅ تم تسجيل دخول المالك' : '❌ ' + res.error);
+    };
+    document.getElementById('authHeaderBtn').onclick = () => document.querySelector('[data-tab="settings"]').click();
+    document.getElementById('savePlatBtn').onclick = async () => {
+      const res = await postJson('/api/platform/config', {
+        enabled: true,
+        baseUrl: document.getElementById('platUrlInput').value,
+        apiKey: document.getElementById('platKeyInput').value,
+      });
+      alert(res.ok ? '✅ تم حفظ تكامل المنصة التعليمية' : '❌ ' + res.error);
     };
 
-    window.focusAgentChat = function (agentId) {
-      const sel = document.getElementById('chatAgentSelect');
-      if (sel) sel.value = agentId;
-      const inp = document.getElementById('chatMsgInput');
-      if (inp) {
-        inp.focus();
-        inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    };
-
-    function speakArabic(text) {
-      if (!document.getElementById('voiceReplyToggle')?.checked) return;
-      if (!window.speechSynthesis || !text) return;
-      try {
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = 'ar-EG';
-        utter.rate = 1.0;
-        window.speechSynthesis.speak(utter);
-      } catch {}
-    }
-
-    function appendChatBubble(sender, text, isOwner) {
-      const thread = document.getElementById('chatThread');
-      thread.style.display = 'flex';
-      const div = document.createElement('div');
-      div.style.cssText = isOwner
-        ? 'align-self:flex-start;background:rgba(99,102,241,0.22);border:1px solid rgba(99,102,241,0.45);border-radius:10px;padding:8px 12px;font-size:0.84rem;max-width:88%;'
-        : 'align-self:flex-end;background:var(--panel-2);border:1px solid var(--accent);border-radius:10px;padding:8px 12px;font-size:0.84rem;max-width:92%;line-height:1.5;';
-      div.innerHTML = `<strong style="color:${isOwner ? '#a5b4fc' : '#38bdf8'};">${esc(sender)}:</strong> ${esc(text)}`;
-      thread.appendChild(div);
-      thread.scrollTop = thread.scrollHeight;
-    }
-
-    async function sendChatMessage(customText) {
-      const agentId = document.getElementById('chatAgentSelect').value || 'ceo';
-      const inp = document.getElementById('chatMsgInput');
-      const msg = (customText ?? inp.value).trim();
-      if (!msg) return;
-      if (!customText) inp.value = '';
-      appendChatBubble('أنت', msg, true);
-      const sendBtn = document.getElementById('chatSendBtn');
-      sendBtn.disabled = true;
-      sendBtn.textContent = '...';
-      try {
-        const res = await postJson('/api/chat', { agentId, message: msg });
-        const reply = res.reply || 'تم الاستلام.';
-        appendChatBubble(res.agentName || 'الموظف', reply, false);
-        speakArabic(reply);
-      } catch (err) {
-        appendChatBubble('النظام', 'تعذر الاتصال بالسيرفر، حاول مجدداً.', false);
-      } finally {
-        sendBtn.disabled = false;
-        sendBtn.textContent = 'إرسال ↵';
-      }
-    }
-
-    document.getElementById('chatSendBtn').onclick = () => sendChatMessage();
-    document.getElementById('chatMsgInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        sendChatMessage();
-      }
-    });
-
-    // Voice Input via Web Speech API (Chrome Android / Desktop)
-    const micBtn = document.getElementById('micBtn');
-    const micStatus = document.getElementById('micStatus');
-    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-    let recognition = null;
-    let isListening = false;
-
-    micBtn.onclick = () => {
-      if (!SpeechRec) {
-        alert('التعرف الصوتي غير مدعوم في هذا المتصفح. افتح الرابط في متصفح Google Chrome.');
-        return;
-      }
-      if (isListening && recognition) {
-        recognition.stop();
-        return;
-      }
-      recognition = new SpeechRec();
-      recognition.lang = 'ar-EG';
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-      isListening = true;
-      micBtn.textContent = '⏹️ أستمع لك...';
-      micBtn.className = 'success';
-      micStatus.style.display = 'block';
-      micStatus.textContent = '🎤 تكلّم الآن باللغة العربية...';
-
-      recognition.onresult = (event) => {
-        const transcript = event.results?.[0]?.[0]?.transcript || '';
-        if (transcript) {
-          sendChatMessage(transcript);
-        }
-      };
-      recognition.onerror = (err) => {
-        micStatus.textContent = '⚠️ لم يتم التقاط الصوت (' + (err.error || 'تأكد من إذن المايكروفون') + ')';
-      };
-      recognition.onend = () => {
-        isListening = false;
-        micBtn.textContent = '🎤 تحدّث';
-        micBtn.className = 'warn';
-        setTimeout(() => { if (!isListening) micStatus.style.display = 'none'; }, 2500);
-      };
-      recognition.start();
-    };
-
-    // Connect SSE stream
+    // SSE Live Connect
     function connectSSE() {
       const es = new EventSource('/api/events');
-      es.onmessage = (e) => {
-        try {
-          const msg = JSON.parse(e.data);
-          if (msg.state) renderAll(msg.state);
-        } catch {}
-      };
-      es.onerror = () => {
-        es.close();
-        setTimeout(connectSSE, 3000);
-      };
+      es.onmessage = (e) => { try { const d = JSON.parse(e.data); if (d.state) renderAll(d.state); } catch {} };
+      es.onerror = () => { es.close(); setTimeout(connectSSE, 3000); };
     }
-
     fetch('/api/state').then((r) => r.json()).then(renderAll).catch(() => {});
+    loadDriveStatus();
     connectSSE();
   </script>
 </body>
