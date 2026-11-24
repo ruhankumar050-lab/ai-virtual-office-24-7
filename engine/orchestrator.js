@@ -30,7 +30,7 @@ const DEFAULT_STATE = {
   autopilotEnabled: true,
   autoInventProjects: false,
   tickIntervalMs: 4000,
-  maxConcurrency: 3,
+  maxConcurrency: 2,
   cycleCount: 0,
   llmConfig: {
     provider: process.env.AI_PROVIDER || 'builtin',
@@ -699,7 +699,7 @@ class VirtualOfficeOrchestrator {
       } else if (job.job_type === 'render_real_video') {
         const scenes = this.db.getKV(`project_video_scenes:${job.project_id}`) || templates.buildBuiltinVideoV1({ title: job.project_title }).scenes;
         const outDir = path.join(projectDir, 'video');
-        const vid = gen.generateRealVideo({ title: job.project_title, topic: payload.lessonText || job.project_title, scenes, outputDir: outDir });
+        const vid = await gen.generateRealVideo({ title: job.project_title, topic: payload.lessonText || job.project_title, scenes, outputDir: outDir });
         outputs.push(`/deliverables/projects/${job.project_id}/video/video.mp4`, `/deliverables/projects/${job.project_id}/video/subtitles.srt`);
         this.registerAsset(job.project_id, job.task_id, 'video.mp4', 'video', vid.mp4Path);
         this.state.stats.totalVideosProduced += 1;
@@ -1164,7 +1164,7 @@ class VirtualOfficeOrchestrator {
 
     const rawVideo = storage.readVideoDeliverable(task.id) || templates.buildBuiltinVideoV1({ title: task.title });
     const outDir = path.join(storage.VIDEOS_DIR, task.id);
-    const vid = gen.generateRealVideo({
+    const vid = await gen.generateRealVideo({
       title: task.title,
       topic: rawVideo.topic || task.title,
       scenes: rawVideo.scenes,
@@ -1359,7 +1359,12 @@ class VirtualOfficeOrchestrator {
     const wantsGame = lower.includes('لعبة') || lower.includes('لعبه');
     const wantsApp =
       lower.includes('تطبيق') || lower.includes('برنامج') || lower.includes('موقع') || lower.includes('صفحة') || lower.includes('أداة');
-    const wantsMultiTrack = lower.includes('درس متكامل') || lower.includes('كل الأقسام') || (lower.includes('درس') && (wantsVideo || wantsBooklet || wantsGame));
+    const isQuestionOnly = lower.includes('؟') || /^(هل|ازاي|إزاي|ايه|إيه|من|ما)\s/.test(lower);
+    const wantsMultiTrack =
+      !isQuestionOnly &&
+      (lower.includes('درس متكامل') ||
+        (lower.includes('مشروع') && (lower.includes('كل الأقسام') || lower.includes('متكامل'))) ||
+        (lower.includes('درس') && (wantsVideo || wantsBooklet || wantsGame)));
 
     if (agent.id === 'alasfora') {
       const snap = this.buildLiveCompanyNewsSnapshot();
@@ -1463,7 +1468,7 @@ ${snap}
       );
       usedProvider = aiRes.usedProvider;
       const parsed = aiRes.text ? extractJsonBlock(aiRes.text) : null;
-      const vid = gen.generateRealVideo({
+      const vid = await gen.generateRealVideo({
         title: parsed?.title || cleanTitle,
         topic: message,
         scenes: parsed?.scenes || [],

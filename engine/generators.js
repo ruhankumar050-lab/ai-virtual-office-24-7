@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { execFileSync } = require('node:child_process');
+const { execFile } = require('node:child_process');
 const { Resvg } = require('@resvg/resvg-js');
 const PDFDocument = require('pdfkit');
 const ArabicReshaper = require('arabic-persian-reshaper');
@@ -97,9 +97,9 @@ function generateAudioWav(outPath, durationSec = 12) {
 }
 
 /**
- * Renders real Arabic MP4 video + SRT subtitles + Storyboard JSON via @resvg/resvg-js & FFmpeg
+ * Renders real Arabic MP4 video + SRT subtitles + Storyboard JSON via @resvg/resvg-js & FFmpeg (async, low-RAM)
  */
-function generateRealVideo({ title, topic, scenes, outputDir }) {
+async function generateRealVideo({ title, topic, scenes, outputDir }) {
   fs.mkdirSync(outputDir, { recursive: true });
   const fontFiles = fs.existsSync(FONT_PATH) ? [FONT_PATH] : [];
 
@@ -171,23 +171,33 @@ function generateRealVideo({ title, topic, scenes, outputDir }) {
   fs.writeFileSync(srtPath, srtParts.join('\n'), 'utf8');
 
   const mp4Path = path.join(outputDir, 'video.mp4');
-  execFileSync(
-    ffmpegPath,
-    [
-      '-y',
-      '-f', 'concat',
-      '-safe', '0',
-      '-i', concatFile,
-      '-i', audioPath,
-      '-vf', 'fps=25,format=yuv420p',
-      '-c:v', 'libx264',
-      '-preset', 'veryfast',
-      '-c:a', 'aac',
-      '-shortest',
-      mp4Path,
-    ],
-    { stdio: 'pipe' }
-  );
+  await new Promise((resolve, reject) => {
+    execFile(
+      ffmpegPath,
+      [
+        '-y',
+        '-threads', '1',
+        '-f', 'concat',
+        '-safe', '0',
+        '-i', concatFile,
+        '-i', audioPath,
+        '-vf', 'scale=854:480,fps=10,format=yuv420p',
+        '-c:v', 'libx264',
+        '-preset', 'ultrafast',
+        '-tune', 'stillimage',
+        '-crf', '28',
+        '-c:a', 'aac',
+        '-b:a', '96k',
+        '-shortest',
+        mp4Path,
+      ],
+      { timeout: 60000, maxBuffer: 4 * 1024 * 1024 },
+      (err, stdout, stderr) => {
+        if (err) reject(new Error(`FFmpeg error: ${stderr ? stderr.slice(-200) : err.message}`));
+        else resolve();
+      }
+    );
+  });
 
   const storyboard = {
     title,
