@@ -1,7 +1,7 @@
 name: Keep Virtual Office Awake 24/7
 on:
   schedule:
-    # يعمل كل 10 دقائق مجاناً لإبقاء السيرفر مستيقظاً على Render أو Koyeb
+    # يعمل كل 10 دقائق مجاناً لإبقاء السيرفر مستيقظاً على Render
     - cron: "*/10 * * * *"
   workflow_dispatch:
 
@@ -13,8 +13,5 @@ jobs:
         env:
           OFFICE_URL: ${{ secrets.OFFICE_URL }}
         run: |
-          if [ -n "$OFFICE_URL" ]; then
-            curl -fsS "${OFFICE_URL%/}/health" || exit 1
-          else
-            echo "Set OFFICE_URL secret in GitHub repo settings (e.g. https://your-app.onrender.com)"
-          fi
+          TARGET="${OFFICE_URL:-https://ai-virtual-office-24-7.onrender.com}"
+          curl -fsS "${TARGET%/}/health"
