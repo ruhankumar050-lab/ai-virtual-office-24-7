@@ -318,6 +318,7 @@ const server = http.createServer(async (req, res) => {
       agentName: result.agent.name,
       usedProvider: result.usedProvider,
       triggeredProjectId: result.triggeredProjectId,
+      files: result.files || [],
     });
   }
 

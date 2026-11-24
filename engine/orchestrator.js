@@ -40,6 +40,7 @@ const DEFAULT_STATE = {
     backupProvider: process.env.AI_BACKUP_PROVIDER || 'none',
     backupApiKey: process.env.AI_BACKUP_API_KEY || '',
     backupModel: process.env.AI_BACKUP_MODEL || '',
+    hfApiKey: process.env.HF_API_KEY || '',
   },
   agents: INITIAL_AGENTS,
   tasks: [],
@@ -225,8 +226,10 @@ class VirtualOfficeOrchestrator {
       ...this.state.llmConfig,
       apiKey: this.state.llmConfig.apiKey ? '••••••••' + this.state.llmConfig.apiKey.slice(-4) : '',
       backupApiKey: this.state.llmConfig.backupApiKey ? '••••••••' + this.state.llmConfig.backupApiKey.slice(-4) : '',
+      hfApiKey: this.state.llmConfig.hfApiKey ? '••••••••' + this.state.llmConfig.hfApiKey.slice(-4) : '',
       hasApiKey: Boolean(this.state.llmConfig.apiKey),
       hasBackupApiKey: Boolean(this.state.llmConfig.backupApiKey),
+      hasHfApiKey: Boolean(this.state.llmConfig.hfApiKey),
     };
     const dbOverview = this.getDbOverview();
     const routerDashboard = this.aiRouter ? this.aiRouter.getDashboard(this.state.llmConfig) : null;
@@ -1072,65 +1075,199 @@ class VirtualOfficeOrchestrator {
     const agent = this.state.agents.find((a) => a.id === agentId) || this.state.agents[0];
     if (!agent) throw new Error('Agent not found');
 
-    this.setAgentState(agent.id, 'thinking', `يحاور المالك: ${message.slice(0, 40)}`, 'أسمعك الآن... 💬');
+    this.setAgentState(agent.id, 'thinking', `ينفذ طلب المالك: ${message.slice(0, 40)}`, 'أنفّذ طلبك الآن... ⚡');
     this.persistAndBroadcast();
 
     const lower = message.toLowerCase();
-    const hasActionVerb =
-      lower.includes('ابني') ||
-      lower.includes('اعمل') ||
-      lower.includes('صمم') ||
-      lower.includes('انشئ') ||
-      lower.includes('أنشئ') ||
-      lower.includes('سوي') ||
-      lower.includes('اصنع') ||
-      lower.includes('نفذ') ||
-      lower.includes('جهز') ||
-      lower.includes('ابدأ') ||
-      lower.includes('build') ||
-      lower.includes('create') ||
-      lower.includes('make');
-
-    const wantsMultiTrack =
-      hasActionVerb &&
-      (lower.includes('درس') || lower.includes('متكامل') || lower.includes('كل الأقسام') || lower.includes('ملزمة') || lower.includes('لعبة'));
-
-    const isSingleTaskOrder =
-      !wantsMultiTrack &&
-      hasActionVerb &&
-      (lower.includes('فيديو') ||
-        lower.includes('مونتاج') ||
-        lower.includes('تطبيق') ||
-        lower.includes('برنامج') ||
-        lower.includes('موقع') ||
-        lower.includes('صفحة') ||
-        lower.includes('أداة') ||
-        lower.includes('مشروع'));
-
+    const now = new Date().toISOString();
+    const cleanTitle = message.slice(0, 70).trim();
+    const files = [];
+    let reply = '';
+    let usedProvider = 'system';
     let triggeredProjectId = null;
-    if (wantsMultiTrack && agent.role === 'CEO') {
-      triggeredProjectId = this.createMultiTrackProject({ title: message.slice(0, 80), description: message, lessonText: message });
-    } else if (isSingleTaskOrder && (agent.role === 'CEO' || agent.role === 'APP_DEV' || agent.role === 'VIDEO_CREATOR')) {
-      const isVideo = lower.includes('فيديو') || lower.includes('مونتاج');
-      this.enqueueDirective({ type: isVideo ? 'video' : 'app', title: message.slice(0, 80), description: message });
+
+    const wantsPptx =
+      lower.includes('باوربوينت') ||
+      lower.includes('بوربوينت') ||
+      lower.includes('باور بوينت') ||
+      lower.includes('بور بوينت') ||
+      lower.includes('powerpoint') ||
+      lower.includes('pptx') ||
+      lower.includes('عرض تقديمي') ||
+      lower.includes('شرائح');
+
+    const wantsBooklet =
+      lower.includes('ملزمة') ||
+      lower.includes('بوكليت') ||
+      lower.includes('pdf') ||
+      lower.includes('docx') ||
+      lower.includes('وورد');
+
+    const wantsImage =
+      lower.includes('صورة') ||
+      lower.includes('صوره') ||
+      lower.includes('صور') ||
+      lower.includes('ارسم') ||
+      lower.includes('توليد صورة');
+
+    const wantsVideo = lower.includes('فيديو') || lower.includes('مونتاج') || lower.includes('mp4');
+    const wantsGame = lower.includes('لعبة') || lower.includes('لعبه');
+    const wantsApp =
+      lower.includes('تطبيق') || lower.includes('برنامج') || lower.includes('موقع') || lower.includes('صفحة') || lower.includes('أداة');
+    const wantsMultiTrack = lower.includes('درس متكامل') || lower.includes('كل الأقسام') || (lower.includes('درس') && (wantsVideo || wantsBooklet || wantsGame));
+
+    if (wantsMultiTrack) {
+      triggeredProjectId = this.createMultiTrackProject({ title: cleanTitle, description: message, lessonText: message });
+      reply = `تم استلام الدرس وإطلاق المشروع (${triggeredProjectId}) فوراً بـ 4 مسارات متوازية (فيديو MP4 + لعبة + ملزمة PDF/DOCX + حزمة المنهج). تابع التقدم والمخرجات في تبويب "المشاريع" الآن.`;
+    } else if (wantsPptx) {
+      const id = 'pptx-' + Date.now().toString(36);
+      const outDir = path.join(storage.DELIVERABLES_DIR, 'pptx', id);
+      const aiRes = await this.generateWithAgentAI(
+        agent,
+        `أنشئ محتوى عرض PowerPoint احترافي بالعربية عن: "${message}". أرجع JSON فقط بهذا الشكل:
+{"title":"عنوان العرض","subtitle":"وصف مختصر","slides":[{"heading":"عنوان الشريحة","bullets":["نقطة 1","نقطة 2","نقطة 3"]}]}`,
+        () => null
+      );
+      usedProvider = aiRes.usedProvider;
+      const parsed = aiRes.text ? extractJsonBlock(aiRes.text) : null;
+      const pptxData = await gen.generatePowerPointPptx({
+        title: parsed?.title || cleanTitle,
+        subtitle: parsed?.subtitle || 'عرض تقديمي احترافي — شركة الذكاء الاصطناعي',
+        slides: parsed?.slides || [],
+        outputDir: outDir,
+      });
+      const url = `/deliverables/pptx/${id}/presentation.pptx`;
+      this.registerAsset(id, id, 'presentation.pptx', 'pptx', pptxData.pptxPath);
+      this.state.deliverables.unshift({
+        id,
+        type: 'pptx',
+        title: parsed?.title || cleanTitle,
+        version: 1,
+        url,
+        createdAt: now,
+        provider: usedProvider,
+      });
+      files.push({ name: 'presentation.pptx', url, type: 'pptx', size: pptxData.size });
+      reply = `تم إنشاء ملف الـ PowerPoint الفعلي الآن (${pptxData.slideCount} شرائح، حجم ${(pptxData.size / 1024).toFixed(1)} KB) عبر (${usedProvider}). تقدر تحمله وتفتحه فوراً من الزر بالأسفل:`;
+    } else if (wantsImage) {
+      const id = 'img-' + Date.now().toString(36);
+      const outDir = path.join(storage.DELIVERABLES_DIR, 'images', id);
+      const imgRes = await gen.generateImageDeliverable({
+        prompt: message,
+        title: cleanTitle,
+        hfApiKey: this.state.llmConfig?.hfApiKey || process.env.HF_API_KEY || '',
+        outputDir: outDir,
+      });
+      if (imgRes.ok) {
+        const url = `/deliverables/images/${id}/image.png`;
+        this.registerAsset(id, id, 'image.png', 'image', imgRes.imgPath);
+        this.state.deliverables.unshift({ id, type: 'image', title: cleanTitle, version: 1, url, createdAt: now, provider: imgRes.mode });
+        files.push({ name: 'image.png', url, type: 'image', size: imgRes.size });
+        reply = `تم توليد الصورة الحقيقية الآن (${(imgRes.size / 1024).toFixed(1)} KB). اضغط لفتحها أو تحميلها:`;
+      } else {
+        reply = `بصراحة وبدون وعود وهمية: ${imgRes.reason} أضف مفتاح Hugging Face مجاني (hf_...) من تبويب الإعدادات وسأولّد لك أي صورة بالذكاء الاصطناعي في ثوانٍ، أو اطلب مني الآن فوراً عرض PowerPoint أو ملزمة PDF/DOCX أو فيديو MP4 أو تطبيق ويب!`;
+      }
+    } else if (wantsBooklet) {
+      const id = 'bkl-' + Date.now().toString(36);
+      const outDir = path.join(storage.DELIVERABLES_DIR, 'booklets', id);
+      const aiRes = await this.generateWithAgentAI(
+        agent,
+        `أنشئ محتوى ملزمة PDF/DOCX عن: "${message}". أرجع JSON فقط: {"title":"...","objectives":["..."],"summary":"...","questions":[{"question":"...","options":["..."],"answer":"..."}]}`,
+        () => null
+      );
+      usedProvider = aiRes.usedProvider;
+      const parsed = aiRes.text ? extractJsonBlock(aiRes.text) : null;
+      const bkl = await gen.generateBookletFiles({
+        title: parsed?.title || cleanTitle,
+        objectives: parsed?.objectives || [`فهم موضوع: ${cleanTitle}`],
+        summary: parsed?.summary || message,
+        sections: [{ heading: 'الشرح والتفصيل', body: parsed?.summary || message }],
+        questions: parsed?.questions || [{ question: `ما أهم فكرة في ${cleanTitle}؟`, answer: 'مراجعة الملخص الأساسي.' }],
+        sourceNotes: [{ verified: true, text: 'تم إعداده مباشرة بناءً على طلب المالك' }],
+        outputDir: outDir,
+      });
+      const pdfUrl = `/deliverables/booklets/${id}/booklet.pdf`;
+      const docxUrl = `/deliverables/booklets/${id}/booklet.docx`;
+      this.state.stats.totalBookletsBuilt += 1;
+      this.state.deliverables.unshift({ id, type: 'booklet', title: parsed?.title || cleanTitle, version: 1, url: pdfUrl, docxUrl, createdAt: now, provider: usedProvider });
+      files.push({ name: 'booklet.pdf', url: pdfUrl, type: 'pdf', size: bkl.pdfSize });
+      files.push({ name: 'booklet.docx', url: docxUrl, type: 'docx', size: bkl.docxSize });
+      reply = `تم إنشاء الملزمة الفعلية بصيغتي PDF و Word (.docx) الآن! يمكنك تحميلها فوراً من الأزرار التالية:`;
+    } else if (wantsVideo) {
+      const id = 'vid-' + Date.now().toString(36);
+      const outDir = path.join(storage.VIDEOS_DIR, id);
+      const aiRes = await this.generateWithAgentAI(
+        agent,
+        `اكتب سيناريو فيديو قصير من 3 مشاهد عن "${message}" بصيغة JSON فقط: {"title":"...","scenes":[{"id":1,"durationSec":4,"heading":"...","subtitle":"...","voiceover":"...","accent":"#38bdf8","bgStart":"#0f172a","bgEnd":"#312e81"}]}`,
+        () => null
+      );
+      usedProvider = aiRes.usedProvider;
+      const parsed = aiRes.text ? extractJsonBlock(aiRes.text) : null;
+      const vid = gen.generateRealVideo({
+        title: parsed?.title || cleanTitle,
+        topic: message,
+        scenes: parsed?.scenes || [],
+        outputDir: outDir,
+      });
+      const mp4Url = `/deliverables/videos/${id}/video.mp4`;
+      const srtUrl = `/deliverables/videos/${id}/subtitles.srt`;
+      this.state.stats.totalVideosProduced += 1;
+      this.state.deliverables.unshift({ id, type: 'video', title: parsed?.title || cleanTitle, version: 2, url: `/deliverables/videos/${id}/storyboard.json`, mp4Url, srtUrl, createdAt: now, provider: usedProvider });
+      files.push({ name: 'video.mp4', url: mp4Url, type: 'video', size: vid.mp4Size });
+      files.push({ name: 'subtitles.srt', url: srtUrl, type: 'srt' });
+      reply = `تم إخراج الفيديو الفعلي MP4 (${vid.durationSec} ثانية، ${(vid.mp4Size / 1024).toFixed(1)} KB) مع ملف الترجمة SRT الآن! اضغط لمشاهدته أو تحميله:`;
+    } else if (wantsGame) {
+      const id = 'game-' + Date.now().toString(36);
+      const outDir = path.join(storage.DELIVERABLES_DIR, 'games', id);
+      const gm = gen.generateEducationalGame({ title: cleanTitle, outputDir: outDir });
+      const url = `/deliverables/games/${id}/game.html`;
+      this.state.stats.totalGamesBuilt += 1;
+      this.state.deliverables.unshift({ id, type: 'game', title: cleanTitle, version: 1, url, createdAt: now, provider: 'system' });
+      files.push({ name: 'game.html', url, type: 'game', size: gm.size });
+      reply = `تم بناء اللعبة التفاعلية الآن ويمكنك تشغيلها مباشرة من الزر بالأسفل:`;
+    } else if (wantsApp) {
+      const id = 'app-' + Date.now().toString(36);
+      const aiRes = await this.generateWithAgentAI(
+        agent,
+        `ابنِ تطبيق ويب كامل ومستقل في ملف HTML واحد فقط بالعربية (dir="rtl") لتنفيذ: "${message}". أعد كود HTML داخل \`\`\`html ... \`\`\`.`,
+        () => templates.buildBuiltinAppV1({ key: 'custom', title: cleanTitle })
+      );
+      usedProvider = aiRes.usedProvider;
+      let html = aiRes.fallback;
+      if (aiRes.text) {
+        const ext = extractCodeBlock(aiRes.text, 'html');
+        if (ext && ext.includes('<html')) html = ext;
+      }
+      const audit = templates.runStaticQAAndAutoFix(html, cleanTitle);
+      const url = storage.saveAppDeliverable(id, audit.fixedHtml, { title: cleanTitle, version: 2, provider: usedProvider });
+      this.state.stats.totalAppsBuilt += 1;
+      this.state.deliverables.unshift({ id, type: 'app', title: cleanTitle, version: 2, url, createdAt: now, provider: usedProvider });
+      files.push({ name: 'index.html', url, type: 'app' });
+      reply = `تم بناء التطبيق ومراجعته تلقائياً (v2) الآن عبر (${usedProvider}). افتحه مباشرة من الزر بالأسفل:`;
+    } else {
+      const dbOverview = this.getDbOverview();
+      const contextSummary = `حالة الشركة: مشاريع=${dbOverview.projects.length}، تطبيقات=${this.state.stats.totalAppsBuilt}، فيديوهات=${this.state.stats.totalVideosProduced}، ألعاب=${this.state.stats.totalGamesBuilt}، ملازم=${this.state.stats.totalBookletsBuilt}.`;
+      const strictRules = `قواعد صارمة جداً يجب الالتزام بها في ردك:
+1. ممنوع منعاً باتاً إعطاء أي مواعيد أو وعود زمنية وهمية مثل "خلال ساعتين" أو "خلال 3 أيام" أو "أسبوعين" أو "هرسله لك لاحقاً".
+2. إذا سأل المالك عن ربط موقع Arena.ai، وضح بصدق أن Arena.ai لا يوفر API عاماً للربط المباشر هنا، وأن المكتب يعتمد فعلياً على Groq وGoogle Gemini وOpenRouter.
+3. ما تستطيع تنفيذه فوراً هنا خلال ثوانٍ هو: عروض PowerPoint (.pptx)، ملازم PDF و Word (.docx)، فيديوهات MP4، تطبيقات ويب HTML، وألعاب تعليمية؛ أما الصور الفوتوغرافية بالذكاء الاصطناعي فتتطلب إضافة مفتاح HuggingFace مجاني (HF_API_KEY) في الإعدادات.
+4. أجب باللهجة المصرية الاحترافية المباشرة في 3 أسطر كحد أقصى.`;
+
+      const res = await this.generateWithAgentAI(
+        agent,
+        `${strictRules}\n${contextSummary}\nرسالة المالك: "${message}"`,
+        () => `أهلاً بك يا فندم! أنا ${agent.name}. اطلب مني فوراً (باوربوينت / ملزمة PDF وWord / فيديو MP4 / تطبيق ويب) وسأنفذه وأسلمه لك هنا خلال ثوانٍ.`
+      );
+      usedProvider = res.usedProvider;
+      reply = res.text ? res.text.trim() : res.fallback;
     }
 
-    const dbOverview = this.getDbOverview();
-    const contextSummary = `حالة الشركة: مشاريع=${dbOverview.projects.length}، مهام نشطة=${dbOverview.dbTasks.filter((t) => t.status !== 'completed').length}، تطبيقات=${this.state.stats.totalAppsBuilt}، فيديوهات=${this.state.stats.totalVideosProduced}، ألعاب=${this.state.stats.totalGamesBuilt}، ملازم=${this.state.stats.totalBookletsBuilt}، موظفون=${this.state.agents.length}.`;
-
-    const res = await this.generateWithAgentAI(
-      agent,
-      `${contextSummary}\nرسالة المالك: "${message}"\nأجب باللهجة المصرية الاحترافية باختصار (3 أسطر كحد أقصى) وبصفتك ${agent.name}.`,
-      () => `أهلاً بك يا فندم! أنا ${agent.name} في ${agent.room}. استلمت كلامك وجاهز للتنفيذ الفوري.`
-    );
-
-    const reply = res.text ? res.text.trim() : res.fallback;
     this.addMeetingMessage('أنت (المالك)', 'Owner', `@${agent.shortName}: ${message}`);
     this.addMeetingMessage(agent.shortName, agent.role, reply);
-    this.addLog(agent.id, agent.shortName, `💬 رد على المالك (${res.usedProvider}): ${reply.slice(0, 90)}`);
-    this.setAgentState(agent.id, 'idle', 'جاهز لتوجيهك القادم', reply.slice(0, 70));
+    this.addLog(agent.id, agent.shortName, `⚡ ${files.length ? `أنجز وأرفق ${files.length} ملف` : 'رد على المالك'} (${usedProvider})`);
+    this.setAgentState(agent.id, 'idle', 'جاهز لطلبك القادم', reply.slice(0, 70));
     this.persistAndBroadcast();
-    return { agent, reply, usedProvider: res.usedProvider, triggeredProjectId };
+    return { agent, reply, usedProvider, triggeredProjectId, files };
   }
 
   toggleAutopilot(enabled) {
@@ -1158,6 +1295,9 @@ class VirtualOfficeOrchestrator {
       }
       if (settings.llmConfig.backupApiKey === '' || String(settings.llmConfig.backupApiKey || '').startsWith('••••')) {
         next.backupApiKey = this.state.llmConfig.backupApiKey;
+      }
+      if (settings.llmConfig.hfApiKey === '' || String(settings.llmConfig.hfApiKey || '').startsWith('••••')) {
+        next.hfApiKey = this.state.llmConfig.hfApiKey;
       }
       this.state.llmConfig = next;
     }

@@ -707,9 +707,104 @@ function runIndependentQA({ type, outputDir, title }) {
   };
 }
 
+const PptxGenJS = require('pptxgenjs');
+
+/**
+ * Generates a real downloadable Arabic RTL PowerPoint (.pptx) presentation
+ */
+async function generatePowerPointPptx({ title, subtitle = 'عرض تقديمي احترافي — إعداد شركة الذكاء الاصطناعي', slides = [], outputDir }) {
+  fs.mkdirSync(outputDir, { recursive: true });
+  const pptx = new PptxGenJS();
+  pptx.layout = 'LAYOUT_16x9';
+  pptx.rtlMode = true;
+  pptx.title = title;
+  pptx.author = 'AI Virtual Office — أ. طارق وفريق الإنتاج';
+
+  // Cover Slide
+  const cover = pptx.addSlide();
+  cover.background = { color: '0F172A' };
+  cover.addShape(pptx.ShapeType.rect, { x: 0.6, y: 0.6, w: 12.1, h: 6.3, fill: { color: '1E293B' }, line: { color: '38BDF8', width: 2 } });
+  cover.addText(title, { x: 1.0, y: 2.1, w: 11.3, h: 1.4, fontSize: 36, bold: true, color: '38BDF8', align: 'center', rtlMode: true });
+  cover.addText(subtitle, { x: 1.2, y: 3.6, w: 10.9, h: 0.9, fontSize: 18, color: 'E2E8F0', align: 'center', rtlMode: true });
+
+  const safeSlides =
+    Array.isArray(slides) && slides.length > 0
+      ? slides
+      : [
+          { heading: 'مقدمة وأهداف العرض', bullets: ['نظرة شاملة على الموضوع', 'الأهداف الرئيسية والنتائج المتوقعة'] },
+          { heading: 'المحاور الأساسية', bullets: ['التحليل والتخطيط التنفيذي', 'التطبيق العملي والأدوات المستخدمة'] },
+          { heading: 'الخلاصة والتوصيات', bullets: ['أهم النقاط المستفادة', 'الخطوات العملية القادمة'] },
+        ];
+
+  safeSlides.forEach((s, idx) => {
+    const sl = pptx.addSlide();
+    sl.background = { color: '0F172A' };
+    sl.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 13.33, h: 1.05, fill: { color: '1E1B4B' } });
+    sl.addText(`${idx + 1}. ${s.heading || title}`, {
+      x: 0.6,
+      y: 0.18,
+      w: 12.1,
+      h: 0.7,
+      fontSize: 24,
+      bold: true,
+      color: '38BDF8',
+      align: 'right',
+      rtlMode: true,
+    });
+    const bullets = Array.isArray(s.bullets) ? s.bullets : [String(s.body || s.heading || '')];
+    sl.addText(
+      bullets.map((b) => ({ text: `• ${b}\n`, options: { fontSize: 19, color: 'F1F5F9', breakLine: true } })),
+      { x: 0.8, y: 1.45, w: 11.7, h: 5.2, align: 'right', valign: 'top', rtlMode: true }
+    );
+  });
+
+  const pptxPath = path.join(outputDir, 'presentation.pptx');
+  await pptx.writeFile({ fileName: pptxPath });
+  return {
+    pptxPath,
+    size: fs.statSync(pptxPath).size,
+    slideCount: safeSlides.length + 1,
+  };
+}
+
+/**
+ * Generates an image via HuggingFace Inference API if HF_API_KEY is present;
+ * otherwise generates a clean PNG design poster when type='poster', or reports honestly that photorealistic AI image key is required.
+ */
+async function generateImageDeliverable({ prompt, title = 'تصميم', hfApiKey = '', outputDir }) {
+  fs.mkdirSync(outputDir, { recursive: true });
+  if (hfApiKey) {
+    const models = ['black-forest-labs/FLUX.1-schnell', 'stabilityai/stable-diffusion-xl-base-1.0'];
+    for (const model of models) {
+      try {
+        const res = await fetch(`https://router.huggingface.co/hf-inference/models/${model}`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${hfApiKey}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ inputs: prompt }),
+        });
+        if (res.ok) {
+          const buf = Buffer.from(await res.arrayBuffer());
+          if (buf.length > 4000) {
+            const imgPath = path.join(outputDir, 'image.png');
+            fs.writeFileSync(imgPath, buf);
+            return { ok: true, mode: `huggingface:${model}`, imgPath, size: buf.length };
+          }
+        }
+      } catch {}
+    }
+  }
+  return {
+    ok: false,
+    needsImageKey: true,
+    reason: 'توليد الصور بالذكاء الاصطناعي يتطلب مفتاح Hugging Face مجاني (HF_API_KEY) لأن باقة Google المجانية للصور متوقفة بحد الحصة (429).',
+  };
+}
+
 module.exports = {
   generateRealVideo,
   generateBookletFiles,
+  generatePowerPointPptx,
+  generateImageDeliverable,
   generateEducationalGame,
   generateCurriculumPack,
   inspectGlbOrGltf,

@@ -112,7 +112,7 @@
       </div>
     </div>
     <div class="top-actions">
-      <button id="toggle3DBtn" class="secondary">🧊 وضع 3D مفعل</button>
+      <button id="toggle3DBtn" class="secondary">🏢 المكتب التنفيذي (عرض 3D)</button>
       <button id="stepBtn" class="secondary">⚡ خطوة الآن</button>
       <button id="toggleAutoInventBtn" class="secondary">🤖 ابتكار: بأمرك</button>
       <button id="toggleAutoBtn" class="warn">⏸️ إيقاف مؤقت</button>
@@ -132,7 +132,7 @@
     </div>
 
     <nav class="tabs">
-      <button class="tab-btn active" data-tab="office">🏢 الشركة 3D والمحادثة</button>
+      <button class="tab-btn active" data-tab="office">🏢 المكتب التنفيذي والمحادثة</button>
       <button class="tab-btn" data-tab="projects">📂 المشاريع والـ 11 حالة</button>
       <button class="tab-btn" data-tab="deliverables">📦 الملفات وDrive وفحص 3D</button>
       <button class="tab-btn" data-tab="meetings">🤝 غرفة الاجتماعات</button>
@@ -170,12 +170,12 @@
       <div class="grid-2">
         <div class="panel-box">
           <h3>
-            <span id="viewTitle">🧊 المكتب ثلاثي الأبعاد (12 قسماً — اضغط على أي موظف لفتح ملفه)</span>
-            <button id="goMeeting3DBtn" class="secondary">🤝 دخول غرفة الاجتماعات</button>
+            <span id="viewTitle">🏢 لوحة الشركة التنفيذية والأقسام المباشرة</span>
+            <button id="goMeeting3DBtn" class="secondary" style="display:none;">🤝 دخول غرفة الاجتماعات 3D</button>
           </h3>
-          <div id="roomTeleportBar" class="room-pills"></div>
-          <div id="office3DCanvasWrap"></div>
-          <div id="office2DWrap" class="rooms-grid-2d" style="display:none;"></div>
+          <div id="roomTeleportBar" class="room-pills" style="display:none;"></div>
+          <div id="office3DCanvasWrap" style="display:none;"></div>
+          <div id="office2DWrap" class="rooms-grid-2d" style="display:grid;"></div>
         </div>
 
         <div>
@@ -343,6 +343,7 @@
               <option value="openrouter">OpenRouter</option>
             </select>
             <input id="cfgBackupApiKey" type="password" placeholder="مفتاح المزود الاحتياطي (اختياري)" />
+            <input id="cfgHfApiKey" type="password" placeholder="مفتاح Hugging Face لتوليد الصور AI (hf_... مجاني اختياري)" />
             <div style="display:flex;gap:8px;">
               <label style="font-size:0.8rem;">الفاصل (ثوانٍ): <input id="cfgInterval" type="number" min="2" max="300" value="4" style="width:70px;" /></label>
               <label style="font-size:0.8rem;">التوازي: <input id="cfgConcurrency" type="number" min="1" max="4" value="3" style="width:65px;" /></label>
@@ -392,7 +393,7 @@
   <script type="module" src="/office3d.js"></script>
   <script>
     let currentState = null;
-    let is3DMode = true;
+    let is3DMode = false;
     let threeInitialized = false;
 
     const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
@@ -411,13 +412,22 @@
       });
     });
 
-    // 3D vs 2D toggle
+    // 3D vs Executive Workspace toggle
     document.getElementById('toggle3DBtn').onclick = () => {
       is3DMode = !is3DMode;
-      document.getElementById('toggle3DBtn').textContent = is3DMode ? '🧊 وضع 3D مفعل' : '🗺️ وضع 2D الخفيف';
+      document.getElementById('toggle3DBtn').textContent = is3DMode ? '🧊 وضع 3D مفعل (عودة للتنفيذي)' : '🏢 المكتب التنفيذي (عرض 3D)';
+      document.getElementById('viewTitle').textContent = is3DMode
+        ? '🧊 المكتب ثلاثي الأبعاد (12 قسماً — اضغط على أي موظف لفتح ملفه)'
+        : '🏢 لوحة الشركة التنفيذية والأقسام المباشرة';
       document.getElementById('office3DCanvasWrap').style.display = is3DMode ? 'block' : 'none';
       document.getElementById('roomTeleportBar').style.display = is3DMode ? 'flex' : 'none';
+      document.getElementById('goMeeting3DBtn').style.display = is3DMode ? 'inline-flex' : 'none';
       document.getElementById('office2DWrap').style.display = is3DMode ? 'none' : 'grid';
+      if (is3DMode && !threeInitialized && window.Office3D) {
+        threeInitialized = true;
+        window.Office3D.init(document.getElementById('office3DCanvasWrap'), (id) => window.openAgentProfile(id));
+        if (currentState) window.Office3D.syncState(currentState);
+      }
       if (window.Office3D) window.Office3D.setEnabled(is3DMode);
     };
     document.getElementById('goMeeting3DBtn').onclick = () => window.Office3D?.focusRoom('meeting_room');
@@ -446,11 +456,9 @@
 
     function renderAll(state) {
       currentState = state;
-      if (!threeInitialized && window.Office3D && document.getElementById('office3DCanvasWrap')) {
-        threeInitialized = true;
-        window.Office3D.init(document.getElementById('office3DCanvasWrap'), (id) => window.openAgentProfile(id));
+      if (is3DMode && threeInitialized && window.Office3D) {
+        window.Office3D.syncState(state);
       }
-      window.Office3D?.syncState(state);
 
       document.getElementById('cycleBadge').textContent = state.cycleCount || 0;
       const prov = state.llmConfig?.provider || 'builtin';
@@ -557,7 +565,9 @@
           if (d.mp4Url) links.push(`<a class="btn success" href="${esc(d.mp4Url)}" target="_blank">🎬 تحميل/تشغيل MP4</a>`);
           if (d.srtUrl) links.push(`<a class="btn secondary" href="${esc(d.srtUrl)}" target="_blank">💬 ترجمة SRT</a>`);
           if (d.docxUrl) links.push(`<a class="btn secondary" href="${esc(d.docxUrl)}" target="_blank">📝 DOCX</a>`);
-          if (d.url && d.url.endsWith('.pdf')) links.push(`<a class="btn success" href="${esc(d.url)}" target="_blank">📕 PDF</a>`);
+          if (d.url && d.url.endsWith('.pptx')) links.push(`<a class="btn success" href="${esc(d.url)}" download>📊 تحميل PowerPoint</a>`);
+          else if (d.url && d.url.endsWith('.pdf')) links.push(`<a class="btn success" href="${esc(d.url)}" target="_blank">📕 PDF</a>`);
+          else if (d.url && (d.url.endsWith('.png') || d.url.endsWith('.jpg'))) links.push(`<a class="btn success" href="${esc(d.url)}" target="_blank">🖼️ فتح الصورة</a>`);
           else if (d.url && d.url.endsWith('.html')) links.push(`<a class="btn success" href="${esc(d.url)}" target="_blank">🚀 فتح</a>`);
           return `<div class="desk-card">
             <strong>${esc(d.title)}</strong>
@@ -669,14 +679,19 @@
       window.Office3D?.setSpeakingAgent(null, false);
     };
 
-    function appendChat(sender, text, isOwner) {
+    function appendChat(sender, text, isOwner, files = []) {
       const th = document.getElementById('chatThread');
       th.style.display = 'flex';
       const d = document.createElement('div');
       d.style.cssText = isOwner
         ? 'align-self:flex-start;background:rgba(99,102,241,0.22);border:1px solid #6366f1;border-radius:10px;padding:7px 11px;font-size:0.83rem;max-width:88%;'
-        : 'align-self:flex-end;background:var(--panel-2);border:1px solid var(--accent);border-radius:10px;padding:7px 11px;font-size:0.83rem;max-width:92%;';
-      d.innerHTML = `<strong>${esc(sender)}:</strong> ${esc(text)}`;
+        : 'align-self:flex-end;background:var(--panel-2);border:1px solid var(--accent);border-radius:10px;padding:7px 11px;font-size:0.83rem;max-width:92%;line-height:1.5;';
+      const filesHtml = (files || []).length
+        ? `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">${files
+            .map((f) => `<a class="btn success" href="${esc(f.url)}" target="_blank" ${f.type === 'pptx' || f.type === 'docx' ? 'download' : ''}>⬇️ ${esc(f.name)}</a>`)
+            .join('')}</div>`
+        : '';
+      d.innerHTML = `<strong>${esc(sender)}:</strong> ${esc(text)}${filesHtml}`;
       th.appendChild(d);
       th.scrollTop = th.scrollHeight;
     }
@@ -688,9 +703,17 @@
       if (!msg) return;
       if (!overrideText) inp.value = '';
       appendChat('أنت', msg, true);
-      const res = await postJson('/api/chat', { agentId, message: msg });
-      appendChat(res.agentName || 'الموظف', res.reply || '', false);
-      speakArabic(res.reply, agentId);
+      const sendBtn = document.getElementById('chatSendBtn');
+      sendBtn.disabled = true;
+      sendBtn.textContent = '⏳ ينفذ...';
+      try {
+        const res = await postJson('/api/chat', { agentId, message: msg });
+        appendChat(res.agentName || 'الموظف', res.reply || '', false, res.files || []);
+        speakArabic(res.reply, agentId);
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'إرسال ↵';
+      }
     }
     document.getElementById('chatSendBtn').onclick = () => sendChat();
     document.getElementById('chatMsgInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(); });
@@ -849,12 +872,14 @@
           model: document.getElementById('cfgModel').value,
           backupProvider: document.getElementById('cfgBackupProvider').value,
           backupApiKey: document.getElementById('cfgBackupApiKey').value,
+          hfApiKey: document.getElementById('cfgHfApiKey').value,
         },
       });
       if (res.error) alert('❌ ' + res.error);
       else {
         document.getElementById('cfgApiKey').value = '';
         document.getElementById('cfgBackupApiKey').value = '';
+        document.getElementById('cfgHfApiKey').value = '';
         alert('✅ تم الحفظ بأمان');
       }
     };
